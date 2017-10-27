@@ -1,0 +1,3 @@
+# 忽略所有名称为此的文件夹
+node_modules/
+package-lock.json

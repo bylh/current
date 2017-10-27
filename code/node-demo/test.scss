@@ -1,0 +1,17 @@
+.fst-div {
+    border: 1px dashed green;
+    height: 500px;
+    font-size: 10px;
+    line-height: 200px;
+    vertical-align: middle;
+}
+.test-img {
+    height: 100px;
+    width: 100px;
+    // overflow: hidden;
+    border-radius: 999em;
+    overflow: hidden;
+    img {
+        display: block;
+    }
+}
