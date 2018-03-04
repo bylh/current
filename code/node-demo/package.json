@@ -8,10 +8,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ethereumjs-testrpc": "^6.0.3",
     "intro.js": "^2.8.0-alpha.1",
     "jquery": "^3.2.1",
     "moment": "^2.19.1",
-    "toastr": "^2.1.2"
+    "toastr": "^2.1.2",
+    "web3": "^1.0.0-beta.30"
   },
   "description": ""
 }
