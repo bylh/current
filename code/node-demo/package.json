@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "createServer.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc-node-test": "tsc test-tsc.ts && node test-tsc.js"
   },
   "author": "",
   "license": "ISC",
