@@ -19,3 +19,8 @@ instruments -s devices
 
 线上账户：
 13260292283
+
+
+
+
+docker run --net=couchbase -p 4984-4985:4984-4985 -v /Users/lihuan/server:/tmp/config -d couchbase/sync-gateway /tmp/config/sync-gateway-template.json

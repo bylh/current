@@ -1,0 +1,133 @@
+        // let introOption = JSON.parse();
+        // console.log(introOption.mapIntro);
+        let json = await jquery.getJSON('../../../assets/intro.json');
+        console.log(json);
+        let pJson = JSON.parse(json);
+        console.log(pJson);
+
+
+
+
+        desiredTooltipPosition
+
+
+
+        lat: 40.0904,
+        lng: 116.0470,
+
+
+
+
+
+
+
+        import tingle from 'tingle.js';
+const modal = new tingle.modal({
+    footer: true,
+    closeLabel: '关闭',
+        onOpen: function() {
+                console.log('modal open');
+             },
+    onClose: function() {
+                 console.log('modal closed');
+             },
+});
+
+modal.addFooterBtn(`${count}`, 'tingle-btn tingle-btn--primary close-modal', function() {
+    modal.close();
+});
+
+modal.setContent('<img width="100%" src="assets/image/calibration.gif">');
+
+
+let timer = setInterval(() => {
+            count--;
+            modal.getFooterContent().firstElementChild.textContent = count;
+            if (count <= 0) {
+                clearInterval(timer);
+                modal.close();
+            }
+        }, 1000);
+
+        modal.open();
+
+
+
+
+declare module 'tingle.js' {
+    namespace tingle {
+        // footer: boolean, // Display a footer or not
+        // stickyFooter: boolean,	// Set to true for a footer always visible on screen
+        // closeMethods: Array<string>,	// Available close methods (overlay, button, escape)
+        // onOpen(): void,	// Callback to execute when tingle is open (after transition end)
+        // onClose(): void,	// Callback to execute when tingle is closed
+        // beforeOpen: void,	// Callback to execute before opening the modal
+        // beforeClose: void,	// Callback to execute before closing the modal (must return true to close the modal)
+        // cssClass: Array<string>	// Custom CSS classes that will be added to tingle container
+        // closeLabel:	string	// Label wich appears on the close button (mobile version)
+        function modal(): any;
+    }
+    
+}
+
+090175
+0x7AB017d2baafD80A3c2B4D2e2f12b34FF2e50981
+
+
+
+-(void)launchBaidu {
+    NSMutableString* url = [NSMutableString stringWithFormat:@"%@map/direction", [self urlPrefixForMapApp:LNAppBaidu]];
+    
+    NSString* dest;
+    if(![self isEmptyCoordinate:destCoord]){
+        dest = [NSString stringWithFormat:@"%f,%f", destCoord.latitude, destCoord.longitude];
+        if(destName){
+            dest = [NSString stringWithFormat:@"name:%@|latlng:%f,%f", [self urlEncode:destName], destCoord.latitude, destCoord.longitude];
+        }
+    }else{
+        dest = [NSString stringWithFormat:@"%@", [self urlEncode:destAddress]];
+    }
+    [url appendFormat:@"?destination=%@",dest];
+    
+    NSString* start;
+    if(![self isEmptyCoordinate:startCoord]){
+        start = [NSString stringWithFormat:@"%f,%f", startCoord.latitude, startCoord.longitude];
+        if(startName){
+            start = [NSString stringWithFormat:@"name:%@|latlng:%f,%f", [self urlEncode:startName], startCoord.latitude, startCoord.longitude];
+        }
+    }else{
+        start = [NSString stringWithFormat:@"%@", [self urlEncode:startAddress]];
+    }
+    [url appendFormat:@"&origin=%@",start];
+    
+    
+    if([directionsMode isEqual: @"walking"]){
+        [url appendFormat:@"&mode=walking"];
+    }else if([directionsMode isEqual: @"transit"]){
+        [url appendFormat:@"&mode=transit"];
+    }else if([directionsMode isEqual: @"bicycling"]){
+        [url appendFormat:@"&mode=riding"];
+    }else{
+        [url appendFormat:@"&mode=driving"];
+    }
+    
+    if(!extras){
+        extras = [[NSMutableDictionary alloc] init];
+        [extras setValue:@"wgs84" forKey:@"coord_type"];
+    }
+    [url appendFormat:@"%@", [self extrasToQueryParams:extras]];
+    
+    [self logDebugURI:url];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+}
+
+NSURL *myLocationScheme = [NSURL URLWithString:@"iosamap://myLocation?sourceApplication=applicationName"];
+ if ([[UIDevice currentDevice].systemVersion integerValue] >= 10) { 
+     //iOS10以后,使用新API [[UIApplication sharedApplication] openURL:myLocationScheme options:@{} completionHandler:^(BOOL success) { NSLog(@"scheme调用结束"); }];
+      } 
+     else { //iOS10以前,使用旧API [[UIApplication sharedApplication] openURL:myLocationScheme]; 
+     }
+path?sourceApplication=applicationName&slat=39.92848272&slon=116.39560823&sname=A&dlat=39.98848272&dlon=116.47560823&dname=B&dev=0&t=0
+
+    NSURL *url = [NSURL URLWithString:@"iosamap://navi?sourceApplication=applicationName&lat=39.0904&lon=116.0470&dev=1&style=2"];
+url	__NSCFString *	@"baidumap://map/direction?destination=40.090400,116.047000&origin=39.961228,116.444817&mode=driving&coord_type=wgs84)"	0x00000001c44518b0

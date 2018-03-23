@@ -8,6 +8,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
     "ethereumjs-testrpc": "^6.0.3",
     "intro.js": "^2.8.0-alpha.1",
     "jquery": "^3.2.1",

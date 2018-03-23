@@ -1,0 +1,24 @@
+.test {
+    height: 100px;
+}
+.div {
+    background: yellow;
+    height: 200px
+}
+
+.div1 {
+    border: 1px solid;
+    display: inline-block;
+    height: 100px;
+    width: 100px;
+    background: red;
+    margin: -20px;
+    padding: 20px;
+}
+
+.div2 {
+
+    /* height: 50px;
+    width: 50px;
+    background: black; */
+}
