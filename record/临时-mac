@@ -131,3 +131,20 @@ path?sourceApplication=applicationName&slat=39.92848272&slon=116.39560823&sname=
 
     NSURL *url = [NSURL URLWithString:@"iosamap://navi?sourceApplication=applicationName&lat=39.0904&lon=116.0470&dev=1&style=2"];
 url	__NSCFString *	@"baidumap://map/direction?destination=40.090400,116.047000&origin=39.961228,116.444817&mode=driving&coord_type=wgs84)"	0x00000001c44518b0
+
+
+ protected perfDocc = {
+        throughs: [{
+            zone: {region: '北京'},
+            attractions: [{id: '0', name: '凤凰岭'}, {id: '1', name: '香山'}, {id: '2', name: '潭拓寺'}]
+        }, {
+            zone: {region: '天津'},
+            attractions: [{id: '0', name: '五大道'}, {id: '1', name: '静园'}]
+        }, {
+            zone: {region: '上海'},
+            attractions: [{id: '0', name: '玉佛寺'}]
+        }, {
+            zone: {region:'苏州'},
+        },
+        ]
+    };
