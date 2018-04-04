@@ -148,3 +148,15 @@ url	__NSCFString *	@"baidumap://map/direction?destination=40.090400,116.047000&o
         },
         ]
     };
+
+    ./sync_gateway /Users/lihuan/server/sync-gateway-template.json
+
+    0
+:
+"17600851442.perf-031e548b5d58.photo-b3569b06ce8a"
+1
+:
+"17600851442.perf-031e548b5d58.photo-ec688fc68588"
+2
+:
+"17600851442.perf-031e548b5d58.photo-4c6bc6210620"
