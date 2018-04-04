@@ -1,6 +1,1 @@
-常用配置
-CLASSPATH: .;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;
-JAVA_HOME: C:\Program Files\Java\jdk-9.0.1
-
-
-$ANDROID_HOME/tools/bin/sdkmanager --licenses // android licenses accept
+此项目主要是用来展示和测试node以及前端的一些类库，附有各种demo，持续添加中
