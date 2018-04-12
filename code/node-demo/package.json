@@ -9,8 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/lodash": "~4.14.106",
     "cheerio": "^1.0.0-rc.2",
     "driver.js": "^0.3.6",
+    "lodash": "~4.17.5",
     "ethereumjs-testrpc": "^6.0.3",
     "intro.js": "^2.8.0-alpha.1",
     "jquery": "^3.2.1",
