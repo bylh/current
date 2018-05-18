@@ -1,2 +1,22 @@
-# 忽略所有名称为此的文件夹
+
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+# 系统文件
+.DS_Store
+Thumbs.db
+$RECYCLE.BIN/
+
+# 编辑器
+.vscode/
+.idea/
+npm-debug.log*
+
+# 临时文件
 node_modules/
+ionic-build-temp/
+platforms/
+!platforms/platforms.json
+plugins/
+www/
+.sourcemaps/
