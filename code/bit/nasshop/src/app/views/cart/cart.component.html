@@ -1,0 +1,144 @@
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                    <img alt="Nebulas" src="assets/imgs/icon_19.png"></a>   
+            <a class="navbar-brand" href="#">NAS Shop</a>
+        </div>
+    <!--
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a routerLink="/type-page/type-page/11" routerLinkActive="active fluffy">
+                        <span class="glyphicon glyphicon-screenshot"></span> Shopping</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a routerLink="/dashboard/dashboard" routerLinkActive="active fluffy">
+                        <span class="glyphicon glyphicon-pencil"></span> Admin</a>
+                </li>
+            </ul>
+        </div>
+    -->
+
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-0 col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4>Cart goods listing</h4>
+                </div>
+                <br>
+                <table class="table table-striped" style="box-shadow:2px 2px 3px #ccc;">
+                    <tr>
+                        <th></th>
+                        <th>Goods ID</th>
+                        <th>Goods Name</th>
+                        <th>Quantity</th>
+                        <th>Sold Price</th>
+                        <th>Subtotal</th>
+                    </tr>
+                    <tr *ngFor="let item of cartItems">
+                        <td>
+                            <button class="delete" (click)="deleteOne(item); $event.stopPropagation()">x</button>
+                        </td>
+                        <td align="center">{{item.goods_id}}</td>
+                        <td>{{item.goods_name}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.shop_price}} NAS</td>
+                        <td>{{item.shop_price*item.quantity}} NAS</td>
+                    </tr>
+                </table>
+                <br />
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info" (click)="goBack()">Go on shopping</button>
+                    <!--
+                    <a routerLink="/type-page/type-page/1" class="btn btn-primary" role="button">Continue shopping</a>
+                    <button type="button" class="btn btn-info" (click)="clearCart()"> Clear Cart</button>
+                    -->
+                    <button type="button" class="btn btn-warning" (click)="confirmAndSaveOrder()">Confirm order</button>
+                </div>
+            </div>
+
+            <div class="thumbnail" *ngIf="selectedOrder">
+                <div class="caption">
+                    <h4>Order goods listing </h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Goods ID</th>
+                            <th>Name</th>
+                            <th>Shop Price</th>
+                            <th>Quantity</th>
+                            <th>Total Cost</th>
+                        </tr>
+                        <tr *ngFor="let item of ordGoodsArray">
+                            <td align="center">{{item.ordinfo_id}}</td>
+                            <td align="center">{{item.goods_id}}</td>
+
+                            <td>{{item.goods_name}}</td>
+                            <td>{{item.shop_price}} NAS</td>
+                            <td align="center">{{item.quantity}}</td>
+                            <td>{{(item.shop_price*item.quantity)}} NAS</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6">
+            <div class="thumbnail" *ngIf="selectedOrder">
+                <div class="caption">
+                    <h4>Order information</h4>
+                </div>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Order ID :</th>
+                        <th>{{selectedOrder.ordinfo_id}}</th>
+                    </tr>
+                    <tr>
+                        <th>Order SN : </th>
+                        <th>{{selectedOrder.ord_sn}}</th>
+                    </tr>
+                    <tr>
+                        <th>User ID :</th>
+                        <th>{{selectedOrder.user_id}}</th>
+                    </tr>
+                    <tr>
+                        <th>Mobile :</th>
+                        <th>{{selectedOrder.mobile}}</th>
+                    </tr>
+                    <tr>
+                        <th>Total Cost : </th>
+                        <th>{{selectedOrder.money}} NAS</th>
+                    </tr>
+                    <tr>
+                        <th>Notes : </th>
+                        <th>{{selectedOrder.note}}</th>
+                    </tr>
+                </table>
+                <hr />
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info" (click)="goBack()">Go on shopping</button>
+                    <!--
+                    <button type="button" class="btn btn-info" (click)="clearCart()">Cancel</button>
+                    -->
+                    <a routerLink="/pay-bill/{{selectedOrder.money}}" class="btn btn-warning" role="button">Pay the bill</a>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
