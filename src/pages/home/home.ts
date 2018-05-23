@@ -1,7 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
-let Nebulas = require("nebulas");
-
+import Nebulas from 'nebulas';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
