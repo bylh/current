@@ -17,6 +17,11 @@ ionic cordova run ios --target=iPhone-X
 + 列出xcode模拟器设备
 instruments -s devices
 
+
++ git 命令
+git rm -r --cached www
+ git add .
+ git commit -m "fixed untracked files\"
 线上账户：
 13260292283
 
