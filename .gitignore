@@ -33,3 +33,15 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
+www/build/main.js.map
+www/index.html
+www/assets/fonts/ionicons.scss
+www/assets/fonts/ionicons.svg
+www/assets/fonts/noto-sans.scss
+www/assets/fonts/roboto.scss
+www/build/main.css
+www/build/main.js
+www/build/polyfills.js
+www/build/sw-toolbox.js
+www/build/vendor.js
+www/build/vendor.js.map
