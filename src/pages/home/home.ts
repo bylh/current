@@ -1,12 +1,13 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import Nebulas from 'nebulas';
+import NebPay from 'nebpay.js'
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage implements AfterViewInit {
-
+ 
   constructor(public navCtrl: NavController) {
 
   }
@@ -19,7 +20,7 @@ export class HomePage implements AfterViewInit {
     let neb = new Neb();
     neb.setRequest(new Nebulas.HttpRequest("https://testnet.nebulas.io"));
 
-    neb.api.getAccountState("n1PfySvoUyNfWg6xKDohK96TCWbSxQXLdwB").then(function (state) {
+    neb.api.getAccountState("n1S8P9Yj59rUXj4LtLJkLnynGjGWs3QZ6xG").then(function (state) {
       console.log(state);
     }).catch(function (err) {
       console.log(err);
