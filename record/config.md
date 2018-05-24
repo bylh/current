@@ -25,7 +25,10 @@ git rm -r --cached www
 线上账户：
 13260292283
 
+nas 测试地址：n1S8P9Yj59rUXj4LtLJkLnynGjGWs3QZ6xG
+    主地址： n1RPJhFBZobvrqR1RiebNbq8JJvwyfzu7jN
 
+qwe13893561470
 
 
 docker run --net=couchbase -p 4984-4985:4984-4985 -v /Users/lihuan/server:/tmp/config -d couchbase/sync-gateway /tmp/config/sync-gateway-template.json
