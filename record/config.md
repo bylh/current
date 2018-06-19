@@ -32,3 +32,23 @@ qwe13893561470
 
 
 docker run --net=couchbase -p 4984-4985:4984-4985 -v /Users/lihuan/server:/tmp/config -d couchbase/sync-gateway /tmp/config/sync-gateway-template.json
+
+
+exiftool -GPSLongitude=115.9863030910492 33.jpg
+exiftool -GPSLatitude=40.06141875611381 33.jpg
+city cun 37.33102717766525   -122.03066023575133
+
+
+            item.w = img.naturalWidth;
+			item.h = img.naturalHeight;
+            self.updateSize();
+
+            if(item.w == null || item.h == null) {
+                item.w = img.naturalWidth;
+                item.h = img.naturalHeight;
+                self.updateSize();
+			}
+
+http://storage.zhtu.net/attraction/凤凰岭-7b2809f92612.jpg!attraction
+http://public-dev.zhtu.net/photo/17600851442.perf-7cd1ff01d612.photo-0ae5bdc1b560.jpg!photo
+http://public-dev.zhtu.net/attraction/ewqe-cover-50a18d9284c1.jpg!photo
