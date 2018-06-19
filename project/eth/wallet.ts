@@ -7,6 +7,7 @@ import Web3 from 'web3';
      // 构建server
      let app = express();
      let server = http.createServer(app);
+     console.log('hello');
     // await generate();
     // console.log(Web3);
     // if (typeof Web3 !== 'undefined') {
@@ -23,18 +24,18 @@ import Web3 from 'web3';
 
     // let wallets = web3.eth.accounts.wallet.create(2, 'bylh');
     // console.log(wallets);
-    let account = await web3.eth.personal.newAccount('123456');
-    console.log(account);
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-    try {
-        let tempAccounts = await web3.eth.getAccounts();
-        console.log(tempAccounts, tempAccounts.length);
-        // await web3.eth.getBalance(temp.address);
-        // await web3.eth.accounts.wallet.remove(temp)
+    // let account = await web3.eth.personal.newAccount('123456');
+    // console.log(account);
+    // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    // try {
+    //     let tempAccounts = await web3.eth.getAccounts();
+    //     console.log(tempAccounts, tempAccounts.length);
+    //     // await web3.eth.getBalance(temp.address);
+    //     // await web3.eth.accounts.wallet.remove(temp)
 
-    }catch(err) {
-        console.log('err:', err);
-    }
+    // }catch(err) {
+    //     console.log('err:', err);
+    // }
     // web3.eth.getBalance('')
 
     // 启动监听
@@ -46,7 +47,3 @@ import Web3 from 'web3';
         process.exit(); // 程序结束
     });
 })();
-
-async function test():Promise<void> {
-    console.log('hello');
-}
