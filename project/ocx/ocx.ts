@@ -34,9 +34,9 @@ async function getData(req: express.Request, res: express.Response) {
     let response = await axios.request({
         url: `https://openapi.ocx.com/api/v2/tickers`,
         method: 'get',
-        params: {
-            market_code: 'ocxeth'
-        },
+        // params: {
+        //     market_code: 'ocxeth'
+        // },
         // data: {
         //     action_name: 'QR_LIMIT_STR_SCENE',
         //     action_info: {
@@ -46,7 +46,7 @@ async function getData(req: express.Request, res: express.Response) {
         //     }
         // }
     });
-    console.log('res:', response);
+    console.log('res:', response.data);
 
     // Demo: Circular reference
 
