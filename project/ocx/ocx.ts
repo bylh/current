@@ -46,11 +46,12 @@ async function getData(req: express.Request, res: express.Response) {
         //     }
         // }
     });
-    console.log('res:', response.data);
+    // console.log('res:', response.data);
 
     // Demo: Circular reference
 
-    res.status(200).json(response.data);
+    // res.status(200).json(response.data);
+    res.sendStatus(200);
     // CircularJSON.stringify(response)
     // res.status(200).send(JSON.parse(CircularJSON.stringify(response)));
     // res.status(200).send(eval(CircularJSON.stringify(response)))
