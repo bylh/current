@@ -34,8 +34,9 @@ export class HomePage implements AfterViewInit {
   }
 
   protected async getPrice() {
+    console.log('getPrice111');
     let res = await axios.request({
-      url: `https://openapi.ocx.com/api/v2/tickers`,
+      url: `http://www.bylh.top:4000/data`,
       method: 'get',
 
       // params: {
