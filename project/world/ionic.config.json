@@ -5,7 +5,8 @@
   "integrations": {},
   "proxies": [
     {
-      "path": "/api",
-      "proxyUrl": "https://openapi.ocx.com/api"
-    }]
+      "path": "/data",
+      "proxyUrl": "http://www.bylh.top:4000/data"
+    }
+  ]
 }
