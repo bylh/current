@@ -17,7 +17,17 @@
     
     <button ion-button (click)="getAccount()">获取账户</button>
   </ion-list>
-
+  <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let item of coin(); let i = index" col-2>
+          <ion-note color="primary">{{item.currency_code}}</ion-note>
+          <ul>
+              <li>数量: {{item.balance}}</li>
+              <li>锁定: {{item.locked}}</li>
+          </ul>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   <button ion-button (click)="getPrice()">获取价格</button>
   <ion-grid>
     <ion-row>

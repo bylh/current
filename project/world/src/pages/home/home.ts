@@ -3,6 +3,11 @@ import { NavController } from 'ionic-angular';
 
 import axios from 'axios';
 import JsSHA from 'jssha';
+export interface Coin {
+  currency_code: string,
+  balance: string,
+  locked: string
+}
 export interface Trade {
   market_code: string,
   buy: string,
@@ -19,6 +24,8 @@ export class HomePage implements AfterViewInit {
   protected key: string = null;
   protected secret: string = null;
 
+  protected account: Array<Coin> = null;
+
   protected itemsCollection: Array<Array<Trade>> = null;
   protected items: Array<Trade> = null;
   protected ethItems: Array<Trade> = null;
@@ -31,32 +38,16 @@ export class HomePage implements AfterViewInit {
   }
 
   public async ngAfterViewInit() {
-     
-   
-    // try {
-    //   let res = await axios.request({
-    //     // http://www.bylh.top:4000/data
-    //     url: url,
-    //     method: 'get',
-  
-    //     // params: {
-    //     //   market_code: 'ocxeth'
-    //     // },
-    //   });
-    //   console.log(res);
-    // } catch(e) {
-    //   console.log('e111:', e);
-    // }
-    
+
   }
 
   protected async getAccount() {
-    if(this.key == null || this.key.trim().length === 0 || this.secret == null || this.secret.trim().length === 0) {
+    if (this.key == null || this.key.trim().length === 0 || this.secret == null || this.secret.trim().length === 0) {
       console.log('请输入key secret');
       return;
     }
-     
-  
+
+
     let shaObj = new JsSHA('SHA-256', 'TEXT');
     shaObj.setHMACKey(this.secret, 'TEXT');
     let tonce = Math.round(new Date().getTime());
@@ -67,11 +58,26 @@ export class HomePage implements AfterViewInit {
     console.log('signature:', signature);
     let url = `https://openapi.ocx.com/api/v2/accounts?access_key=${this.key}&tonce=${tonce}&signature=${signature}`;
     console.log('url:', url);
+
+
+    try {
+      let res = await axios.request({
+        // http://www.bylh.top:4000/data
+        url: url,
+        method: 'get',
+
+        // params: {
+        //   market_code: 'ocxeth'
+        // },
+      });
+      console.log(res, res.data);
+      this.account = res.data.data;
+    } catch (e) {
+      console.log('e111:', e);
+    }
     return url;
   }
-  protected async getSign() {
-
-  }
+ 
   protected async getPrice() {
     console.log('getPrice111');
     let res = await axios.request({
@@ -91,6 +97,10 @@ export class HomePage implements AfterViewInit {
     this.xcnyItems = this.items.filter((item) => item.market_code.endsWith('xcny'));
     this.itemsCollection = [this.ethItems, this.btcItems, this.usdtItems, this.xcnyItems];
     console.log(this.items, this.ethItems, this.btcItems, this.usdtItems, this.xcnyItems);
+  }
+  protected coin() {
+    if(this.account == null) return;
+    return this.account.filter((coin: Coin) => +coin.balance > 0);
   }
   protected sort(): Array<Trade> {
     if (this.items == null) return;
