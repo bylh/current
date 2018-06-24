@@ -1,5 +1,6 @@
 import http from 'http';
 import express from 'express';
+import cors from 'cors';
 import CircularJSON from 'circular-json';
 import axios from 'axios';
 import JsSHA from 'jssha';
@@ -10,6 +11,14 @@ import JsSHA from 'jssha';
     let app = express();
     let server = http.createServer(app);
 
+    // app.all('*', function(req, res, next) {
+    //     res.header("Access-Control-Allow-Origin", "*");
+    //     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    //     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    //     res.header('Access-Control-Allow-Headers', 'Content-Type');
+    //     next();
+    // });
+    app.use(cors());
     app.use('/data', getData);
     // 启动监听
     app.listen(4000);
