@@ -105,14 +105,12 @@ export class HomePage implements AfterViewInit {
   protected sort(): Array<Trade> {
     if (this.items == null) return;
 
-    let items = this.items.sort((a: Trade, b: Trade) => {
+    this.items.sort((a: Trade, b: Trade) => {
       if (a.market_code[a.market_code.length - 1] > b.market_code[b.market_code.length - 1])
         return 1;
       else
         return -1;
     })
-    let a = [1, 2, 3];
-    a.sort((a: number, b: number) => a - b)
-    return items;
+    return this.items;
   }
 }

@@ -22,7 +22,7 @@
         <ion-col *ngFor="let item of coin(); let i = index" col-2>
           <ion-note color="primary">{{item.currency_code}}</ion-note>
           <ul>
-              <li>数量: {{item.balance}}</li>
+              <li ion-text [color]="item.currency_code === 'ocx'? 'danger' : null">数量: {{item.balance}}</li>
               <li>锁定: {{item.locked}}</li>
           </ul>
         </ion-col>
@@ -32,9 +32,9 @@
   <ion-grid>
     <ion-row>
       <ion-col *ngFor="let item of sort(); let i = index" col-2>
-        <ion-note color="primary">{{item.market_code}}</ion-note>
+        <ion-note [color]="item.market_code === 'ocxeth'? 'secondary' : 'primary'">{{item.market_code}}</ion-note>
         <ul>
-            <li>当前：{{item.open}}</li>
+            <li>当前: {{item.open}}</li>
             <li>卖出: {{item?.sell}}</li>
             <li>买入: {{item?.buy}}</li>
             <li>今高: {{item?.high}}</li>
