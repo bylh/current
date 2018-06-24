@@ -5,13 +5,30 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <ion-list>
+    <ion-item>
+      <ion-icon item-left name="phone-portrait-outline"></ion-icon>
+      <ion-input clearInput placeholder="输入key" [(ngModel)]="key"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon item-left name="lock-outline"></ion-icon>
+      <ion-input clearInput placeholder="输入secret" [(ngModel)]="secret" #input></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button (click)="getPrice()">获取价格</button>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let item of sort(); let i = index" col-1>
+        <ion-note color="primary">{{item.market_code}}</ion-note>
+        <ul>
+            <li>当前：{{item.open}}</li>
+            <li>卖出: {{item?.sell}}</li>
+            <li>买入: {{item?.buy}}</li>
+            <li>今高: {{item?.high}}</li>
+            <li>今低: {{item?.low}}</li>
+        </ul>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
