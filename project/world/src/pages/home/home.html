@@ -14,12 +14,14 @@
       <ion-icon item-left name="lock-outline"></ion-icon>
       <ion-input clearInput placeholder="输入secret" [(ngModel)]="secret" #input></ion-input>
     </ion-item>
+    
+    <button ion-button (click)="getAccount()">获取账户</button>
   </ion-list>
 
   <button ion-button (click)="getPrice()">获取价格</button>
   <ion-grid>
     <ion-row>
-      <ion-col *ngFor="let item of sort(); let i = index" col-1>
+      <ion-col *ngFor="let item of sort(); let i = index" col-2>
         <ion-note color="primary">{{item.market_code}}</ion-note>
         <ul>
             <li>当前：{{item.open}}</li>

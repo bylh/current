@@ -2,5 +2,10 @@
   "name": "cutePuppyPics",
   "app_id": "",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {},
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "https://openapi.ocx.com/api"
+    }]
 }

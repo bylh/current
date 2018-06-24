@@ -2,6 +2,7 @@ import { Component, AfterViewInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import axios from 'axios';
+import JsSHA from 'jssha';
 export interface Trade {
   market_code: string,
   buy: string,
@@ -29,10 +30,48 @@ export class HomePage implements AfterViewInit {
 
   }
 
-  public ngAfterViewInit() {
-
+  public async ngAfterViewInit() {
+     
+   
+    // try {
+    //   let res = await axios.request({
+    //     // http://www.bylh.top:4000/data
+    //     url: url,
+    //     method: 'get',
+  
+    //     // params: {
+    //     //   market_code: 'ocxeth'
+    //     // },
+    //   });
+    //   console.log(res);
+    // } catch(e) {
+    //   console.log('e111:', e);
+    // }
+    
   }
 
+  protected async getAccount() {
+    if(this.key == null || this.key.trim().length === 0 || this.secret == null || this.secret.trim().length === 0) {
+      console.log('请输入key secret');
+      return;
+    }
+     
+  
+    let shaObj = new JsSHA('SHA-256', 'TEXT');
+    shaObj.setHMACKey(this.secret, 'TEXT');
+    let tonce = Math.round(new Date().getTime());
+    let str = `GET|/api/v2/accounts|access_key=${this.key}&tonce=${tonce}`;
+    shaObj.update(str);
+    let signature = shaObj.getHMAC('HEX'); // 对str使用sha1签名，得到signature
+
+    console.log('signature:', signature);
+    let url = `https://openapi.ocx.com/api/v2/accounts?access_key=${this.key}&tonce=${tonce}&signature=${signature}`;
+    console.log('url:', url);
+    return url;
+  }
+  protected async getSign() {
+
+  }
   protected async getPrice() {
     console.log('getPrice111');
     let res = await axios.request({
