@@ -1,8 +1,9 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import JsSHA from 'jssha';
+import qs from 'qs';
 export interface Coin {
   currency_code: string,
   balance: string,
@@ -169,21 +170,49 @@ export class HomePage implements AfterViewInit {
   }
 
   protected async startAutoTrade() {
-    try {
-      let res = await axios.request({
-        // http://www.bylh.top:4000/data
-        url: 'http://localhost:4000/auto-trade',
-        method: 'get',
-        params: {
-          key: this.key,
-          sec: this.secret
-        },
-      });
-      console.log(res, res.data);
-      this.orders = res.data.data;
-    } catch (e) {
-      console.log('e111:', e);
-    }
+
+    let queryDefault: AxiosInstance = axios.create({
+      baseURL: 'http://localhost:4000',
+      method: 'post', // 注意：此处设定method的默认值，每个请求无需自行设定
+      data: { _version: 1 }, // 注意：此处以下划线开头，确保不会和其他数据产生冲突
+      timeout: 1000
+    });
+    let x = await queryDefault.request({
+      url: '/auto-trade',
+      // method: 'post',
+      data: {
+        key: '123', sec: '456'
+      }
+    });
+    // try {
+    //   let res = await axios.post('http://localhost:4000/auto-trade',{
+
+    //     data: qs.stringify({
+    //       'key': this.key,
+    //       'sec': this.secret,
+    //       // order: {
+    //       //   market_code: 'ocxxcny',
+    //       //   side: 'buy',
+    //       //   price: 0.30,
+    //       //   volume: 20,
+    //       // }
+    //     })
+    //     // data: {
+    //     //   key: this.key,
+    //     //   sec: this.secret,
+    //     //   order: {
+    //     //     market_code: 'ocxxcny',
+    //     //     side: 'buy',
+    //     //     price: 0.30,
+    //     //     volume: 20,
+    //     //   }
+    //     // },
+    //   });
+    //   console.log(res, res.data);
+    //   // this.orders = res.data;
+    // } catch (e) {
+    //   console.log('e111:', e);
+    // }
   }
 
 }

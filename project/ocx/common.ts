@@ -34,7 +34,7 @@ export interface Coin {
     executed_volume: number // decimal	已成交的数量
   }
 
-export type UrlType = 'accounts' | 'orders'
+export type UrlType = 'accounts' | 'orders';
 export function getUrl(key: string, sec: string, type: UrlType): string {
     if (key == null || key.trim().length === 0 || sec == null || sec.trim().length === 0) {
         console.log('请输入key secret');
@@ -74,22 +74,20 @@ export async function getSignal(key: string, sec: string, type: UrlType, params:
 
 
 export async function postSignal(key: string, sec: string, type: UrlType, params: any): Promise<any> {
-    let url = getUrl(key, sec, 'accounts');
+    let url = getUrl(key, sec, type);
     if (url == null)
-        return null;
+        throw 'miss params';
     try {
         let res = await axios.request({
             url: url,
             method: 'post',
-
-            // params: {
-            //   market_code: 'ocxeth'
-            // },
+            params: params
         });
         console.log('价格---------------------------------------------------------------------------------\n', res.data.data);
         return res.data.data;
-    } catch (e) {
-        console.log('e111:');
+    } catch (err) {
+        console.log('postSignal failed:');
+        throw err;
         return null;
     }
 }
