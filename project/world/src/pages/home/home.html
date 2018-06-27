@@ -8,11 +8,11 @@
   <ion-list>
     <ion-item>
       <ion-icon item-left name="phone-portrait-outline"></ion-icon>
-      <ion-input clearInput placeholder="输入key" [(ngModel)]="key"></ion-input>
+      <ion-input placeholder="输入key" [(ngModel)]="key"></ion-input>
     </ion-item>
     <ion-item>
       <ion-icon item-left name="lock-outline"></ion-icon>
-      <ion-input clearInput placeholder="输入secret" [(ngModel)]="secret" #input></ion-input>
+      <ion-input type="password" placeholder="输入secret" [(ngModel)]="secret" #input></ion-input>
     </ion-item>
     
     <button ion-button (click)="getAccount()">获取账户</button>
@@ -39,6 +39,24 @@
             <li>买入: {{item?.buy}}</li>
             <li>今高: {{item?.high}}</li>
             <li>今低: {{item?.low}}</li>
+        </ul>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <button ion-button (click)="getOrders()">获取订单</button>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let item of orders; let i = index" col-3>
+        <ion-note color="primary">{{item.market_code}}</ion-note>
+        
+        <ul>
+            <li ion-text [color]="item.currency_code === 'ocx'? 'danger' : null">价格: {{item.price}}</li>
+            <li>状态: {{item.state}}</li>
+            <li>时间: {{item.created_at}}</li>
+            <li>交易数量：{{item.volume}}</li>
+            <li>已成交数量：{{item.executed_volume}}</li>
+            <li>未成交数量：{{item.remaining_volume}}</li>
         </ul>
       </ion-col>
     </ion-row>

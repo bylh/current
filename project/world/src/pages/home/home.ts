@@ -16,6 +16,23 @@ export interface Trade {
   high: string,
   low: string,
 }
+export interface Order {
+  id: number	// 委托订单 ID
+  side: string	// Buy/Sell, 代表买单/卖单.
+  ord_type: string	// limit: 限价单；
+  price: number	// 价格
+  avg_price: number	// 平均价格
+  state: string	// 委托订单状态: wait、done、cancel
+  state_i18n: string	// 委托订单状态(国际化)
+  market_code: string	// 交易对
+  market_name: string	// 订单参与的交易市场
+  market_base_unit: string //	市场基准货币
+  market_quote_unit: string //	市场报价货币
+  created_at: string	// 下单时间, ISO8601格式
+  volume: number	// 交易数量（买入、卖出）volume = remaining_volume + executed_volume
+  remaining_volume: number // decimal	未成交的数量
+  executed_volume: number // decimal	已成交的数量
+}
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -25,6 +42,7 @@ export class HomePage implements AfterViewInit {
   protected secret: string = null;
 
   protected account: Array<Coin> = null;
+  protected orders: Array<Order> = null;
 
   protected itemsCollection: Array<Array<Trade>> = null;
   protected items: Array<Trade> = null;
@@ -77,7 +95,7 @@ export class HomePage implements AfterViewInit {
     }
     return url;
   }
- 
+
   protected async getPrice() {
     console.log('getPrice111');
     let res = await axios.request({
@@ -98,8 +116,44 @@ export class HomePage implements AfterViewInit {
     this.itemsCollection = [this.ethItems, this.btcItems, this.usdtItems, this.xcnyItems];
     console.log(this.items, this.ethItems, this.btcItems, this.usdtItems, this.xcnyItems);
   }
+  protected async getOrders() {
+    if (this.key == null || this.key.trim().length === 0 || this.secret == null || this.secret.trim().length === 0) {
+      console.log('请输入key secret');
+      return;
+    }
+
+
+    let shaObj = new JsSHA('SHA-256', 'TEXT');
+    shaObj.setHMACKey(this.secret, 'TEXT');
+    let tonce = Math.round(new Date().getTime());
+    let str = `GET|/api/v2/orders|access_key=${this.key}&tonce=${tonce}`;
+    shaObj.update(str);
+    let signature = shaObj.getHMAC('HEX'); // 对str使用sha1签名，得到signature
+
+    console.log('signature:', signature);
+    let url = `https://openapi.ocx.com/api/v2/orders?access_key=${this.key}&tonce=${tonce}&signature=${signature}`;
+    console.log('url:', url);
+
+
+    try {
+      let res = await axios.request({
+        // http://www.bylh.top:4000/data
+        url: url,
+        method: 'get',
+
+        // params: {
+        //   market_code: 'ocxeth'
+        // },
+      });
+      console.log(res, res.data);
+      this.orders = res.data.data;
+    } catch (e) {
+      console.log('e111:', e);
+    }
+    return url;
+  }
   protected coin() {
-    if(this.account == null) return;
+    if (this.account == null) return;
     return this.account.filter((coin: Coin) => +coin.balance > 0);
   }
   protected sort(): Array<Trade> {
