@@ -8,7 +8,7 @@ export interface Coin {
   balance: string,
   locked: string
 }
-export interface Trade {
+export interface Ticker {
   market_code: string,
   buy: string,
   sell: string,
@@ -44,12 +44,12 @@ export class HomePage implements AfterViewInit {
   protected account: Array<Coin> = null;
   protected orders: Array<Order> = null;
 
-  protected itemsCollection: Array<Array<Trade>> = null;
-  protected items: Array<Trade> = null;
-  protected ethItems: Array<Trade> = null;
-  protected btcItems: Array<Trade> = null;
-  protected usdtItems: Array<Trade> = null;
-  protected xcnyItems: Array<Trade> = null;
+  protected itemsCollection: Array<Array<Ticker>> = null;
+  protected items: Array<Ticker> = null;
+  protected ethItems: Array<Ticker> = null;
+  protected btcItems: Array<Ticker> = null;
+  protected usdtItems: Array<Ticker> = null;
+  protected xcnyItems: Array<Ticker> = null;
 
   constructor(public navCtrl: NavController) {
 
@@ -156,10 +156,10 @@ export class HomePage implements AfterViewInit {
     if (this.account == null) return;
     return this.account.filter((coin: Coin) => +coin.balance > 0);
   }
-  protected sort(): Array<Trade> {
+  protected sort(): Array<Ticker> {
     if (this.items == null) return;
 
-    this.items.sort((a: Trade, b: Trade) => {
+    this.items.sort((a: Ticker, b: Ticker) => {
       if (a.market_code[a.market_code.length - 1] > b.market_code[b.market_code.length - 1])
         return 1;
       else
@@ -167,4 +167,23 @@ export class HomePage implements AfterViewInit {
     })
     return this.items;
   }
+
+  protected async startAutoTrade() {
+    try {
+      let res = await axios.request({
+        // http://www.bylh.top:4000/data
+        url: 'http://localhost:4000/auto-trade',
+        method: 'get',
+        params: {
+          key: this.key,
+          sec: this.secret
+        },
+      });
+      console.log(res, res.data);
+      this.orders = res.data.data;
+    } catch (e) {
+      console.log('e111:', e);
+    }
+  }
+
 }
