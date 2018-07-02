@@ -170,20 +170,52 @@ export class HomePage implements AfterViewInit {
   }
 
   protected async startAutoTrade() {
+    // let queryDefault: AxiosInstance = axios.create({
+    //   baseURL: 'http://localhost:4000',
+    //   method: 'post', // 注意：此处设定method的默认值，每个请求无需自行设定
+    //   data: { _version: 1 }, // 注意：此处以下划线开头，确保不会和其他数据产生冲突
+    //   timeout: 1000
+    // });
+    // let x = await queryDefault.request({
+    //   url: '/auto-trade',
+    //   // method: 'post',
+    //   data: {
+    //     key: '123', sec: '456'
+    //   }
+    // });
+    try {
+      let shaObj = new JsSHA('SHA-256', 'TEXT');
+      shaObj.setHMACKey(this.secret, 'TEXT');
+      let tonce = Math.round(new Date().getTime());
+      let str = `POST|/api/v2/orders|access_key=${this.key}&market_code=ocxusdt&price=0.03&side=buy&tonce=${tonce}&volume=200`;
+      shaObj.update(str);
+      let signature = shaObj.getHMAC('HEX'); // 对str使用sha1签名，得到signature
+  
+      console.log('signature:', signature);
+      // https://openapi.ocx.com/api/v2/orders/286323457/cancel?access_key=${this.key}&tonce=${tonce}&signature=${signature}
+      // https://openapi.ocx.com/api/v2/orders' -d 'access_key=your_access_key&tonce=1234567&signature=computed_signature&market_code=btccny&price=40000&side=buy&volume=1
+      let url = `https://openapi.ocx.com/api/v2/orders?access_key=${this.key}&tonce=${tonce}&signature=${signature}`;
 
-    let queryDefault: AxiosInstance = axios.create({
-      baseURL: 'http://localhost:4000',
-      method: 'post', // 注意：此处设定method的默认值，每个请求无需自行设定
-      data: { _version: 1 }, // 注意：此处以下划线开头，确保不会和其他数据产生冲突
-      timeout: 1000
-    });
-    let x = await queryDefault.request({
-      url: '/auto-trade',
-      // method: 'post',
-      data: {
-        key: '123', sec: '456'
-      }
-    });
+      // console.log(`curl -X GET 'https://openapi.ocx.com/api/v2/orders?access_key=${this.key}&tonce=${tonce}&signature=${signature}'`)
+      console.log(`curl -X POST 'https://openapi.ocx.com/api/v2/orders' -d 'access_key=${this.key}&tonce=${tonce}&signature=${signature}&market_code=ocxusdt&price=0.03&side=buy&volume=200'`)
+      let res = await axios.request({
+        url: 'http://localhost:4000/auto-trade',
+        method: 'post',
+        params:{
+          market_code: 'ocxusdt',
+          side: 'buy',
+          price: '0.03',
+          volume: '200',
+        },
+        // headers: {
+        //   'Content-Type': 'application/x-www-form-urlencoded'
+        // }
+        // headers: { 'Content-type': 'application/json' }
+      })
+      console.log(res.data, '成功');
+    } catch(err) {
+      console.log(err.code, '失败了')
+    }
     // try {
     //   let res = await axios.post('http://localhost:4000/auto-trade',{
 
