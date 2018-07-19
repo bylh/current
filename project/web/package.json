@@ -26,6 +26,7 @@
     "core-js": "^2.5.4",
     "lite-server": "^2.4.0",
     "rxjs": "^6.2.2",
+    "urlb64touint8array": "^1.0.3",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
