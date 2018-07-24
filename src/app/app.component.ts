@@ -1,4 +1,5 @@
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { RequestOptions } from '@angular/http';
+import { ServiceWorkerModule, SwPush } from '@angular/service-worker';
 import urlb64touint8array from 'urlb64touint8array';
 // import webpush from 'web-push';
 import { BehaviorSubject } from 'rxjs';
@@ -16,39 +17,57 @@ export class AppComponent implements AfterViewInit, OnInit {
   title = 'app';
   protected sw: ServiceWorkerRegistration = null;
   protected pushSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  constructor(protected swPush: SwPush) {
+    // swPush.messages.subscribe(msg => console.log('收到消息', msg));
+  }
   public async ngAfterViewInit() {
     self.addEventListener('push', (event: any) => {
-      const notificationData = event.data.json();
-      const title = notificationData.title;
+      // const notificationData = event.data.json();
+      // const title = notificationData.title;
       // 可以发个消息通知页面
       // util.postMessage(notificationData);
       // 弹消息框
-      console.log('收到消息');
-      event.waitUntil((self as any).registration.showNotification(title, notificationData));
+      console.log('收到消息', event);
+      event.waitUntil((self as any).registration.showNotification('收到通知', {
+        body: 'Buzz! Buzz!',
+        tag: 'vibration-sample'
+      }));
 
     });
   }
   public async ngOnInit() {
     console.log('ngOninit');
-    if ('serviceWorker' in navigator) {
-      this.sw = await navigator.serviceWorker.getRegistration('/ngsw-worker.js');
-      if (this.sw == null) {
-        this.sw = await navigator.serviceWorker.register('/ngsw-worker.js');
+    //   if ('serviceWorker' in navigator) {
+    //     this.sw = await navigator.serviceWorker.getRegistration('/ngsw-worker.js');
+    //     if (this.sw == null) {
+    //       this.sw = await navigator.serviceWorker.register('/ngsw-worker.js');
 
-      }
-    }
-    if ('PushManager' in window) {
-      const subscription = await this.sw.pushManager.getSubscription();
-      console.log('用户订阅的数据：', JSON.stringify(subscription));
-      if (subscription == null) {
-        console.log('订阅开始');
-        await this.subscribeUser(this.sw);
-        console.log('订阅成功');
-      } else {
-        console.log('you have subscribed');
-      }
-    }
+    //     }
+    //     console.log('是否存在sw', this.sw);
+    //   // }
+    //   // if ('PushManager' in window) {
+    //   //   const subscription = await this.sw.pushManager.getSubscription();
+    //   //   console.log('用户订阅的数据：', JSON.stringify(subscription));
+    //   //   if (subscription == null) {
+    //   //     console.log('订阅开始');
+    //   //     await this.subscribeUser(this.sw);
+    //   //     console.log('订阅成功');
+    //   //   } else {
+    //   //     console.log('you have subscribed');
+    //   //   }
+    //   // }
+    // }
+    console.log('订阅开始');
+    const pushSubscription = await this.swPush.requestSubscription({
+      serverPublicKey: publicKey
+    });
+    console.log('订阅成功：', JSON.stringify(pushSubscription));
+    console.log('消息处理', this.swPush);
+    this.swPush.messages.subscribe(msg => {
+      console.log('收到消息', msg);
+    });
   }
+
 
   public async subscribeUser(swRegistration) {
     // const vapidKeys = webpush.generateVAPIDKeys();
@@ -60,7 +79,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     if (subscription == null) {
       return;
     }
-    this.updateSubscriptionOnServer(subscription);
+    // this.updateSubscriptionOnServer(subscription);
   }
   public updateSubscriptionOnServer(subscription) {
     const url = 'https://node-web-push-app.azurewebsites.net/subscribe';
