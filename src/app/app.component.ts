@@ -7,7 +7,6 @@ import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { identifierModuleUrl } from '../../node_modules/@angular/compiler';
 // import * as Pwa from '@angular/pwa';
 const publicKey = 'BJ3kbCc44PMG9THjY4Nc-JqYKsUkd64e-n4oFGErmuAuFfunVUK1hqrqLOHEO_L1KJQhAZgZSn4F8lUZCYhPRfk';
-const privateKey = 'XqOsx4D0H85wlCrQn3IMqZECs9mrGdwk8lMOrAvUFL0';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
