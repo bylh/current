@@ -2,6 +2,12 @@ import { getSignal, postSignal } from './common';
 
 import express from 'express';
 
+export async function subscribe(req: express.Request, res: express.Response) {
+    // console.log(req.body, req.query, req.params,req);
+    console.log('收到', req.query.endpoint, '\n', req.query.auth, '\n', req.query.p256dh);
+    res.status(200).json(req.query);
+}
+
 export async function autoTrade(req: express.Request, res: express.Response) {
     console.log(req.body, req.query, req.params,req);
     

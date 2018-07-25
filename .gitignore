@@ -20,3 +20,4 @@ platforms/
 plugins/
 www/
 .sourcemaps/
+project/ocx/temp.ts
