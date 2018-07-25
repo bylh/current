@@ -5,7 +5,7 @@ import http from 'http';
 import express from 'express';
 import cors from 'cors';
 import program from 'commander';
-import { autoTrade } from './api';
+import { autoTrade, subscribe} from './api';
 
 (async function main(): Promise<void> {
     program.version('1.0.0')
@@ -29,6 +29,7 @@ import { autoTrade } from './api';
     app.use(cors()); // 解决跨域访问的问题
     app.use('/get-tickers', getTickers);
     // app.use('/auto-trade', autoTrade);
+    app.use('/subscribe', subscribe);
     // 启动监听
     app.listen(4000);
     if (process.send != null) process.send('ready');
