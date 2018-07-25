@@ -6,6 +6,7 @@ import express from 'express';
 import cors from 'cors';
 import program from 'commander';
 import { autoTrade, subscribe} from './api';
+import DBHelper from './db-helper';
 
 (async function main(): Promise<void> {
     program.version('1.0.0')
@@ -22,7 +23,12 @@ import { autoTrade, subscribe} from './api';
         program.outputHelp();
         // return;
     }
-
+    try {
+        await DBHelper.init()
+    } catch(err) {
+        console.log('连接数据库失败', err);
+    }
+ 
     // 构建server
     let app = express();
     let server = http.createServer(app);
