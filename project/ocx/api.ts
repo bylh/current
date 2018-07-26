@@ -1,10 +1,34 @@
-import { getSignal, postSignal } from './common';
 
+const webpush = require('web-push');
 import express from 'express';
+import { getSignal, postSignal } from './common';
+import DBHelper, { WebPushInfo } from './db-helper';
 
 export async function subscribe(req: express.Request, res: express.Response) {
     // console.log(req.body, req.query, req.params,req);
-    console.log('收到', req.query.endpoint, '\n', req.query.auth, '\n', req.query.p256dh);
+    let query = req.query;
+    console.log('收到', query.pushSubscription);
+    let document: any;
+    webpush.setGCMAPIKey(document.gcmApikey);
+    webpush.setVapidDetails(document.subject, document.publicKey, document.privateKey);
+    const payload = {
+        notification: {
+            title: "订阅成功通知",
+            body: "之后可以收到我的消息了!",
+            icon: "assets/main-page-logo-small-hat.png",
+            vibrate: [100, 50, 100],
+            data: {
+                dateOfArrival: Date.now(),
+                primaryKey: 1
+            },
+            actions: [{
+                action: "explore",
+                title: "Go to the site"
+            }]
+        }
+    };
+    console.log('得到的订阅',query);
+    webpush.sendNotification(JSON.parse(query.pushSubscription), JSON.stringify(payload));
     res.status(200).json(req.query);
 }
 

@@ -62,16 +62,14 @@ export class AppComponent implements AfterViewInit, OnInit {
       serverPublicKey: publicKey
     });
     console.log('订阅成功了：', JSON.stringify(pushSubscription));
-    let sub = JSON.parse(JSON.stringify(pushSubscription));
-    let res = await axios.request({
+    await axios.request({
       url: 'http://localhost:4000/subscribe',
       method: 'post',
-      params:{
-        endpoint: sub.endpoint,
-        auth: sub.keys.auth,
-        p256dh: sub.keys.p256dh
+      params: {
+        publicKey: publicKey,
+        pushSubscription: JSON.stringify(pushSubscription)
       },
-    })
+    });
     console.log('消息处理', this.swPush);
     this.swPush.messages.subscribe(msg => {
       console.log('收到消息', msg);
