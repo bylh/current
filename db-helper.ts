@@ -1,3 +1,4 @@
+import { Defer } from './common';
 
 import mongoose, { Mongoose, Document } from 'mongoose';
 export interface WebPushInfo {
@@ -29,7 +30,15 @@ class DBHelper {
         }
     }
     public async get() {
-        
+        let document;
+        let defer = new Defer<any>();
+        webPushModel.findOne({user: 'bylh'}, (err, res) => {
+            document = res;
+            console.log('res', res, 'err', err);
+            defer.resolve(res);
+        });
+        document = await defer.promise;
+         return document;
     }
     public async set(webPushInfo: WebPushInfo): Promise<WebPushInfo> {
         let data = new webPushModel(webPushInfo);

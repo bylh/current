@@ -8,7 +8,7 @@ export async function subscribe(req: express.Request, res: express.Response) {
     // console.log(req.body, req.query, req.params,req);
     let query = req.query;
     console.log('收到', query.pushSubscription);
-    let document: any;
+    let document = await DBHelper.get();
     webpush.setGCMAPIKey(document.gcmApikey);
     webpush.setVapidDetails(document.subject, document.publicKey, document.privateKey);
     const payload = {
@@ -28,7 +28,7 @@ export async function subscribe(req: express.Request, res: express.Response) {
         }
     };
     console.log('得到的订阅',query);
-    webpush.sendNotification(JSON.parse(query.pushSubscription), JSON.stringify(payload));
+    webpush.sendNotification(JSON.parse(query.pushSubscription), JSON.stringify(payload)).then((suc: any) => console.log('成功', suc)).catch((err: any) => console.log('失败', err));
     res.status(200).json(req.query);
 }
 
