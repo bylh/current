@@ -1,5 +1,4 @@
 // import webpush from 'web-push';
-const webpush = require('web-push');
 import { UrlType, getUrl, getSignal, getTickers } from './common';
 import http from 'http';
 import express from 'express';
