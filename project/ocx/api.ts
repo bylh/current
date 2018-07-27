@@ -47,6 +47,7 @@ export function sendNotification(pushSubscription: string, payload: any) {
 }
 export async function sendNotificationToUsers(req: express.Request, res: express.Response) {
     let subs = await DBHelper.getAll();
+    console.log('所有订阅', subs);
     for(let sub of subs) {
         sendNotification(sub.pushSubscription, payload)
     }
