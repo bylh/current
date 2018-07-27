@@ -3,34 +3,48 @@ const webpush = require('web-push');
 import express from 'express';
 import { getSignal, postSignal } from './common';
 import DBHelper, { WebPushInfo } from './db-helper';
+import Config from './config';
+
+const payload = {
+    notification: {
+        title: "订阅成功",
+        body: "之后您将在第一时间收到推送通知!",
+        icon: "assets/link_everything_hove.png",
+        vibrate: [100, 50, 100],
+        data: {
+            dateOfArrival: Date.now(),
+            primaryKey: 1
+        },
+        actions: [{
+            action: "explore",
+            title: "Go to the site"
+        }]
+    }
+};
 
 export async function subscribe(req: express.Request, res: express.Response) {
     let query = req.query;
     console.log('收到', query.pushSubscription);
-    let document = await DBHelper.getOne({user: 'bylh'});
-    webpush.setGCMAPIKey(document.gcmApikey);
-    webpush.setVapidDetails(document.subject, document.publicKey, document.privateKey);
-    const payload = {
-        notification: {
-            title: "订阅成功通知",
-            body: "之后可以收到我的消息了!",
-            icon: "assets/main-page-logo-small-hat.png",
-            vibrate: [100, 50, 100],
-            data: {
-                dateOfArrival: Date.now(),
-                primaryKey: 1
-            },
-            actions: [{
-                action: "explore",
-                title: "Go to the site"
-            }]
-        }
-    };
-    console.log('得到的订阅',query);
-    webpush.sendNotification(JSON.parse(query.pushSubscription), JSON.stringify(payload)).then((suc: any) => console.log('成功', suc)).catch((err: any) => console.log('失败', err));
+    let document = await DBHelper.getOne({pushSubscription: query.pushSubscription});
+    if(document != null) {
+        console.log('用户已经订阅过了');
+        res.status(200).json(req.query);
+        return;
+    }
+    // 说明此设备有新的订阅需求，或者第一次订阅
+    DBHelper.set({
+        publicKey: query.publicKey,
+        pushSubscription: query.pushSubscription
+    } as WebPushInfo);
+    sendNotification(query.pushSubscription, payload)
     res.status(200).json(req.query);
 }
 
+export function sendNotification(pushSubscription: string, payload: any) {
+    webpush.setGCMAPIKey(Config.Push.GcmApiKey);
+    webpush.setVapidDetails(Config.Push.Subject, Config.Push.PublicKey, Config.Push.PrivateKey);
+    webpush.sendNotification(JSON.parse(pushSubscription), JSON.stringify(payload)).then((suc: any) => console.log('成功', suc)).catch((err: any) => console.log('失败', err));
+}
 export async function autoTrade(req: express.Request, res: express.Response) {
     console.log(req.body, req.query, req.params,req);
     
