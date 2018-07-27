@@ -21,3 +21,4 @@ plugins/
 www/
 .sourcemaps/
 project/ocx/temp.ts
+project/ocx/config.ts

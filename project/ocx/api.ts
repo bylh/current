@@ -5,10 +5,9 @@ import { getSignal, postSignal } from './common';
 import DBHelper, { WebPushInfo } from './db-helper';
 
 export async function subscribe(req: express.Request, res: express.Response) {
-    // console.log(req.body, req.query, req.params,req);
     let query = req.query;
     console.log('收到', query.pushSubscription);
-    let document = await DBHelper.get();
+    let document = await DBHelper.getOne({user: 'bylh'});
     webpush.setGCMAPIKey(document.gcmApikey);
     webpush.setVapidDetails(document.subject, document.publicKey, document.privateKey);
     const payload = {

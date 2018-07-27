@@ -1,6 +1,6 @@
-import { Defer } from './common';
-
 import mongoose, { Mongoose, Document } from 'mongoose';
+import { Defer } from './common';
+import Config from './config';
 export interface WebPushInfo {
     user: string,
     privateKey: string,
@@ -9,6 +9,7 @@ export interface WebPushInfo {
     subject: string,
     pushSubscription: string
 }
+const CollectUri = `mongodb://${Config.Server.DB.User}:${Config.Server.DB.Pwd}@${Config.Server.IP}:${Config.Server.DB.Port}/web`;
 const Schema = mongoose.Schema;
 const webPushSchema = new Schema({
     user: String,
@@ -19,37 +20,31 @@ const webPushSchema = new Schema({
     pushSubscription: String
 });
 const webPushModel = mongoose.model('webpushes', webPushSchema);
-
 class DBHelper {
     protected db: Mongoose = null;
+    // 初始化连接数据库
     public async init() {
         try {
-            this.db = await mongoose.connect('mongodb://bylh:439882@127.0.0.1:27017/web');
-        } catch(err) {
+            this.db = await mongoose.connect(CollectUri);
+        } catch (err) {
             throw err;
         }
     }
-    public async get() {
-        let document;
+    public async getOne(conditions: any) {
         let defer = new Defer<any>();
-        webPushModel.findOne({user: 'bylh'}, (err, res) => {
-            document = res;
-            console.log('res', res, 'err', err);
+        webPushModel.findOne(conditions, (err, res) => {
+            console.log('getOne(): res:', res, 'err', err);
             defer.resolve(res);
         });
-        document = await defer.promise;
-         return document;
+        return await defer.promise;;
     }
     public async set(webPushInfo: WebPushInfo): Promise<WebPushInfo> {
         let data = new webPushModel(webPushInfo);
-        let document = await data.save(err => {
-            if(err) {
-                console.log('错误？', err);
-            }
-            else{
-                console.log('成功');
-            }
-        });
+        try {
+            await data.save();
+        } catch (err) {
+            throw err;
+        }
         console.log('保存数据成功', webPushInfo);
         return webPushInfo;
     }
