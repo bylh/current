@@ -38,6 +38,14 @@ class DBHelper {
         });
         return await defer.promise;;
     }
+    public async getAll(conditions?: any) {
+        let defer = new Defer<any>();
+        webPushModel.find(conditions, (err, res) => {
+            console.log('getAll(): res:', res, 'err', err);
+            defer.resolve(res);
+        });
+        return await defer.promise;;
+    }
     public async set(webPushInfo: WebPushInfo): Promise<WebPushInfo> {
         let data = new webPushModel(webPushInfo);
         try {

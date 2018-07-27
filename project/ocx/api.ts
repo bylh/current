@@ -32,7 +32,7 @@ export async function subscribe(req: express.Request, res: express.Response) {
         return;
     }
     // 说明此设备有新的订阅需求，或者第一次订阅
-    DBHelper.set({
+    await DBHelper.set({
         publicKey: query.publicKey,
         pushSubscription: query.pushSubscription
     } as WebPushInfo);
@@ -44,6 +44,13 @@ export function sendNotification(pushSubscription: string, payload: any) {
     webpush.setGCMAPIKey(Config.Push.GcmApiKey);
     webpush.setVapidDetails(Config.Push.Subject, Config.Push.PublicKey, Config.Push.PrivateKey);
     webpush.sendNotification(JSON.parse(pushSubscription), JSON.stringify(payload)).then((suc: any) => console.log('成功', suc)).catch((err: any) => console.log('失败', err));
+}
+export async function sendNotificationToUsers(req: express.Request, res: express.Response) {
+    let subs = await DBHelper.getAll();
+    for(let sub of subs) {
+        sendNotification(sub.pushSubscription, payload)
+    }
+    res.status(200).json(payload);
 }
 export async function autoTrade(req: express.Request, res: express.Response) {
     console.log(req.body, req.query, req.params,req);
