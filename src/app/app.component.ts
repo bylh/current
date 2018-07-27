@@ -103,8 +103,8 @@ export class AppComponent implements AfterViewInit, OnInit {
   public async push() {
     console.log('测试推送');
     try {
-      let res = await axios.request({
-        url: 'https://bit.bylh.top/get-tickers',
+      const res = await axios.request({
+        url: 'https://bit.bylh.top/send-all',
         method: 'get',
 
         // params: {
@@ -114,7 +114,7 @@ export class AppComponent implements AfterViewInit, OnInit {
       });
       console.log(res);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
 }
