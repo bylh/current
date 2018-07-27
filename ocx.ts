@@ -23,7 +23,7 @@ import DBHelper from './db-helper';
         // return;
     }
     try {
-        await DBHelper.init()
+        await DBHelper.init();
     } catch(err) {
         console.log('连接数据库失败', err);
     }
