@@ -61,9 +61,9 @@ export class AppComponent implements AfterViewInit, OnInit {
     const pushSubscription = await this.swPush.requestSubscription({
       serverPublicKey: publicKey
     });
-    console.log('订阅成功了：', JSON.stringify(pushSubscription));
+    console.log('订阅成功了3：', JSON.stringify(pushSubscription));
     await axios.request({
-      url: 'http://localhost:4000/subscribe',
+      url: 'https://bit.bylh.top/subscribe',
       method: 'post',
       params: {
         publicKey: publicKey,
@@ -102,5 +102,19 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
   public async push() {
     console.log('测试推送');
+    try {
+      let res = await axios.request({
+        url: 'https://bit.bylh.top/get-tickers',
+        method: 'get',
+
+        // params: {
+        //   market_code: 'ocxeth'
+        // },
+
+      });
+      console.log(res);
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
