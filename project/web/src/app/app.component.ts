@@ -1,11 +1,11 @@
-import { RequestOptions } from '@angular/http';
+
 import { ServiceWorkerModule, SwPush } from '@angular/service-worker';
 import urlb64touint8array from 'urlb64touint8array';
 import axios from 'axios';
 // import webpush from 'web-push';
 import { BehaviorSubject } from 'rxjs';
 import { Component, AfterViewInit, OnInit } from '@angular/core';
-import { identifierModuleUrl } from '../../node_modules/@angular/compiler';
+import Config from '../config';
 // import * as Pwa from '@angular/pwa';
 const publicKey = 'BJ3kbCc44PMG9THjY4Nc-JqYKsUkd64e-n4oFGErmuAuFfunVUK1hqrqLOHEO_L1KJQhAZgZSn4F8lUZCYhPRfk';
 @Component({
@@ -18,101 +18,56 @@ export class AppComponent implements AfterViewInit, OnInit {
   protected sw: ServiceWorkerRegistration = null;
   protected pushSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   constructor(protected swPush: SwPush) {
-    // swPush.messages.subscribe(msg => console.log('收到消息', msg));
   }
+
   public async ngAfterViewInit() {
-    self.addEventListener('push', (event: any) => {
-      // const notificationData = event.data.json();
-      // const title = notificationData.title;
-      // 可以发个消息通知页面
-      // util.postMessage(notificationData);
-      // 弹消息框
-      console.log('收到消息', event);
-      event.waitUntil((self as any).registration.showNotification('收到通知', {
-        body: 'Buzz! Buzz!',
-        tag: 'vibration-sample'
-      }));
-
-    });
+      // 监听推送消息
+      this.swPush.messages.subscribe(msg => {
+        console.log('收到推送消息', msg);
+      });
   }
+
   public async ngOnInit() {
-    console.log('ngOninit');
-    //   if ('serviceWorker' in navigator) {
-    //     this.sw = await navigator.serviceWorker.getRegistration('/ngsw-worker.js');
-    //     if (this.sw == null) {
-    //       this.sw = await navigator.serviceWorker.register('/ngsw-worker.js');
+    console.log('ngOninit(): 获取订阅，可能之前订阅，也有可能是新的订阅，总之都返回订阅信息');
 
-    //     }
-    //     console.log('是否存在sw', this.sw);
-    //   // }
-    //   // if ('PushManager' in window) {
-    //   //   const subscription = await this.sw.pushManager.getSubscription();
-    //   //   console.log('用户订阅的数据：', JSON.stringify(subscription));
-    //   //   if (subscription == null) {
-    //   //     console.log('订阅开始');
-    //   //     await this.subscribeUser(this.sw);
-    //   //     console.log('订阅成功');
-    //   //   } else {
-    //   //     console.log('you have subscribed');
-    //   //   }
-    //   // }
-    // }
-    console.log('订阅开始');
-    const pushSubscription = await this.swPush.requestSubscription({
-      serverPublicKey: publicKey
-    });
-    console.log('订阅成功了3：', JSON.stringify(pushSubscription));
-    await axios.request({
-      url: 'https://bit.bylh.top/subscribe',
-      method: 'post',
-      params: {
-        publicKey: publicKey,
-        pushSubscription: JSON.stringify(pushSubscription)
-      },
-    });
-    console.log('消息处理', this.swPush);
-    this.swPush.messages.subscribe(msg => {
-      console.log('收到消息', msg);
-    });
-  }
-
-
-  public async subscribeUser(swRegistration) {
-    // const vapidKeys = webpush.generateVAPIDKeys();
-    // console.log(vapidKeys.publicKey, vapidKeys.privateKey);
-    const subscription = await swRegistration.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: urlb64touint8array(publicKey)
-    });
-    if (subscription == null) {
-      return;
+    try {
+      const pushSubscription = await this.subscribeUser();
+      console.log('订阅信息并保存到服务器（成功状态）：', JSON.stringify(pushSubscription));
+    } catch (err) {
+      console.log('ngOninit(): 订阅出错或保存到服务器出错', err);
     }
-    // this.updateSubscriptionOnServer(subscription);
   }
-  public updateSubscriptionOnServer(subscription) {
-    const url = 'https://node-web-push-app.azurewebsites.net/subscribe';
 
-    if (subscription) {
-      const subscriptionJson = JSON.stringify(subscription);
-      const fetchOptions = { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: subscriptionJson };
-      fetch(url, fetchOptions)
-        .then(data => console.log('Push subscription request succeeded with JSON response', data))
-        .catch(error => console.log('Push subscription request failed', error));
+
+  public async subscribeUser(): Promise<string> {
+    try {
+      const pushSubscription = await this.swPush.requestSubscription({
+        serverPublicKey: publicKey
+      });
+      console.log('subscribeUser(): 订阅成功');
+      // 订阅成功将信息保存到服务器
+      await axios.request({
+        url: `${Config.BaseUrl}/subscribe`,
+        method: 'post',
+        params: {
+          publicKey: publicKey,
+          pushSubscription: JSON.stringify(pushSubscription)
+        },
+      });
+      console.log('subscribeUser(): 订阅信息保存到服务器成功');
+      return JSON.stringify(pushSubscription);
+    } catch (err) {
+      throw err;
     }
   }
   public async push() {
-    console.log('测试推送');
+    console.log('push(): 测试推送');
     try {
       const res = await axios.request({
-        url: 'https://bit.bylh.top/send-all',
-        method: 'get',
-
-        // params: {
-        //   market_code: 'ocxeth'
-        // },
-
+        url: `${Config.BaseUrl}/send-all`,
+        method: 'get'
       });
-      console.log(res);
+      console.log('push(): 推送消息给全部人', res);
     } catch (err) {
       console.log(err);
     }
