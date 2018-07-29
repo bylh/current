@@ -8,8 +8,8 @@ import { ActivatedRoute, Router} from '@angular/router';
 })
 export class DiscoveryComponent implements OnInit {
 
-  protected ids: Array<number> = [1, 2, 3, 4, 5];
-  private selectedId: number;
+  public ids: Array<number> = [1, 2, 3, 4, 5];
+  public selectedId: number;
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
