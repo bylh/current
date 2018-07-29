@@ -1,0 +1,19 @@
+<div>发现{{selectedId}}</div>
+<!-- child方式 -->
+<!-- <ul>
+  <li *ngFor="let id of ids" [class.selected]="id === selectedId">
+    <a [routerLink]="[id]">
+      <span class="badge">{{ id }}</span>
+    </a>
+  </li>
+</ul>
+<router-outlet></router-outlet> -->
+<!-- 平行方式 -->
+<ul>
+    <li *ngFor="let id of ids" [class.selected]="id === selectedId">
+      <a [routerLink]="['/discovery', id]">
+        <span class="badge">{{ id }}</span>
+      </a>
+    </li>
+  </ul>
+

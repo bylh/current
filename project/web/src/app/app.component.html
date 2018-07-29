@@ -1,20 +1,27 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="../assets/link_everything_hove.png">
+<div class="bylh-app">
+  <h2 class="title" (click)="push()">
+    {{ title }}!
+  </h2>
+  <nav>
+    <table border="1" class="main-table">
+      <tr>
+        <th>
+          <a routerLink="/home">首页</a>
+        </th>
+        <th>
+          <a routerLink="/discovery">发现</a>
+        </th>
+        <th><a href="http://search.chongbuluo.com/">工具</a></th>
+      </tr>
+      <!-- <tr>
+          <td>January</td>
+          <td>$100</td>
+        </tr> -->
+    </table>
+  </nav>
+  <!-- <img width="300" alt="web Logo" src="../assets/link_everything_hove.png"> -->
+
+  <router-outlet></router-outlet>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-  <li><h2 (click)="push()">测试推送</h2></li>
-</ul>
+

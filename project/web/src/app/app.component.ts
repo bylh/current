@@ -11,10 +11,10 @@ const publicKey = 'BJ3kbCc44PMG9THjY4Nc-JqYKsUkd64e-n4oFGErmuAuFfunVUK1hqrqLOHEO
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements AfterViewInit, OnInit {
-  title = 'app';
+  title = '看世界';
   protected sw: ServiceWorkerRegistration = null;
   protected pushSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   constructor(protected swPush: SwPush) {
