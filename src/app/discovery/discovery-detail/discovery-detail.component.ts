@@ -8,7 +8,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class DiscoveryDetailComponent implements OnInit {
 
-  protected id: number;
+  public id: number;
   constructor(private route: ActivatedRoute, private router: Router) {
   }
 
