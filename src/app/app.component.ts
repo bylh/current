@@ -6,7 +6,7 @@ import axios from 'axios';
 import { BehaviorSubject } from 'rxjs';
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import Config from '../config';
-// import * as Pwa from '@angular/pwa';
+import { AppService } from './app.service';
 const publicKey = 'BJ3kbCc44PMG9THjY4Nc-JqYKsUkd64e-n4oFGErmuAuFfunVUK1hqrqLOHEO_L1KJQhAZgZSn4F8lUZCYhPRfk';
 @Component({
   selector: 'app-root',
@@ -14,10 +14,10 @@ const publicKey = 'BJ3kbCc44PMG9THjY4Nc-JqYKsUkd64e-n4oFGErmuAuFfunVUK1hqrqLOHEO
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements AfterViewInit, OnInit {
-  title = '看世界';
+  title = '我的空间';
   protected sw: ServiceWorkerRegistration = null;
   protected pushSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  constructor(protected swPush: SwPush) {
+  constructor(protected swPush: SwPush, protected appService: AppService) {
   }
 
   public async ngAfterViewInit() {
