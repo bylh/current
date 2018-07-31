@@ -1,5 +1,6 @@
 
 import { ServiceWorkerModule, SwPush } from '@angular/service-worker';
+import { AngularFireAuth } from 'angularfire2/auth';
 import urlb64touint8array from 'urlb64touint8array';
 import axios from 'axios';
 // import webpush from 'web-push';
@@ -17,7 +18,7 @@ export class AppComponent implements AfterViewInit, OnInit {
   title = '我的空间';
   protected sw: ServiceWorkerRegistration = null;
   protected pushSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  constructor(protected swPush: SwPush, protected appService: AppService) {
+  constructor(protected swPush: SwPush, protected appService: AppService, public afAuth: AngularFireAuth) {
   }
 
   public async ngAfterViewInit() {
@@ -25,6 +26,9 @@ export class AppComponent implements AfterViewInit, OnInit {
       this.swPush.messages.subscribe(msg => {
         console.log('收到推送消息', msg);
       });
+
+
+
   }
 
   public async ngOnInit() {
@@ -71,5 +75,16 @@ export class AppComponent implements AfterViewInit, OnInit {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  // 登录
+  public async login() {
+    let result = await this.afAuth.auth.signInWithEmailAndPassword('494397353@qq.com', '439882');
+  }
+  public async signUp() {
+    let result = await this.afAuth.auth.createUserWithEmailAndPassword('494397353@qq.com', '439882');
+  }
+  public async logout() {
+    let result = await this.afAuth.auth.signOut();
   }
 }
