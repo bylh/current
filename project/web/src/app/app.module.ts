@@ -2,6 +2,7 @@ import { DiscoveryModule } from './discovery/discovery.module';
 import { HomeModule } from './home/home.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 ;
 import { AppComponent } from './app.component';
 
@@ -27,6 +28,7 @@ import Config from '../config';
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     AppRoutingModule,
+    FormsModule,
     HomeModule,
     DiscoveryModule
   ],
