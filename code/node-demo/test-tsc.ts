@@ -23,7 +23,7 @@ var c = new Crawler({
 
 c.queue([{
     uri: 'https://tiku.21cnjy.com/tiku.php?mod=quest&channel=10&xd=2&type=1&page=1',
-    jQuery: false,
+    jQuery: jsdom,
 
     // The global callback won't be called
     callback: function (error: any, res: any, done: any) {
@@ -36,7 +36,6 @@ c.queue([{
             // console.log(dom);
             const document = dom.window.document;
             console.log(document.getElementsByClassName('questions_col')[0]);
-            
         }
         done();
     }
