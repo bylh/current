@@ -3,7 +3,6 @@ import { HomeModule } from './home/home.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 ;
 import { AppComponent } from './app.component';
@@ -14,8 +13,9 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import Config from '../config';
+import { AppMaterialModule } from './app-material.module';
 
 
 @NgModule({
@@ -25,8 +25,6 @@ import Config from '../config';
   imports: [
     BrowserModule,
     BrowserAnimationsModule, 
-    MatButtonModule, 
-    MatCheckboxModule,
     AngularFireModule.initializeApp(Config.Firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
@@ -34,6 +32,7 @@ import Config from '../config';
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     AppRoutingModule,
     FormsModule,
+    AppMaterialModule,
     HomeModule,
     DiscoveryModule
   ],
