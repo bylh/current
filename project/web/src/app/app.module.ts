@@ -3,7 +3,7 @@ import { HomeModule } from './home/home.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 ;
 import { AppComponent } from './app.component';
 
@@ -32,6 +32,7 @@ import { AppMaterialModule } from './app-material.module';
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     AppMaterialModule,
     HomeModule,
     DiscoveryModule
