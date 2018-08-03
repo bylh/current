@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-
+import {FormControl, Validators} from '@angular/forms';
 import { ServiceWorkerModule, SwPush } from '@angular/service-worker';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { auth } from 'firebase';
@@ -19,6 +19,8 @@ const publicKey = 'BJ3kbCc44PMG9THjY4Nc-JqYKsUkd64e-n4oFGErmuAuFfunVUK1hqrqLOHEO
 export class AppComponent implements AfterViewInit, OnInit {
   title = '我的空间';
 
+  protected  email = new FormControl('', [Validators.required, Validators.email]);
+  
   protected user: string; // 用户名 邮箱
   protected pwd: string; // 密码
   protected isLogined: boolean = true;
@@ -28,6 +30,12 @@ export class AppComponent implements AfterViewInit, OnInit {
     protected swPush: SwPush,
     protected appService: AppService,
     public afAuth: AngularFireAuth) {
+  }
+
+  getErrorMessage() {
+    return this.email.hasError('required') ? 'You must enter a value' :
+        this.email.hasError('email') ? 'Not a valid email' :
+            '';
   }
 
   public async ngAfterViewInit() {
