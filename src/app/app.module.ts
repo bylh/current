@@ -2,6 +2,8 @@ import { DiscoveryModule } from './discovery/discovery.module';
 import { HomeModule } from './home/home.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 ;
 import { AppComponent } from './app.component';
@@ -22,6 +24,9 @@ import Config from '../config';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule, 
+    MatButtonModule, 
+    MatCheckboxModule,
     AngularFireModule.initializeApp(Config.Firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
