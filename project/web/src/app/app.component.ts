@@ -1,5 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
-import { FormControl, Validators } from '@angular/forms';
+
 import { ServiceWorkerModule, SwPush } from '@angular/service-worker';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { auth } from 'firebase';
@@ -18,10 +17,6 @@ const publicKey = 'BJ3kbCc44PMG9THjY4Nc-JqYKsUkd64e-n4oFGErmuAuFfunVUK1hqrqLOHEO
 })
 export class AppComponent implements AfterViewInit, OnInit {
   title = '我的空间';
-
-  public email = new FormControl('494397353@qq.com', [Validators.required, Validators.email]);
-  public password = new FormControl('', [Validators.required, Validators.minLength(3)]);
-  public hide = true;
   public user: string; // 用户名 邮箱
   public pwd: string; // 密码
   public isLogined = true;
@@ -31,17 +26,6 @@ export class AppComponent implements AfterViewInit, OnInit {
     protected swPush: SwPush,
     protected appService: AppService,
     public afAuth: AngularFireAuth) {
-  }
-
-  getErrorMessage() {
-    return this.email.hasError('required') ? 'You must enter a value' :
-      this.email.hasError('email') ? 'Not a valid email' :
-        '';
-  }
-  getPwdErrorMessage() {
-    return this.password.hasError('required') ? 'You must enter a value' :
-      this.password.hasError('minlength') ? 'Not a valid password' :
-        '';
   }
 
   public async ngAfterViewInit() {
@@ -66,7 +50,9 @@ export class AppComponent implements AfterViewInit, OnInit {
     this.afAuth.authState.subscribe((user) => {
       console.log('用户状态： ', user);
       this.isLogined = (user != null);
-      console.log('用户邮箱地址是否验证', user.emailVerified);
+      if (this.isLogined) {
+        console.log('用户邮箱地址是否验证', user.emailVerified);
+      }
     });
     this.afAuth.user.subscribe(((user) => {
       console.log('user:', user);

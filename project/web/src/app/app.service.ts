@@ -11,7 +11,7 @@ export class AppService {
     // 30秒检查一次更新
     interval(1000 * 30).subscribe(() => {
       updates.checkForUpdate().then(() => console.log('检查更新'))
-        .catch(err => console.log('检查更新出现错误', err))
+        .catch(err => console.log('检查更新出现错误', err));
     });
 
     // 是否需要更新
