@@ -1,8 +1,6 @@
 
-import { ServiceWorkerModule, SwPush } from '@angular/service-worker';
+import { SwPush } from '@angular/service-worker';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { auth } from 'firebase';
-import urlb64touint8array from 'urlb64touint8array';
 import axios from 'axios';
 // import webpush from 'web-push';
 import { BehaviorSubject } from 'rxjs';
@@ -17,9 +15,6 @@ const publicKey = 'BJ3kbCc44PMG9THjY4Nc-JqYKsUkd64e-n4oFGErmuAuFfunVUK1hqrqLOHEO
 })
 export class AppComponent implements AfterViewInit, OnInit {
   title = '我的空间';
-  public user: string; // 用户名 邮箱
-  public pwd: string; // 密码
-  public isLogined = true;
   protected sw: ServiceWorkerRegistration = null;
   protected pushSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   constructor(
@@ -42,15 +37,14 @@ export class AppComponent implements AfterViewInit, OnInit {
     }
 
     // 监听推送消息
-    this.swPush.messages.subscribe(msg => {
-      console.log('收到推送消息', msg);
+    this.appService.getSwPushMsgOb().subscribe((msg) => {
+      console.log('收到消息', msg);
     });
 
     // 监听用户状态信息
     this.afAuth.authState.subscribe((user) => {
       console.log('用户状态： ', user);
-      this.isLogined = (user != null);
-      if (this.isLogined) {
+      if (user) {
         console.log('用户邮箱地址是否验证', user.emailVerified);
       }
     });
@@ -101,33 +95,48 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   // 登录
-  public async login() {
+  public async login(email: string, pwd: string) {
     // 此时currentUser可能不存在
-    if (this.isLogined) {
+    if (this.afAuth.auth.currentUser != null) {
       alert('用户已登录');
       return;
     }
 
-    await this.afAuth.auth.signInWithEmailAndPassword(this.user, this.pwd);
-    if (!this.afAuth.auth.currentUser.emailVerified) {
-      alert('请确认注册邮件后登录');
-      this.isLogined = false;
-      return;
+    try {
+      await this.afAuth.auth.signInWithEmailAndPassword(email, pwd);
+      if (!this.afAuth.auth.currentUser.emailVerified) {
+        alert('请确认注册邮件后登录');
+        return;
+      }
+      alert('登录成功');
+
+    } catch (err) {
+      console.log('登录失败', err);
     }
-    this.isLogined = true;
-    alert('登录成功');
   }
-  public async signUp() {
-    await this.afAuth.auth.createUserWithEmailAndPassword(this.user, this.pwd);
-    await this.afAuth.auth.currentUser.sendEmailVerification();
-    alert('注册邮件已发出，请注意查收邮箱确认链接');
+  public async signUp(email: string, pwd: string) {
+    try {
+      await this.afAuth.auth.createUserWithEmailAndPassword(email, pwd);
+      await this.afAuth.auth.currentUser.sendEmailVerification();
+      alert('注册邮件已发出，请注意查收邮箱确认链接');
+    } catch (err) {
+      console.log('注册失败', err);
+    }
   }
   public async logout() {
-    await this.afAuth.auth.signOut();
-    alert('账户已登出');
+    try {
+      await this.afAuth.auth.signOut();
+      alert('账户已登出');
+    } catch (err) {
+      console.log('账户登出出错', err);
+    }
   }
   public async resetPwd() {
-    await this.afAuth.auth.sendPasswordResetEmail(this.user);
-    alert('重置密码邮箱已发送，请注意查收');
+    try {
+      await this.afAuth.auth.sendPasswordResetEmail(this.afAuth.auth.currentUser.email);
+      alert('重置密码邮箱已发送，请注意查收');
+    } catch (err) {
+      console.log('重置密码出错', err);
+    }
   }
 }
