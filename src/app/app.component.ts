@@ -5,8 +5,8 @@ import axios from 'axios';
 // import webpush from 'web-push';
 import { BehaviorSubject } from 'rxjs';
 import { Component, AfterViewInit, OnInit } from '@angular/core';
-import Config from '../config';
 import { AppService } from './app.service';
+import { environment } from '../environments/environment';
 const publicKey = 'BJ3kbCc44PMG9THjY4Nc-JqYKsUkd64e-n4oFGErmuAuFfunVUK1hqrqLOHEO_L1KJQhAZgZSn4F8lUZCYhPRfk';
 @Component({
   selector: 'app-root',
@@ -68,7 +68,7 @@ export class AppComponent implements AfterViewInit, OnInit {
       console.log('subscribeUser(): 订阅成功');
       // 订阅成功将信息保存到服务器
       await axios.request({
-        url: `${Config.BaseUrl}/subscribe`,
+        url: `${environment.BaseUrl}/subscribe`,
         method: 'post',
         params: {
           publicKey: publicKey,
@@ -85,7 +85,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     console.log('push(): 测试推送');
     try {
       const res = await axios.request({
-        url: `${Config.BaseUrl}/send-all`,
+        url: `${environment.BaseUrl}/send-all`,
         method: 'get'
       });
       console.log('push(): 推送消息给全部人', res);
