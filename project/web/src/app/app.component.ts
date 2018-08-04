@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import {FormControl, Validators} from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { ServiceWorkerModule, SwPush } from '@angular/service-worker';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { auth } from 'firebase';
@@ -19,11 +19,12 @@ const publicKey = 'BJ3kbCc44PMG9THjY4Nc-JqYKsUkd64e-n4oFGErmuAuFfunVUK1hqrqLOHEO
 export class AppComponent implements AfterViewInit, OnInit {
   title = '我的空间';
 
-  protected  email = new FormControl('', [Validators.required, Validators.email]);
-  
-  protected user: string; // 用户名 邮箱
-  protected pwd: string; // 密码
-  protected isLogined: boolean = true;
+  public email = new FormControl('494397353@qq.com', [Validators.required, Validators.email]);
+  public password = new FormControl('', [Validators.required, Validators.minLength(3)]);
+  public hide = true;
+  public user: string; // 用户名 邮箱
+  public pwd: string; // 密码
+  public isLogined = true;
   protected sw: ServiceWorkerRegistration = null;
   protected pushSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   constructor(
@@ -34,8 +35,13 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   getErrorMessage() {
     return this.email.hasError('required') ? 'You must enter a value' :
-        this.email.hasError('email') ? 'Not a valid email' :
-            '';
+      this.email.hasError('email') ? 'Not a valid email' :
+        '';
+  }
+  getPwdErrorMessage() {
+    return this.password.hasError('required') ? 'You must enter a value' :
+      this.password.hasError('minlength') ? 'Not a valid password' :
+        '';
   }
 
   public async ngAfterViewInit() {
@@ -63,7 +69,7 @@ export class AppComponent implements AfterViewInit, OnInit {
       console.log('用户邮箱地址是否验证', user.emailVerified);
     });
     this.afAuth.user.subscribe(((user) => {
-      console.log('user:', user)
+      console.log('user:', user);
     }));
     this.afAuth.idToken.subscribe((idToken) => {
       console.log('idToken:', idToken);
@@ -111,13 +117,13 @@ export class AppComponent implements AfterViewInit, OnInit {
   // 登录
   public async login() {
     // 此时currentUser可能不存在
-    if(this.isLogined) {
+    if (this.isLogined) {
       alert('用户已登录');
       return;
     }
-   
-    let result = await this.afAuth.auth.signInWithEmailAndPassword(this.user, this.pwd);
-     if(!this.afAuth.auth.currentUser.emailVerified) {
+
+    await this.afAuth.auth.signInWithEmailAndPassword(this.user, this.pwd);
+    if (!this.afAuth.auth.currentUser.emailVerified) {
       alert('请确认注册邮件后登录');
       this.isLogined = false;
       return;
@@ -126,16 +132,16 @@ export class AppComponent implements AfterViewInit, OnInit {
     alert('登录成功');
   }
   public async signUp() {
-    let userCre = await this.afAuth.auth.createUserWithEmailAndPassword(this.user, this.pwd);
+    await this.afAuth.auth.createUserWithEmailAndPassword(this.user, this.pwd);
     await this.afAuth.auth.currentUser.sendEmailVerification();
     alert('注册邮件已发出，请注意查收邮箱确认链接');
   }
   public async logout() {
-    let result = await this.afAuth.auth.signOut();
+    await this.afAuth.auth.signOut();
     alert('账户已登出');
   }
   public async resetPwd() {
-    let result = await this.afAuth.auth.sendPasswordResetEmail(this.user);
+    await this.afAuth.auth.sendPasswordResetEmail(this.user);
     alert('重置密码邮箱已发送，请注意查收');
   }
 }
