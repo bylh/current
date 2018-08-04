@@ -1,10 +1,20 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="bylh-app">
-  <h2 class="title" (click)="push()">
-    {{ title }}
-  </h2>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row class="header">
+      <div class="header-title" (click)="push()"> {{ title }}</div>
+      <div class="header-icon">
+          <button mat-button (click)="login()">登录</button>
+          <button mat-button (click)="signUp()">注册</button>
+          <!-- <button mat-raised-button color="primary" (click)="logout()">登出</button>
+          <button mat-raised-button color="primary" (click)="resetPwd()">重置密码</button> -->
+          <button mat-button> <mat-icon class="example-icon">favorite</mat-icon></button>
+        <!-- <mat-icon class="example-icon">delete</mat-icon> -->
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
   <nav>
-    <mat-grid-list cols="3" rowHeight="2:1">
+    <mat-grid-list cols="3" rowHeight="3:1" gutterSize="10px">
       <mat-grid-tile [style.background]="'lightblue'">
         <a routerLink="/home">首页</a>
       </mat-grid-tile>
@@ -15,37 +25,21 @@
         <a href="http://search.chongbuluo.com/" target="_blank">工具</a>
       </mat-grid-tile>
     </mat-grid-list>
-
-    <table border="1" class="main-table">
-      <tr>
-        <th (click)="logout()">登出</th>
-        <th (click)="resetPwd()">重置密码</th>
-      </tr>
-      <tr *ngIf="!isLogined">
-        <td>
-          <input [(ngModel)]="user" placeholder="user" />
-        </td>
-        <td>
-          <input [(ngModel)]="pwd" placeholder="pwd" />
-        </td>
-        <th>
-          <button mat-raised-button color="primary" (click)="login()">登录</button>
-        </th>
-      </tr>
-      <tr>
-        <td>
-          <input [(ngModel)]="user" placeholder="user" />
-        </td>
-        <td>
-          <input [(ngModel)]="pwd" placeholder="pwd" />
-        </td>
-        <th (click)="signUp()">注册</th>
-      </tr>
-    </table>
-    <mat-form-field>
-        <input matInput placeholder="Enter your email" [formControl]="email" required>
-        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-    </mat-form-field>
+    <mat-grid-list cols="1" rowHeight="100px">
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Enter your email" [formControl]="email" required>
+          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field>
+          <input matInput placeholder="Enter your password" [formControl]="password" [type]="hide ? 'password' : 'text'" required>
+          <mat-error *ngIf="password.invalid">{{getPwdErrorMessage()}}</mat-error>
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
   </nav>
 
   <router-outlet></router-outlet>
