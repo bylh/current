@@ -24,3 +24,5 @@ project/ocx/temp.ts
 project/ocx/config.ts
 project/web/src/config.ts
 .vscode/temp.sql
+project/web/src/environments/environment.ts
+project/web/src/environments/environment.prod.ts
