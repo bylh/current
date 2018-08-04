@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
 import { interval } from 'rxjs';
-import { SwUpdate } from '@angular/service-worker';
+import { SwUpdate, SwPush } from '@angular/service-worker';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
 
-  constructor(updates: SwUpdate) {
+  constructor(updates: SwUpdate, protected swPush: SwPush) {
+    // 监听推送消息
+    swPush.messages.subscribe(msg => {
+      console.log('收到推送消息', msg);
+    });
+
     // 30秒检查一次更新
     interval(1000 * 30).subscribe(() => {
       updates.checkForUpdate().then(() => console.log('检查更新'))
@@ -25,5 +30,8 @@ export class AppService {
       console.log('old version was', event.previous);
       console.log('new version is', event.current);
     });
+  }
+  getSwPushMsgOb() {
+    return this.swPush.messages;
   }
 }
