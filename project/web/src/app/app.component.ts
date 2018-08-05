@@ -1,5 +1,4 @@
 
-import { SwPush } from '@angular/service-worker';
 import { AngularFireAuth } from 'angularfire2/auth';
 import axios from 'axios';
 // import webpush from 'web-push';
@@ -7,7 +6,6 @@ import { BehaviorSubject } from 'rxjs';
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { AppService } from './app.service';
 import { environment } from '../environments/environment';
-const publicKey = 'BJ3kbCc44PMG9THjY4Nc-JqYKsUkd64e-n4oFGErmuAuFfunVUK1hqrqLOHEO_L1KJQhAZgZSn4F8lUZCYhPRfk';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,10 +13,8 @@ const publicKey = 'BJ3kbCc44PMG9THjY4Nc-JqYKsUkd64e-n4oFGErmuAuFfunVUK1hqrqLOHEO
 })
 export class AppComponent implements AfterViewInit, OnInit {
   title = '我的空间';
-  protected sw: ServiceWorkerRegistration = null;
   protected pushSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   constructor(
-    protected swPush: SwPush,
     protected appService: AppService,
     public afAuth: AngularFireAuth) {
   }
@@ -30,7 +26,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     console.log('ngOninit(): 获取订阅，可能之前订阅，也有可能是新的订阅，总之都返回订阅信息');
 
     try {
-      const pushSubscription = await this.subscribeUser();
+      const pushSubscription = await this.appService.subscribeUser();
       console.log('订阅信息并保存到服务器（成功状态）：', JSON.stringify(pushSubscription));
     } catch (err) {
       console.log('ngOninit(): 订阅出错或保存到服务器出错', err);
@@ -40,7 +36,6 @@ export class AppComponent implements AfterViewInit, OnInit {
     this.appService.getSwPushMsgOb().subscribe((msg) => {
       console.log('收到消息', msg);
     });
-
     // 监听用户状态信息
     this.afAuth.authState.subscribe((user) => {
       console.log('用户状态： ', user);
@@ -59,28 +54,6 @@ export class AppComponent implements AfterViewInit, OnInit {
     });
   }
 
-
-  public async subscribeUser(): Promise<string> {
-    try {
-      const pushSubscription = await this.swPush.requestSubscription({
-        serverPublicKey: publicKey
-      });
-      console.log('subscribeUser(): 订阅成功');
-      // 订阅成功将信息保存到服务器
-      await axios.request({
-        url: `${environment.BaseUrl}/subscribe`,
-        method: 'post',
-        params: {
-          publicKey: publicKey,
-          pushSubscription: JSON.stringify(pushSubscription)
-        },
-      });
-      console.log('subscribeUser(): 订阅信息保存到服务器成功');
-      return JSON.stringify(pushSubscription);
-    } catch (err) {
-      throw err;
-    }
-  }
   public async push() {
     console.log('push(): 测试推送');
     try {
