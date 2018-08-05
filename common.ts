@@ -120,9 +120,14 @@ export async function postSignal(key: string, sec: string, type: UrlType, params
 }
 
 export async function getTickers(req: express.Request, res: express.Response) {
-    let response = await axios.request({
-        url: `https://openapi.ocx.com/api/v2/tickers`,
-        method: 'get',
-    });
-    res.status(200).json(response.data);
+    try {
+        let response = await axios.request({
+            url: `https://openapi.ocx.com/api/v2/tickers`,
+            method: 'get',
+        });
+        console.log('getTickers(): 成功');
+        res.status(200).json(response.data);
+    } catch(err) {
+        console.log('getTickers(): 失败', err);
+    }
 }

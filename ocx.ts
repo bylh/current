@@ -24,8 +24,9 @@ import DBHelper from './db-helper';
     }
     try {
         await DBHelper.init();
+        console.log('main(): 连接数据库成功');
     } catch(err) {
-        console.log('连接数据库失败', err);
+        console.log('main(): 连接数据库失败', err);
     }
  
     // 构建server
