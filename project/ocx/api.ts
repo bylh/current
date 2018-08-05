@@ -22,6 +22,23 @@ const payload = {
     }
 };
 
+const payloadTest = {
+    notification: {
+        title: "测试",
+        body: "测试推送是否正常!",
+        icon: "assets/link_everything_hove.png",
+        vibrate: [100, 50, 100],
+        data: {
+            dateOfArrival: Date.now(),
+            primaryKey: 1
+        },
+        actions: [{
+            action: "explore",
+            title: "Go to the site"
+        }]
+    }
+};
+
 export async function subscribe(req: express.Request, res: express.Response) {
     let query = req.query;
     console.log('收到', query.pushSubscription);
@@ -49,9 +66,9 @@ export async function sendNotificationToUsers(req: express.Request, res: express
     let subs = await DBHelper.getAll();
     console.log('所有订阅', subs);
     for(let sub of subs) {
-        sendNotification(sub.pushSubscription, payload)
+        sendNotification(sub.pushSubscription, payloadTest)
     }
-    res.status(200).json(payload);
+    res.status(200).json(payloadTest);
 }
 export async function autoTrade(req: express.Request, res: express.Response) {
     console.log(req.body, req.query, req.params,req);
