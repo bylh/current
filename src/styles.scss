@@ -1,7 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 // @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-@import '~purecss/build/grids.css';
+@import '~purecss/build/grids-min.css';
+@import '~purecss/build/grids-responsive-min.css';
+
 html, body {
     height: 100%;
     margin: 0;
