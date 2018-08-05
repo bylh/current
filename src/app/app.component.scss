@@ -1,22 +1,29 @@
 .bylh-app {
   height: 100%; // 设置页面高度为100%
-  .header {
-    .title {
-      flex: 1 1 auto;
+  // toolboor部分
+  .app-toolbar {
+    .header {
+      .title {
+        flex: 1 1 auto;
+      }
+      .user {
+        flex: 0 1 auto;
+      }
+      .email {
+        font-size: 1rem;
+      }
     }
-    .user {
-      flex: 0 1 auto;
-    }
-    .email {
-      font-size: 1rem;
+    .user-action {
+      flex-wrap: wrap; // flex布局换行
+      height: auto;
+      button {
+        padding: 0;
+        min-width: 60px;
+      }
     }
   }
-  .user-action {
-    flex-wrap: wrap; // flex布局换行
-    height: auto;
-    button {
-      padding: 0;
-      min-width: 60px;
-    }
+
+  // nav部分
+  .app-nav {
   }
 }

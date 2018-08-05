@@ -1,5 +1,5 @@
 <div class="bylh-app">
-  <mat-toolbar color="primary">
+  <mat-toolbar class="app-toolbar" color="primary">
     <!-- ================模块一 头部=====================-->
     <mat-toolbar-row class="header">
       <!-- 标题 -->
@@ -34,7 +34,7 @@
   </mat-toolbar>
 
   <!-- ================模块三 路由页面部分=====================-->
-  <nav>
+  <nav class="app-nav">
     <mat-grid-list cols="3" rowHeight="50px" gutterSize="2px">
       <mat-grid-tile [style.background]="'lightblue'">
         <a routerLink="/home" routerLinkActive="active">首页</a>
