@@ -33,22 +33,24 @@
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <!-- ================模块三 路由页面部分=====================-->
+  <div class="content">
+      <!-- ================模块三 路由页面部分=====================-->
   <nav class="app-nav">
-    <mat-grid-list cols="3" rowHeight="40px" gutterSize="2px">
-      <mat-grid-tile [style.background]="'lightblue'">
-        <a mat-button color="primary" routerLink="/home" routerLinkActive="active">首页</a>
-      </mat-grid-tile>
-      <mat-grid-tile [style.background]="'lightgreen'">
-        <a mat-button color="primary" routerLink="/discovery" routerLinkActive="active">发现</a>
-      </mat-grid-tile>
-      <mat-grid-tile [style.background]="'lightpink'">
-        <a mat-button color="primary" href="http://search.chongbuluo.com/" target="_blank" routerLinkActive="active">工具</a>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </nav>
-  <div class="app-page">
-    <!-- 路由页面占位符 -->
-    <router-outlet></router-outlet>
+      <mat-grid-list cols="3" rowHeight="40px" gutterSize="2px">
+        <mat-grid-tile [style.background]="'lightblue'">
+          <a mat-button color="primary" routerLink="/home" routerLinkActive="active">首页</a>
+        </mat-grid-tile>
+        <mat-grid-tile [style.background]="'lightgreen'">
+          <a mat-button color="primary" routerLink="/discovery" routerLinkActive="active">发现</a>
+        </mat-grid-tile>
+        <mat-grid-tile [style.background]="'lightpink'">
+          <a mat-button color="primary" href="http://search.chongbuluo.com/" target="_blank" routerLinkActive="active">工具</a>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </nav>
+    <div class="app-page">
+      <!-- 路由页面占位符 -->
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

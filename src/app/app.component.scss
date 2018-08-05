@@ -25,17 +25,22 @@
       }
     }
   }
-
-  // nav部分
-  .app-nav {
-    flex: 0 0 auto; // 自身高度，不压缩
-    .active {
-      color: hotpink;
+  .content {
+    flex: 1 1 auto; // 扩展高度，可压缩
+    display: flex; // nav部分
+    flex-direction: column;
+    @media screen and (max-width: 500px) {
+      flex-direction: column-reverse !important;
     }
-  }
-
-  .app-page {
-    flex: 1 1 auto; // 剩余空间高度，可压缩
-    overflow-y: auto; // 超出部分设置滚动条
+    .app-nav {
+      flex: 0 0 auto; // 自身高度，不压缩
+      .active {
+        color: hotpink;
+      }
+    }
+    .app-page {
+      flex: 1 1 auto; // 剩余空间高度，可压缩
+      overflow-y: auto; // 超出部分设置滚动条
+    }
   }
 }
