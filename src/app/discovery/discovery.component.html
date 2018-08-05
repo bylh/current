@@ -11,7 +11,7 @@
 <!-- 平行方式 -->
 <ul>
     <li *ngFor="let id of ids" [class.selected]="id === selectedId">
-      <a [routerLink]="['/discovery', id]">
+      <a [routerLink]="['/discovery', id]" routerLinkActive="active">
         <span class="badge">{{ id }}</span>
       </a>
     </li>

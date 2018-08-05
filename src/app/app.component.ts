@@ -93,6 +93,18 @@ export class AppComponent implements AfterViewInit, OnInit {
       console.log(err);
     }
   }
+  public async test() {
+    console.log('test(): 测试推送', environment);
+    try {
+      const res = await axios.request({
+        url: `${environment.BaseUrl}/get-tickers`,
+        method: 'get'
+      });
+      console.log('test(): 获取行情', res);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   // 登录
   public async login(email: string, pwd: string) {
