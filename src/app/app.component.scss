@@ -39,9 +39,6 @@
     }
     .app-nav {
       flex: 0 0 auto; // 自身高度，不压缩
-      .active {
-        color: hotpink;
-      }
     }
     .app-page {
       flex: 1 1 auto; // 剩余空间高度，可压缩
