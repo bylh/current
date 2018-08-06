@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { AppService } from './app.service';
 import { environment } from '../environments/environment';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,7 +17,9 @@ export class AppComponent implements AfterViewInit, OnInit {
   protected pushSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   constructor(
     protected appService: AppService,
-    public afAuth: AngularFireAuth) {
+    public afAuth: AngularFireAuth,
+    public snackBar: MatSnackBar
+  ) {
   }
 
   public async ngAfterViewInit() {
@@ -93,7 +96,7 @@ export class AppComponent implements AfterViewInit, OnInit {
         alert('请确认注册邮件后登录');
         return;
       }
-      alert('登录成功');
+      this.snackBar.open('登录成功', '关闭');
 
     } catch (err) {
       console.log('登录失败', err);
@@ -111,7 +114,7 @@ export class AppComponent implements AfterViewInit, OnInit {
   public async logout() {
     try {
       await this.afAuth.auth.signOut();
-      alert('账户已登出');
+      this.snackBar.open('账户已登出', '关闭');
     } catch (err) {
       console.log('账户登出出错', err);
     }

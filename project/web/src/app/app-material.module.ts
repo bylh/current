@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatInputModule, MatButtonModule, MatGridListModule, MatFormFieldModule, MatIconModule,
-  MatToolbarModule, MatExpansionModule, MatMenuModule, MatCardModule, MatTabsModule, MatDividerModule } from '@angular/material';
+  MatToolbarModule, MatExpansionModule, MatMenuModule, MatCardModule, MatTabsModule, MatDividerModule, MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,7 +20,11 @@ import { MatInputModule, MatButtonModule, MatGridListModule, MatFormFieldModule,
     MatMenuModule,
     MatCardModule,
     MatTabsModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSnackBarModule
+  ],
+  providers: [
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}
   ]
 })
 export class AppMaterialModule { }
