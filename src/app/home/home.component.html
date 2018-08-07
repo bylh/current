@@ -1,34 +1,55 @@
 <div class="bylh-home">
-    <table>
-        <tr>
-            <th><a href="https://keep.google.com/">google keep</a></th>
-            <th><a href="https://www.google.com/" target="_blank">google</a></th>
-            <th><a href="https://www.baidu.com/" target="_blank">baidu</a></th>
-        </tr>
-    </table>
+  <table>
+    <tr>
+      <th>
+        <a href="https://keep.google.com/">google keep</a>
+      </th>
+      <th>
+        <a href="https://www.google.com/" target="_blank">google</a>
+      </th>
+      <th>
+        <a href="https://www.baidu.com/" target="_blank">baidu</a>
+      </th>
+    </tr>
+  </table>
 
-   <div class="pure-g card">
-     <div class="pure-u-1-1 pure-u-md-3-4 pure-u-lg-1-2">
-       <button (click)="getPairs()">获取交易对</button>
-        <mat-card>
-            <mat-card-header>
-              <div mat-card-avatar class="example-header-image"></div>
-              <mat-card-title>Shiba Inu</mat-card-title>
-              <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-            </mat-card-header>
-            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-            <mat-card-content>
-              <p>
-                The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-                bred for hunting.
-              </p>
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-button>LIKE</button>
-              <button mat-button>SHARE</button>
-            </mat-card-actions>
-          </mat-card>
-     </div>
-   </div>
+  <div class="pure-g card">
+    <div class="pure-u-1-1 pure-u-md-3-4 pure-u-lg-2-3">
+      <button mat-stroked-button (click)="getMarkerList()">获取交易对</button>
+      <mat-table *ngIf="coins != null" [dataSource]="coins" class="mat-elevation-z8">
+        <!-- symbol Column -->
+        <ng-container matColumnDef="symbol">
+          <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+        </ng-container>
+
+        <!-- pair Column -->
+        <ng-container matColumnDef="pair">
+          <mat-header-cell *matHeaderCellDef> Pair </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.pair}} </mat-cell>
+        </ng-container>
+
+        <!-- rate Column -->
+        <ng-container matColumnDef="rate">
+          <mat-header-cell *matHeaderCellDef> rate </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.rate}} </mat-cell>
+        </ng-container>
+
+        <!-- trend Column
+        <ng-container matColumnDef="trend">
+          <mat-header-cell *matHeaderCellDef> Trend </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.trend}} </mat-cell>
+        </ng-container> -->
+
+        <!-- rate_percent Column-->
+        <ng-container matColumnDef="rate_percent">
+          <mat-header-cell *matHeaderCellDef> percent </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.rate_percent}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </div>
 </div>
