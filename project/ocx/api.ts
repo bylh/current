@@ -9,7 +9,7 @@ const payload = {
     notification: {
         title: "订阅成功",
         body: "之后您将在第一时间收到推送通知!",
-        icon: "assets/link_everything_hove.png",
+        icon: "assets/icon.png",
         vibrate: [100, 50, 100],
         data: {
             dateOfArrival: Date.now(),
@@ -26,7 +26,7 @@ const payloadTest = {
     notification: {
         title: "测试",
         body: "测试推送是否正常!",
-        icon: "assets/link_everything_hove.png",
+        icon: "assets/icon.png",
         vibrate: [100, 50, 100],
         data: {
             dateOfArrival: Date.now(),
