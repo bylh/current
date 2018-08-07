@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
   MatInputModule, MatButtonModule, MatGridListModule, MatFormFieldModule, MatIconModule,
   MatToolbarModule, MatExpansionModule, MatMenuModule, MatCardModule, MatTabsModule, MatDividerModule,
-   MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS
+   MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatTableModule
 } from '@angular/material';
 @NgModule({
   imports: [
@@ -24,7 +24,8 @@ import {
     MatCardModule,
     MatTabsModule,
     MatDividerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule
   ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 , verticalPosition: 'top'} }
