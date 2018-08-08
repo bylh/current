@@ -16,7 +16,7 @@ import Web3 from 'web3';
     //     // set the provider you want from Web3.providers
     //     web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
     //   }
-    let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+    let  web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
     // let temp = web3.eth.accounts.create();
         // let my = await web3.eth.accounts.wallet.lo()
@@ -38,11 +38,18 @@ import Web3 from 'web3';
     // }
     // web3.eth.getBalance('')
 
+    // let accounts = await web3.eth.getAccounts();
+    // console.log(accounts);
+    let account = web3.eth.accounts.privateKeyToAccount(
+        ""
+        );
+    
+    console.log(account); 
     // 启动监听
-    app.listen(4000);
+    app.listen(4001);
     if (process.send != null) process.send('ready');
 
-    console.log('监听4000端口');
+    console.log('监听4001端口');
     process.on('SIGINT', async () => {  // 保存log后退出
         process.exit(); // 程序结束
     });
