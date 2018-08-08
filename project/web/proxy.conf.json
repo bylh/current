@@ -1,0 +1,18 @@
+{
+  "/data": {
+    "target": "https://data.gateio.io/",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+        "^/data": ""
+      }
+  },
+  "/api": {
+    "target": "https://api.gateio.io/",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+        "^/api": ""
+      }
+  }
+}

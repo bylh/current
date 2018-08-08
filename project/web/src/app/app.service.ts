@@ -42,7 +42,7 @@ export class AppService {
       console.log('subscribeUser(): 订阅成功');
       // 订阅成功将信息保存到服务器
       await axios.request({
-        url: `${environment.BaseUrl}/subscribe`,
+        url: `${environment.BaseClientUrl}/subscribe`,
         method: 'post',
         params: {
           publicKey: publicKey,
