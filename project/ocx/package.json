@@ -16,6 +16,7 @@
     "@types/express": "^4.16.0",
     "@types/jssha": "0.0.29",
     "@types/mongoose": "^5.2.2",
+    "@types/query-string": "^6.1.0",
     "axios": "^0.18.0",
     "circular-json": "^0.5.4",
     "commander": "^2.15.1",
@@ -23,6 +24,7 @@
     "express": "^4.16.3",
     "jssha": "^2.3.1",
     "mongoose": "^5.2.5",
+    "query-string": "^6.1.0",
     "web-push": "^3.3.2"
   },
   "devDependencies": {

@@ -4,7 +4,7 @@ import http from 'http';
 import express from 'express';
 import cors from 'cors';
 import program from 'commander';
-import { autoTrade, subscribe, sendNotification, sendNotificationToUsers, getGateMarketList} from './api';
+import { autoTrade, subscribe, sendNotification, sendNotificationToUsers, getGateMarketList, startGateAutoTrade} from './api';
 import DBHelper from './db-helper';
 
 (async function main(): Promise<void> {
@@ -39,6 +39,7 @@ import DBHelper from './db-helper';
     app.use('/send-all', sendNotificationToUsers);
 
     app.use('/get-gate-marketlist', getGateMarketList);
+    app.use('/get-gate-balances', startGateAutoTrade);
     // 启动监听
     app.listen(4000);
     if (process.send != null) process.send('ready');

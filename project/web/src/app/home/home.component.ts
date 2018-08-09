@@ -13,6 +13,8 @@ export interface Coin {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  gateKey: string;
+  gateSecret: string;
   displayedColumns: string[] = ['symbol', 'pair', 'rate', 'rate_percent'];
   coins: Array<Coin> = null;
   constructor() { }
@@ -34,6 +36,18 @@ export class HomeComponent implements OnInit {
           rate_percent: coin.rate_percent
         };
       });
+    } catch (err) {
+      console.log('err:', err);
+    }
+  }
+
+  async getGateBalances() {
+    try {
+      const res = await axios.request({
+        url: `${environment.BaseServerUrl}/get-gate-balances`,
+        method: 'post',
+      });
+      console.log('res:', res);
     } catch (err) {
       console.log('err:', err);
     }
