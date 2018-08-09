@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +10,8 @@ import { AppMaterialModule } from '../app-material.module';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    AppMaterialModule
+    AppMaterialModule,
+    FormsModule
   ],
   declarations: [HomeComponent]
 })
