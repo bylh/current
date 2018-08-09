@@ -1,4 +1,5 @@
-
+import JsSHA from 'jssha';
+import querygetsitring from 'query-string';
 const webpush = require('web-push');
 import axios from 'axios';
 import express from 'express';
@@ -120,12 +121,21 @@ export async function getGateMarketList(req: express.Request, res: express.Respo
 export async function startGateAutoTrade(req: express.Request, res: express.Response) {
     console.log('startGateAutoTrade(): start');
     try {
+        let shaObj = new JsSHA('SHA-512', 'TEXT');
+        shaObj.setHMACKey('', 'TEXT');
+        let str = '';
+        shaObj.update(str);
+        let signature = shaObj.getHMAC('HEX'); // 对str使用sha1签名，得到signature
+        let header: any = {};
+        header.KEY = '',
+        header.SIGN = signature;
         let result = await axios.request({
-            url: 'https://data.gateio.io/api2/1/marketlist',
-            method: 'get'
+            url: 'https://api.gateio.io/api2/1/private/balances',
+            method: 'post',
+            headers: header,
         });
-        res.status(200).json(result.data.data);
-        console.log('startGateAutoTrade(): finish');
+        res.status(200).json(result.data);
+        console.log('startGateAutoTrade(): finish', result);
     } catch (err) {
         console.log('startGateAutoTrade(): get err', err);
         res.sendStatus(500);
