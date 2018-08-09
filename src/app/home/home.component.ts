@@ -22,11 +22,11 @@ export class HomeComponent implements OnInit {
   async getMarkerList() {
     try {
       const res = await axios.request({
-        url: `${environment.BaseClientUrl}/data/api2/1/marketlist`,
+        url: `${environment.BaseServerUrl}/get-gate-marketlist`,
         method: 'get',
       });
-      console.log('res:', res.data);
-      this.coins = res.data.data.map(coin => {
+      console.log('res:', res);
+      this.coins = res.data.map(coin => {
         return {
           symbol: coin.symbol,
           pair: coin.pair,
