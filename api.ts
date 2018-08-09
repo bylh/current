@@ -1,5 +1,5 @@
 import JsSHA from 'jssha';
-import querygetsitring from 'query-string';
+import qs from 'qs';
 const webpush = require('web-push');
 import axios from 'axios';
 import express from 'express';
@@ -118,6 +118,61 @@ export async function getGateMarketList(req: express.Request, res: express.Respo
         res.sendStatus(500);
     }
 }
+
+export function getSign(base: string, content: string,  type: 'SHA-1' | 'SHA-224' |  'SHA-256' | 'SHA-384' | 'SHA-512') {
+    let shaObj = new JsSHA(type, 'TEXT');
+    console.log('base', base);
+    shaObj.setHMACKey(base, 'TEXT');
+    shaObj.update(content);
+    let signature = shaObj.getHMAC('HEX');
+    return signature;
+}
+
+export async function getGateBalances(req: express.Request, res: express.Response) {
+    console.log('getGateBalances(): start', req.query);
+
+    try {
+        let signature = getSign(req.query.gateSecret, '', 'SHA-512');
+        console.log('sign:', signature);
+        let header: any = {};
+        header.KEY = req.query.gateKey,
+        header.SIGN = signature;
+        let result = await axios.request({
+            url: 'https://api.gateio.io/api2/1/private/balances',
+            method: 'post',
+            headers: header,
+        });
+        res.status(200).json(result.data);
+        console.log('getGateBalances(): finish', result);
+    } catch (err) {
+        console.log('getGateBalances(): get err', err);
+        res.sendStatus(500);
+    }
+}
+
+export async function getGateCoinAdress(req: express.Request, res: express.Response) {
+    console.log('getGateCoinAdress(): start', req.query);
+    let form = {currency: req.query.currency};
+    try {
+        let signature = getSign(req.query.gateSecret, qs.stringify(form), 'SHA-512');
+        console.log('sign:', signature);
+        let header: any = {};
+        header.KEY = req.query.gateKey,
+        header.SIGN = signature;
+        let result = await axios.request({
+            url: 'https://api.gateio.io/api2/1/private/depositAddress',
+            method: 'post',
+            headers: header,
+            data: qs.stringify(form)
+        });
+        res.status(200).json(result.data);
+        console.log('getGateCoinAdress(): finish', result);
+    } catch (err) {
+        console.log('getGateCoinAdress(): get err', err);
+        res.sendStatus(500);
+    }
+}
+
 export async function startGateAutoTrade(req: express.Request, res: express.Response) {
     console.log('startGateAutoTrade(): start');
     try {

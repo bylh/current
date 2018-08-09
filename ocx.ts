@@ -1,10 +1,11 @@
 // import webpush from 'web-push';
+import bodyParser from 'body-parser';
 import { UrlType, getUrl, getSignal, getTickers } from './common';
 import http from 'http';
 import express from 'express';
 import cors from 'cors';
 import program from 'commander';
-import { autoTrade, subscribe, sendNotification, sendNotificationToUsers, getGateMarketList, startGateAutoTrade} from './api';
+import { autoTrade, subscribe, sendNotification, sendNotificationToUsers, getGateMarketList, startGateAutoTrade, getGateBalances, getGateCoinAdress} from './api';
 import DBHelper from './db-helper';
 
 (async function main(): Promise<void> {
@@ -32,6 +33,8 @@ import DBHelper from './db-helper';
     // 构建server
     let app = express();
     let server = http.createServer(app);
+    app.enable('trust proxy'); // 支持反向代理
+    app.use(bodyParser.json({limit: 1 * 1024 * 1024})); // 最大1M的JSON请求
     app.use(cors()); // 解决跨域访问的问题
     app.use('/get-tickers', getTickers);
     // app.use('/auto-trade', autoTrade);
@@ -39,7 +42,9 @@ import DBHelper from './db-helper';
     app.use('/send-all', sendNotificationToUsers);
 
     app.use('/get-gate-marketlist', getGateMarketList);
-    app.use('/get-gate-balances', startGateAutoTrade);
+    app.use('/get-gate-balances', getGateBalances);
+    app.use('/get-gate-coinAdress', getGateCoinAdress);
+    app.use('/start-gate-autotrade', startGateAutoTrade);
     // 启动监听
     app.listen(4000);
     if (process.send != null) process.send('ready');
