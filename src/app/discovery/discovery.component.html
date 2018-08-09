@@ -1,7 +1,22 @@
 <div class="bylh-discovery">
-    <!-- <div>发现{{selectedId}}</div> -->
-    <!-- child方式 可以显示在任意位置 -->
-    <!-- <ul>
+
+  <table>
+    <tr>
+      <th>
+        <a href="https://keep.google.com/">google keep</a>
+      </th>
+      <th>
+        <a href="https://www.google.com/" target="_blank">google</a>
+      </th>
+      <th>
+        <a href="https://www.baidu.com/" target="_blank">baidu</a>
+      </th>
+    </tr>
+  </table>
+
+  <!-- <div>发现{{selectedId}}</div> -->
+  <!-- child方式 可以显示在任意位置 -->
+  <!-- <ul>
       <li *ngFor="let id of ids" [class.selected]="id === selectedId">
         <a [routerLink]="[id]">
           <span class="badge">{{ id }}</span>
@@ -9,16 +24,15 @@
       </li>
     </ul>
     <router-outlet></router-outlet> -->
-    
-    
-    <!-- 平行方式 即覆盖当前页-->
-    <div class="pure-g items-container">
-      <div *ngFor="let item of items" [class.selected]="item?.id === selectedId"
-      class="pure-u-1-1 pure-u-md-1-2 pure-u-lg-1-3">
-        <a [routerLink]="['/discovery', item.id]" routerLinkActive="active">
-          <div>{{ item.id }}</div>
-          <img [src]="item.src" />
-        </a>
-      </div>
-    </div>  
+
+
+  <!-- 平行方式 即覆盖当前页-->
+  <div class="pure-g items-container">
+    <div *ngFor="let item of items" [class.selected]="item?.id === selectedId" class="pure-u-1-1 pure-u-md-1-2 pure-u-lg-1-3">
+      <a [routerLink]="['/discovery', item.id]" routerLinkActive="active">
+        <div>{{ item.id }}</div>
+        <img [src]="item.src" />
+      </a>
+    </div>
+  </div>
 </div>
