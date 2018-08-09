@@ -131,3 +131,19 @@ export async function getTickers(req: express.Request, res: express.Response) {
         console.log('getTickers(): 失败', err);
     }
 }
+
+export function getGateUrl(key: string, sec: string, type: string): string {
+    if (key == null || key.trim().length === 0 || sec == null || sec.trim().length === 0) {
+        console.log('请输入key secret');
+        return null;
+    }
+    let shaObj = new JsSHA('SHA-256', 'TEXT');
+    shaObj.setHMACKey(sec, 'TEXT');
+    let tonce = Math.round(new Date().getTime());
+    let str = `GET|/api/v2/${type}|access_key=${key}&tonce=${tonce}`;
+    shaObj.update(str);
+    let signature = shaObj.getHMAC('HEX'); // 对str使用sha1签名，得到signature
+    let url = `https://openapi.ocx.com/api/v2/${type}?access_key=${key}&tonce=${tonce}&signature=${signature}`;
+
+    return url;
+}

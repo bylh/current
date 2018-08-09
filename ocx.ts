@@ -4,7 +4,7 @@ import http from 'http';
 import express from 'express';
 import cors from 'cors';
 import program from 'commander';
-import { autoTrade, subscribe, sendNotification, sendNotificationToUsers} from './api';
+import { autoTrade, subscribe, sendNotification, sendNotificationToUsers, getGateMarketList} from './api';
 import DBHelper from './db-helper';
 
 (async function main(): Promise<void> {
@@ -37,6 +37,8 @@ import DBHelper from './db-helper';
     // app.use('/auto-trade', autoTrade);
     app.use('/subscribe', subscribe);
     app.use('/send-all', sendNotificationToUsers);
+
+    app.use('/get-gate-marketlist', getGateMarketList);
     // 启动监听
     app.listen(4000);
     if (process.send != null) process.send('ready');
@@ -45,4 +47,4 @@ import DBHelper from './db-helper';
     process.on('SIGINT', async () => {  // 保存log后退出
         process.exit(); // 程序结束
     });
-})();
+})();  

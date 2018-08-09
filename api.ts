@@ -1,5 +1,6 @@
 
 const webpush = require('web-push');
+import axios from 'axios';
 import express from 'express';
 import { getSignal, postSignal } from './common';
 import DBHelper, { WebPushInfo } from './db-helper';
@@ -42,8 +43,8 @@ const payloadTest = {
 export async function subscribe(req: express.Request, res: express.Response) {
     let query = req.query;
     console.log('收到', query.pushSubscription);
-    let document = await DBHelper.getOne({pushSubscription: query.pushSubscription});
-    if(document != null) {
+    let document = await DBHelper.getOne({ pushSubscription: query.pushSubscription });
+    if (document != null) {
         console.log('用户已经订阅过了');
         res.status(200).json(req.query);
         return;
@@ -65,18 +66,18 @@ export function sendNotification(pushSubscription: string, payload: any) {
 export async function sendNotificationToUsers(req: express.Request, res: express.Response) {
     let subs = await DBHelper.getAll();
     console.log('所有订阅', subs);
-    for(let sub of subs) {
+    for (let sub of subs) {
         sendNotification(sub.pushSubscription, payloadTest)
     }
     res.status(200).json(payloadTest);
 }
 export async function autoTrade(req: express.Request, res: express.Response) {
-    console.log(req.body, req.query, req.params,req);
-    
-    if(req.query.key == null || req.query.sec == null){
+    console.log(req.body, req.query, req.params, req);
+
+    if (req.query.key == null || req.query.sec == null) {
         res.sendStatus(400);
         return;
-    } 
+    }
 
     try {
         await postSignal(req.query.key, req.query.sec, 'orders', {
@@ -86,11 +87,11 @@ export async function autoTrade(req: express.Request, res: express.Response) {
             volume: req.query.volume,
         })
         console.log('下单成功');
-    } catch(err) {
+    } catch (err) {
         console.log('下单失败', err);
     }
 
-    let order:any = null;
+    let order: any = null;
     let interval = await setInterval(async () => {
         order = await getSignal(req.query.key, req.query.sec, 'orders', null);
         console.log('获取订单成功');
@@ -99,5 +100,34 @@ export async function autoTrade(req: express.Request, res: express.Response) {
         console.log('autoTrade:', order)
         res.status(200).json(order)
     }, 12000)
-   
+}
+
+/* ------------------------gate-------------------*/
+export async function getGateMarketList(req: express.Request, res: express.Response) {
+    console.log('getGateMarketList(): start');
+    try {
+        let result = await axios.request({
+            url: 'https://data.gateio.io/api2/1/marketlist',
+            method: 'get'
+        });
+        res.status(200).json(result.data.data);
+        console.log('getGateMarketList(): finish');
+    } catch (err) {
+        console.log('getGateMarketList(): get err', err);
+        res.sendStatus(500);
+    }
+}
+export async function startGateAutoTrade(req: express.Request, res: express.Response) {
+    console.log('startGateAutoTrade(): start');
+    try {
+        let result = await axios.request({
+            url: 'https://data.gateio.io/api2/1/marketlist',
+            method: 'get'
+        });
+        res.status(200).json(result.data.data);
+        console.log('startGateAutoTrade(): finish');
+    } catch (err) {
+        console.log('startGateAutoTrade(): get err', err);
+        res.sendStatus(500);
+    }
 }
