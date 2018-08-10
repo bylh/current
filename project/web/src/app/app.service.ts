@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { interval } from 'rxjs';
 import { SwUpdate, SwPush } from '@angular/service-worker';
 import axios from 'axios';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 const publicKey = 'BJ3kbCc44PMG9THjY4Nc-JqYKsUkd64e-n4oFGErmuAuFfunVUK1hqrqLOHEO_L1KJQhAZgZSn4F8lUZCYhPRfk';
 
@@ -11,7 +12,7 @@ const publicKey = 'BJ3kbCc44PMG9THjY4Nc-JqYKsUkd64e-n4oFGErmuAuFfunVUK1hqrqLOHEO
 })
 export class AppService {
 
-  constructor(protected updates: SwUpdate, protected swPush: SwPush) {
+  constructor(protected updates: SwUpdate, protected swPush: SwPush, protected afAuth: AngularFireAuth) {
     // 监听推送消息
     swPush.messages.subscribe(msg => {
       console.log('收到推送消息', msg);
@@ -42,7 +43,7 @@ export class AppService {
       console.log('subscribeUser(): 订阅成功');
       // 订阅成功将信息保存到服务器
       await axios.request({
-        url: `${environment.BaseClientUrl}/subscribe`,
+        url: `${environment.BaseServerUrl}/subscribe`,
         method: 'post',
         params: {
           publicKey: publicKey,
@@ -58,5 +59,13 @@ export class AppService {
 
   getSwPushMsgOb() {
     return this.swPush.messages;
+  }
+
+  isLogined(): boolean {
+    return this.afAuth.auth.currentUser != null;
+  }
+
+  getAuthStateOb() {
+    return this.afAuth.authState;
   }
 }

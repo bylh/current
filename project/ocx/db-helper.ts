@@ -20,7 +20,13 @@ const webPushSchema = new Schema({
     subject: String,
     pushSubscription: String
 });
+const userSchema = new Schema({
+    userId: String,
+    pwd: String, // 可能用不到
+    
+})
 const webPushModel = mongoose.model('webpushes', webPushSchema);
+const UserModel = mongoose.model('users', );
 class DBHelper {
     protected db: Mongoose = null;
     // 初始化连接数据库
