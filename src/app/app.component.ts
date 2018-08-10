@@ -104,8 +104,7 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
   public async signUp(email: string, pwd: string) {
     try {
-      await this.afAuth.auth.createUserWithEmailAndPassword(email, pwd);
-      await this.afAuth.auth.currentUser.sendEmailVerification();
+     await this.appService.signUp(email, pwd);
       alert('注册邮件已发出，请注意查收邮箱确认链接');
     } catch (err) {
       console.log('注册失败', err);

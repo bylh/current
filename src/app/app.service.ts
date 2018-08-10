@@ -46,7 +46,7 @@ export class AppService {
         url: `${environment.BaseServerUrl}/subscribe`,
         method: 'post',
         params: {
-          publicKey: publicKey,
+          userId: this.afAuth.auth.currentUser.email,
           pushSubscription: JSON.stringify(pushSubscription)
         },
       });
@@ -67,5 +67,20 @@ export class AppService {
 
   getAuthStateOb() {
     return this.afAuth.authState;
+  }
+  async signUp(email: string, pwd: string) {
+    try {
+      await this.afAuth.auth.createUserWithEmailAndPassword(email, pwd);
+      await this.afAuth.auth.currentUser.sendEmailVerification();
+      await axios.request({
+        url: `${environment.BaseServerUrl}/sign-up`,
+        params: {
+          userId: email,
+          pwd: pwd
+        }
+      });
+    } catch (err) {
+      throw err;
+    }
   }
 }
