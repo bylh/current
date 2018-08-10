@@ -4,9 +4,13 @@
 // @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 // @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+
+// 先后次序很关键
+@import '~purecss/build/tables-min.css';
 @import '~purecss/build/grids-min.css';
 @import '~purecss/build/grids-responsive-min.css';
-// @import '~purecss/build/pure-min.css';
+
 
 html, body {
     height: 100%;
