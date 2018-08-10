@@ -41,9 +41,21 @@ const payloadTest = {
     }
 };
 
+export async function signUp(req: express.Request, res: express.Response) {
+    try {
+        console.log('开始注册');
+        await DBHelper.update(req.query, 'user')
+        console.log('注册成功');
+        res.sendStatus(200);
+    } catch (err) {
+        console.log('注册失败');
+        res.sendStatus(500);
+    }
+}
+
 export async function subscribe(req: express.Request, res: express.Response) {
     let query = req.query;
-    console.log('收到', query.pushSubscription);
+    console.log('收到', query.pushSubscription, query.userId);
     let document = await DBHelper.getOne({ pushSubscription: query.pushSubscription });
     if (document != null) {
         console.log('用户已经订阅过了');
@@ -52,10 +64,14 @@ export async function subscribe(req: express.Request, res: express.Response) {
     }
     // 说明此设备有新的订阅需求，或者第一次订阅
     await DBHelper.set({
-        publicKey: query.publicKey,
+        userId: query.userId,
         pushSubscription: query.pushSubscription
     } as WebPushInfo);
     sendNotification(query.pushSubscription, payload)
+    await DBHelper.set({
+        userId: query.userId,
+
+    }, 'user')
     res.status(200).json(req.query);
 }
 
@@ -64,8 +80,9 @@ export function sendNotification(pushSubscription: string, payload: any) {
     webpush.setVapidDetails(Config.Push.Subject, Config.Push.PublicKey, Config.Push.PrivateKey);
     webpush.sendNotification(JSON.parse(pushSubscription), JSON.stringify(payload)).then((suc: any) => console.log('成功', suc)).catch((err: any) => console.log('失败', err));
 }
+
 export async function sendNotificationToUsers(req: express.Request, res: express.Response) {
-    let subs = await DBHelper.getAll();
+    let subs = await DBHelper.getAll({ userId: req.query.userId });
     console.log('所有订阅', subs);
     for (let sub of subs) {
         sendNotification(sub.pushSubscription, payloadTest)
@@ -119,7 +136,7 @@ export async function getGateMarketList(req: express.Request, res: express.Respo
     }
 }
 
-export function getSign(base: string, content: string,  type: 'SHA-1' | 'SHA-224' |  'SHA-256' | 'SHA-384' | 'SHA-512') {
+export function getSign(base: string, content: string, type: 'SHA-1' | 'SHA-224' | 'SHA-256' | 'SHA-384' | 'SHA-512') {
     let shaObj = new JsSHA(type, 'TEXT');
     console.log('base', base);
     shaObj.setHMACKey(base, 'TEXT');
@@ -136,7 +153,7 @@ export async function getGateBalances(req: express.Request, res: express.Respons
         console.log('sign:', signature);
         let header: any = {};
         header.KEY = req.query.gateKey,
-        header.SIGN = signature;
+            header.SIGN = signature;
         let result = await axios.request({
             url: 'https://api.gateio.io/api2/1/private/balances',
             method: 'post',
@@ -152,13 +169,13 @@ export async function getGateBalances(req: express.Request, res: express.Respons
 
 export async function getGateCoinAdress(req: express.Request, res: express.Response) {
     console.log('getGateCoinAdress(): start', req.query);
-    let form = {currency: req.query.currency};
+    let form = { currency: req.query.currency };
     try {
         let signature = getSign(req.query.gateSecret, qs.stringify(form), 'SHA-512');
         console.log('sign:', signature);
         let header: any = {};
         header.KEY = req.query.gateKey,
-        header.SIGN = signature;
+            header.SIGN = signature;
         let result = await axios.request({
             url: 'https://api.gateio.io/api2/1/private/depositAddress',
             method: 'post',
@@ -183,7 +200,7 @@ export async function startGateAutoTrade(req: express.Request, res: express.Resp
         let signature = shaObj.getHMAC('HEX'); // 对str使用sha1签名，得到signature
         let header: any = {};
         header.KEY = '',
-        header.SIGN = signature;
+            header.SIGN = signature;
         let result = await axios.request({
             url: 'https://api.gateio.io/api2/1/private/balances',
             method: 'post',

@@ -5,7 +5,7 @@ import http from 'http';
 import express from 'express';
 import cors from 'cors';
 import program from 'commander';
-import { autoTrade, subscribe, sendNotification, sendNotificationToUsers, getGateMarketList, startGateAutoTrade, getGateBalances, getGateCoinAdress} from './api';
+import { autoTrade, subscribe, sendNotification, sendNotificationToUsers, getGateMarketList, startGateAutoTrade, getGateBalances, getGateCoinAdress, signUp} from './api';
 import DBHelper from './db-helper';
 
 (async function main(): Promise<void> {
@@ -38,8 +38,9 @@ import DBHelper from './db-helper';
     app.use(cors()); // 解决跨域访问的问题
     app.use('/get-tickers', getTickers);
     // app.use('/auto-trade', autoTrade);
-    app.use('/subscribe', subscribe);
-    app.use('/send-all', sendNotificationToUsers);
+    app.use('/sign-up', signUp);
+    app.use('/subscribe', subscribe); // 用户订阅
+    app.use('/send-all', sendNotificationToUsers); // 若未指定用户则给所有用户发消息, 否则给单个用户发消息
 
     app.use('/get-gate-marketlist', getGateMarketList);
     app.use('/get-gate-balances', getGateBalances);
