@@ -5,6 +5,7 @@
     "ng": "ng",
     "serve": "ng serve",
     "start": "npx ng build --prod && lite-server --baseDir dist/web",
+    "start-dev": "npx ng build && lite-server --baseDir dist/web",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

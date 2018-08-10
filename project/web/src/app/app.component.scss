@@ -20,6 +20,9 @@
     .user-action {
       flex-wrap: wrap; // flex布局换行
       height: auto;
+      input {
+        font-size: 1rem;
+      }
       button {
         padding: 0;
         min-width: 60px;

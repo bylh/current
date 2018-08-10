@@ -1,5 +1,10 @@
 .bylh-home {
     .container {
-        justify-content: center // flex布局水平居中
+        justify-content: center; // flex布局水平居中
+        .required-info {
+            input {
+                font-size: 1rem;
+            }
+        }
     }
 }
