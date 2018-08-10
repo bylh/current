@@ -2,31 +2,23 @@ import mongoose, { Mongoose, Document } from 'mongoose';
 import { Defer } from './common';
 import Config from './config';
 export interface WebPushInfo {
-    user: string,
-    privateKey: string,
-    publicKey: string,
-    gcmApikey: string,
-    subject: string,
+    userId: string,
     pushSubscription: string
 }
 // ${Config.Server.IP}
 const CollectUri = `mongodb://${Config.Server.DB.User}:${Config.Server.DB.Pwd}@127.0.0.1:${Config.Server.DB.Port}/web`;
 const Schema = mongoose.Schema;
 const webPushSchema = new Schema({
-    user: String,
-    privateKey: String,
-    publicKey: String,
-    gcmApikey: String,
-    subject: String,
+    userId: String,
     pushSubscription: String
 });
 const userSchema = new Schema({
     userId: String,
     pwd: String, // 可能用不到
-    
+
 })
 const webPushModel = mongoose.model('webpushes', webPushSchema);
-const UserModel = mongoose.model('users', );
+const userModel = mongoose.model('users', userSchema);
 class DBHelper {
     protected db: Mongoose = null;
     // 初始化连接数据库
@@ -53,15 +45,38 @@ class DBHelper {
         });
         return await defer.promise;;
     }
-    public async set(webPushInfo: WebPushInfo): Promise<WebPushInfo> {
-        let data = new webPushModel(webPushInfo);
+    public async set(info: any, type: 'user' | 'webpush' = 'webpush'): Promise<any> {
+        let data;
+        if (type === 'user') {
+            data = new userModel(info);
+        } else if (type === 'webpush') {
+            data = new webPushModel(info);
+        }
         try {
             await data.save();
         } catch (err) {
             throw err;
         }
-        console.log('保存数据成功', webPushInfo);
-        return webPushInfo;
+        console.log('保存数据成功', info);
+        return info;
+    }
+    public async update(info: any, type: 'user' | 'webpush' = 'webpush', conditions: any = null) {
+        let data;
+        if (type === 'user') {
+            data = new userModel(info);
+        } else if (type === 'webpush') {
+            data = new webPushModel(info);
+        }
+        try {
+            await userModel.update({
+                userId: info.userId
+            }, info, {upsert: true},(err, raw) => console.log(err, raw));
+            // await data.update(info);
+        } catch (err) {
+            throw err;
+        }
+        console.log('保存数据成功', info);
+        return info;
     }
 }
 export default new DBHelper();
