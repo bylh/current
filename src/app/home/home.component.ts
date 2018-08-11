@@ -1,6 +1,9 @@
+import { HomeService } from './home.service';
 import { environment } from './../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import axios from 'axios';
+import { AppService } from '../app.service';
+import { MatSnackBar } from '@angular/material';
 export interface Coin {
   symbol: string; // 代币简称 如ETH
   pair: string; // 交易对
@@ -13,6 +16,8 @@ export interface Coin {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  isLogined: boolean = false;
+
   gateKey: string;
   gateSecret: string;
   coinName: string;
@@ -20,7 +25,12 @@ export class HomeComponent implements OnInit {
   displayedColumns: string[] = ['symbol', 'pair', 'rate', 'rate_percent'];
   coins: Array<Coin> = null;
   balances: any;
-  constructor() { }
+  constructor(public appService: AppService, public homeService: HomeService, public snackBar: MatSnackBar) {
+    this.isLogined = appService.isLogined();
+    appService.getAuthStateOb().subscribe((user) => {
+      this.isLogined = user != null;
+    })
+  }
 
   ngOnInit() {
   }
@@ -45,6 +55,10 @@ export class HomeComponent implements OnInit {
   }
 
   async getGateBalances() {
+    if (!this.isLogined) {
+      this.snackBar.open('用户未登录');
+      return;
+    }
     try {
       const res = await axios.request({
         url: `${environment.BaseServerUrl}/get-gate-balances`,
@@ -56,7 +70,7 @@ export class HomeComponent implements OnInit {
       });
       console.log('res:', res, res.data);
       this.balances = Object.entries(res.data.available).map((item => {
-        return {coinName: item[0], count: item[1]};
+        return { coinName: item[0], count: item[1] };
       }));
       console.log('balances:', this.balances);
     } catch (err) {
@@ -65,6 +79,14 @@ export class HomeComponent implements OnInit {
   }
 
   async getGateCoinAdress() {
+    if (!this.isLogined) {
+      this.snackBar.open('用户未登录');
+      return;
+    }
+    if (this.coinName == null) {
+      this.snackBar.open('请输入代币名称');
+      return;
+    }
     try {
       const res = await axios.request({
         url: `${environment.BaseServerUrl}/get-gate-coinadress`,
