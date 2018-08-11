@@ -1,12 +1,11 @@
 
-import { AngularFireAuth } from 'angularfire2/auth';
 import axios from 'axios';
-// import webpush from 'web-push';
-import { BehaviorSubject } from 'rxjs';
+
+import { MatSnackBar } from '@angular/material';
 import { Component, AfterViewInit, OnInit } from '@angular/core';
+
 import { AppService } from './app.service';
 import { environment } from '../environments/environment';
-import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,10 +13,11 @@ import { MatSnackBar } from '@angular/material';
 })
 export class AppComponent implements AfterViewInit, OnInit {
   title = '我的空间';
-  protected pushSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  userId: string;
+  isLogined: boolean;
+
   constructor(
     protected appService: AppService,
-    public afAuth: AngularFireAuth,
     public snackBar: MatSnackBar
   ) {
   }
@@ -28,31 +28,42 @@ export class AppComponent implements AfterViewInit, OnInit {
   public async ngOnInit() {
     console.log('ngOninit(): 获取订阅，可能之前订阅，也有可能是新的订阅，总之都返回订阅信息');
 
-    try {
-      const pushSubscription = await this.appService.subscribeUser();
-      console.log('订阅信息并保存到服务器（成功状态）：', JSON.stringify(pushSubscription));
-    } catch (err) {
-      console.log('ngOninit(): 订阅出错或保存到服务器出错', err);
-    }
+    // try {
+    //   const pushSubscription = await this.appService.subscribeUser();
+    //   console.log('订阅信息并保存到服务器（成功状态）：', JSON.stringify(pushSubscription));
+    // } catch (err) {
+    //   console.log('ngOninit(): 订阅出错或保存到服务器出错', err);
+    // }
 
     // 监听推送消息
     this.appService.getSwPushMsgOb().subscribe((msg) => {
       console.log('收到消息', msg);
     });
     // 监听用户状态信息
-    this.afAuth.authState.subscribe((user) => {
+    this.appService.getAuthStateOb().subscribe(async (user) => {
+      this.isLogined = user != null; // 登录状态
+      this.userId = user != null ? user.email : null; // userId即email
       console.log('用户状态： ', user);
       if (user) {
-        console.log('用户邮箱地址是否验证', user.emailVerified);
+        // console.log('用户邮箱地址是否验证', user.emailVerified);
+        // if (user.emailVerified) { // 如果用户邮件被验证， 则订阅到服务器
+        try {
+          const pushSubscription = await this.appService.subscribeUser();
+          console.log('订阅信息并保存到服务器（成功状态）：', JSON.stringify(pushSubscription));
+        } catch (err) {
+          console.log('ngOninit(): 订阅出错或保存到服务器出错', err);
+        }
       }
+      // }
     });
-    this.afAuth.user.subscribe(((user) => {
+
+    this.appService.getAuth().user.subscribe(((user) => {
       console.log('user:', user);
     }));
-    this.afAuth.idToken.subscribe((idToken) => {
+    this.appService.getAuth().idToken.subscribe((idToken) => {
       console.log('idToken:', idToken);
     });
-    this.afAuth.idTokenResult.subscribe((idTokenResult) => {
+    this.appService.getAuth().idTokenResult.subscribe((idTokenResult) => {
       console.log('idTokenResult:', idTokenResult);
     });
   }
@@ -70,13 +81,15 @@ export class AppComponent implements AfterViewInit, OnInit {
     }
   }
   public async test() {
-    console.log('test(): 测试推送', environment);
+    console.log('当前用户：', this.appService.getAuth().auth.currentUser);
+    console.log('test(): 测试', environment);
     try {
       const res = await axios.request({
-        url: `${environment.BaseClientUrl}/get-tickers`,
+        url: `${environment.BaseServerUrl}/get-tickers`,
         method: 'get'
       });
       console.log('test(): 获取行情', res);
+      this.snackBar.open('测试环境');
     } catch (err) {
       console.log(err);
     }
@@ -85,17 +98,13 @@ export class AppComponent implements AfterViewInit, OnInit {
   // 登录
   public async login(email: string, pwd: string) {
     // 此时currentUser可能不存在
-    if (this.afAuth.auth.currentUser != null) {
-      alert('用户已登录');
+    if (this.appService.isLogined()) {
+      this.snackBar.open('用户已登录', '关闭');
       return;
     }
 
     try {
-      await this.afAuth.auth.signInWithEmailAndPassword(email, pwd);
-      if (!this.afAuth.auth.currentUser.emailVerified) {
-        alert('请确认注册邮件后登录');
-        return;
-      }
+      await this.appService.login(email, pwd);
       this.snackBar.open('登录成功', '关闭');
 
     } catch (err) {
@@ -104,15 +113,15 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
   public async signUp(email: string, pwd: string) {
     try {
-     await this.appService.signUp(email, pwd);
-      alert('注册邮件已发出，请注意查收邮箱确认链接');
+      await this.appService.signUp(email, pwd);
+      this.snackBar.open('注册邮件已发出，请注意查收邮箱确认链接', '关闭');
     } catch (err) {
       console.log('注册失败', err);
     }
   }
   public async logout() {
     try {
-      await this.afAuth.auth.signOut();
+      await this.appService.logOut();
       this.snackBar.open('账户已登出', '关闭');
     } catch (err) {
       console.log('账户登出出错', err);
@@ -120,8 +129,8 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
   public async resetPwd() {
     try {
-      await this.afAuth.auth.sendPasswordResetEmail(this.afAuth.auth.currentUser.email);
-      alert('重置密码邮箱已发送，请注意查收');
+      await this.appService.resetPwd();
+      this.snackBar.open('重置密码邮箱已发送，请注意查收', '关闭');
     } catch (err) {
       console.log('重置密码出错', err);
     }

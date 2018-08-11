@@ -60,18 +60,34 @@ export class AppService {
   getSwPushMsgOb() {
     return this.swPush.messages;
   }
+  getAuth() {
+    return this.afAuth;
+  }
+
 
   isLogined(): boolean {
     return this.afAuth.auth.currentUser != null;
   }
 
+  // 获取用户状态ob
   getAuthStateOb() {
     return this.afAuth.authState;
   }
-  async signUp(email: string, pwd: string) {
+
+  // 登录
+  async login(email: string, pwd: string) {
     try {
-      await this.afAuth.auth.createUserWithEmailAndPassword(email, pwd);
-      await this.afAuth.auth.currentUser.sendEmailVerification();
+      await this.afAuth.auth.signInWithEmailAndPassword(email, pwd);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  // 注册
+  async signUp(email: string, pwd: string) { // 暂时不发送注册邮箱
+    try {
+      await this.afAuth.auth.createUserWithEmailAndPassword(email, pwd); // 邮箱密码创建账户
+      // await this.afAuth.auth.currentUser.sendEmailVerification(); // 发送用户验证邮箱
       await axios.request({
         url: `${environment.BaseServerUrl}/sign-up`,
         params: {
@@ -79,6 +95,20 @@ export class AppService {
           pwd: pwd
         }
       });
+    } catch (err) {
+      throw err;
+    }
+  }
+  async logOut() {
+    try {
+      await this.afAuth.auth.signOut();
+    } catch (err) {
+      throw err;
+    }
+  }
+  public async resetPwd() {
+    try {
+      await this.afAuth.auth.sendPasswordResetEmail(this.afAuth.auth.currentUser.email);
     } catch (err) {
       throw err;
     }
