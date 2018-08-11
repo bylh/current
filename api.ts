@@ -68,10 +68,6 @@ export async function subscribe(req: express.Request, res: express.Response) {
         pushSubscription: query.pushSubscription
     } as WebPushInfo);
     sendNotification(query.pushSubscription, payload)
-    await DBHelper.set({
-        userId: query.userId,
-
-    }, 'user')
     res.status(200).json(req.query);
 }
 
