@@ -24,7 +24,7 @@ import Web3 from 'web3';
 
     // let wallets = web3.eth.accounts.wallet.create(2, 'bylh');
     // console.log(wallets);
-    // let account = await web3.eth.personal.newAccount('123456');
+    // let account = await web3.eth.personal.newAccount('bylh');
     // console.log(account);
     // console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
     // try {
@@ -38,13 +38,13 @@ import Web3 from 'web3';
     // }
     // web3.eth.getBalance('')
 
-    // let accounts = await web3.eth.getAccounts();
-    // console.log(accounts);
-    let account = web3.eth.accounts.privateKeyToAccount(
-        ""
-        );
+    let accounts = await web3.eth.getAccounts();
+    console.log(accounts, accounts.length);
+    // let account = web3.eth.accounts.privateKeyToAccount(
+    //     ""
+    //     );
     
-    console.log(account); 
+    // console.log(account); 
     // 启动监听
     app.listen(4001);
     if (process.send != null) process.send('ready');
