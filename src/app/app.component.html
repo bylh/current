@@ -38,9 +38,8 @@
     <nav mat-tab-nav-bar backgroundColor="theme" class="app-nav">
       <a mat-tab-link routerLink="/home" routerLinkActive #homeTab="routerLinkActive" [active]="homeTab.isActive">首页</a>
       <a mat-tab-link routerLink="/discovery" routerLinkActive #discoveryTab="routerLinkActive" [active]="discoveryTab.isActive">发现</a>
-      <a mat-tab-link href="http://www.nicetool.net/list/shenghuo/" target="_blank" routerLinkActive #toolsTab="routerLinkActive"
-        [active]="toolsTab.isActive">工具</a>
-      <a mat-tab-link routerLinkActive #meTab="routerLinkActive" [active]="meTab.isActive">个人</a>
+      <a mat-tab-link routerLink="/tools" routerLinkActive #toolsTab="routerLinkActive" [active]="toolsTab.isActive">工具</a>
+      <a mat-tab-link routerLink="/profile" routerLinkActive #profileTab="routerLinkActive" [active]="profileTab.isActive">个人</a>
     </nav>
     <div class="app-page">
       <!-- 路由页面占位符 -->
