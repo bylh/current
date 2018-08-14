@@ -1,3 +1,61 @@
-<p>
-  tools works!
-</p>
+<div class="bylh-tools">
+  <div class="pure-g container">
+    <div class="pure-u-1-1 pure-u-md-3-4 pure-u-lg-2-3">
+      <div class="required-info">
+        <input [(ngModel)]="gateKey" placeholder="key" />
+        <input [(ngModel)]="gateSecret" placeholder="secret" />
+        <input [(ngModel)]="coinName" placeholder="coinName" />
+      </div>
+      <button mat-stroked-button (click)="getGateBalances()">获取余额</button>
+      <button mat-stroked-button (click)="getGateCoinAdress()">获取充值地址</button>
+      <button mat-stroked-button (click)="getMarkerList()">获取交易对</button>
+      <h5>{{coinName}} {{address}}</h5>
+      <table class="balances pure-table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>CoinName</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let balance of balances; let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{balance.coinName}}</td>
+            <td>{{balance.count}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <mat-table *ngIf="coins != null" [dataSource]="coins" class="mat-elevation-z8">
+        <!-- symbol Column -->
+        <ng-container matColumnDef="symbol">
+          <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+        </ng-container>
+
+        <!-- pair Column -->
+        <ng-container matColumnDef="pair">
+          <mat-header-cell *matHeaderCellDef> Pair </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.pair}} </mat-cell>
+        </ng-container>
+
+        <!-- rate Column -->
+        <ng-container matColumnDef="rate">
+          <mat-header-cell *matHeaderCellDef> rate </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.rate}} </mat-cell>
+        </ng-container>
+
+        <!-- rate_percent Column-->
+        <ng-container matColumnDef="rate_percent">
+          <mat-header-cell *matHeaderCellDef> percent </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.rate_percent}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+</div>

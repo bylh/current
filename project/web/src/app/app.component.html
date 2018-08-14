@@ -6,7 +6,7 @@
       <div class="title">{{ title }}</div>
 
       <!-- 显示用户名 -->
-      <div class="email">{{userId}}</div>
+      <div class="userId">{{userId}}</div>
 
       <!-- 用户菜单 > 重置密码 登出 测试推送 -->
       <mat-menu #appMenu="matMenu">
@@ -33,15 +33,15 @@
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <div class="content">
+  <div class="app-content">
     <!-- ================模块三 路由页面部分=====================-->
-    <nav mat-tab-nav-bar backgroundColor="theme" class="app-nav">
+    <nav mat-tab-nav-bar backgroundColor="theme" class="nav">
       <a mat-tab-link routerLink="/home" routerLinkActive #homeTab="routerLinkActive" [active]="homeTab.isActive">首页</a>
       <a mat-tab-link routerLink="/discovery" routerLinkActive #discoveryTab="routerLinkActive" [active]="discoveryTab.isActive">发现</a>
       <a mat-tab-link routerLink="/tools" routerLinkActive #toolsTab="routerLinkActive" [active]="toolsTab.isActive">工具</a>
       <a mat-tab-link routerLink="/profile" routerLinkActive #profileTab="routerLinkActive" [active]="profileTab.isActive">个人</a>
     </nav>
-    <div class="app-page">
+    <div class="page">
       <!-- 路由页面占位符 -->
       <router-outlet></router-outlet>
       <router-outlet name="popup"></router-outlet>
