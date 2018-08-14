@@ -1,8 +1,8 @@
 .bylh-app {
   height: 100%; // 设置页面高度为100%
+  background-image: url(../assets/dust_scratches.png);
   display: flex;
   flex-direction: column; // 垂直方向flex
-
   // toolboor部分
   .app-toolbar {
     flex: 0 0 auto; // 自身高度，不压缩
@@ -30,19 +30,30 @@
     /* edge浏览器必须指定高度，否则app-page中滚动条没法使用, 120px是头部的最大高度了,其实只要指定一个比
     100% - 头部高度小的值都可以，flex自动填充, chrome可以不用指定 TODO 查找原因，看看有没有其他方法 */
     height: calc(100% - 120px);
-
     flex: 1 1 auto; // 扩展高度，可压缩
     display: flex; // nav部分
     flex-direction: column;
-    @media screen and (max-width: 500px) { // 宽度小于500px反向，变为手机tab式按钮
+    @media screen and (max-width: 500px) {
+      // 宽度小于500px反向，变为手机tab式按钮
       flex-direction: column-reverse !important;
+      .nav {
+        // background: blanchedalmond;
+      }
     }
     .nav {
       flex: 0 0 auto; // 自身高度，不压缩
+      justify-content: center;
+      /deep/ .mat-tab-links {
+        // 要加/deep/，否则不起作用，参考链接https://stackoverflow.com/questions/43690291/how-to-overwrite-angular-2-material-styles
+        justify-content: space-around;
+      }
     }
     .page {
       flex: 1 1 auto; // 剩余空间高度，可压缩
-      overflow-y: auto; // 超出部分设置滚动条
+      justify-content: center;
+      .page-container {
+        overflow-y: auto; // 超出部分设置滚动条
+      }
     }
   }
 }
