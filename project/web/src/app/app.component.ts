@@ -72,7 +72,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     console.log('push(): 测试推送');
     try {
       const res = await axios.request({
-        url: `${environment.BaseClientUrl}/send-all`,
+        url: `${environment.BaseServerUrl}/send-all`,
         method: 'get'
       });
       console.log('push(): 推送消息给全部人', res);
