@@ -14,6 +14,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule } from './app-material.module';
+import { ToolsModule } from './tools/tools.module';
+import { ProfileModule } from './profile/profile.module';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { AppMaterialModule } from './app-material.module';
     ReactiveFormsModule,
     AppMaterialModule,
     HomeModule,
-    DiscoveryModule
+    DiscoveryModule,
+    ToolsModule,
+    ProfileModule
   ],
   providers: [],
   bootstrap: [AppComponent]
