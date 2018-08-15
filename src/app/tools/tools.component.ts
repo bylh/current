@@ -1,5 +1,5 @@
 import { ToolsService } from './tools.service';
-import { environment } from './../../environments/environment';
+import { environment } from '../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import axios from 'axios';
 import { AppService } from '../app.service';

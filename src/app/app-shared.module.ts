@@ -5,13 +5,19 @@ import {
   MatToolbarModule, MatExpansionModule, MatMenuModule, MatCardModule, MatTabsModule, MatDividerModule,
    MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatTableModule
 } from '@angular/material';
+import { SafePipe } from './pipe';
 @NgModule({
   imports: [
     CommonModule,
-    MatInputModule,
-    MatButtonModule
   ],
+  declarations: [ 
+    SafePipe
+  ],
+
   exports: [
+    // pipe
+    SafePipe,
+
     MatInputModule,
     MatButtonModule,
     MatGridListModule,

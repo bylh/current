@@ -1,4 +1,4 @@
-import { environment } from './../environments/environment';
+import { environment } from '../environments/environment';
 import { Injectable } from '@angular/core';
 import { interval } from 'rxjs';
 import { SwUpdate, SwPush } from '@angular/service-worker';
