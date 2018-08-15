@@ -1,3 +1,6 @@
+/* min-height: 0 是flex布局兼容firefox edge， 否则在这两个浏览器滚动条无法使用
+参考链接 https://codeday.me/bug/20180501/160337.html， 另外flex-grow为1就不需要设置高度100%了。
+ */
 .bylh-app {
   height: 100%; // 设置页面高度为100%
   background-image: url(../assets/dust_scratches.png);
@@ -27,9 +30,7 @@
     }
   }
   .app-content {
-    /* edge浏览器必须指定高度，否则app-page中滚动条没法使用, 120px是头部的最大高度了,其实只要指定一个比
-    100% - 头部高度小的值都可以，flex自动填充, chrome可以不用指定 TODO 查找原因，看看有没有其他方法 */
-    height: calc(100% - 120px);
+    min-height: 0; // 兼容firefox edge，否则无法使用滚动条
     flex: 1 1 auto; // 扩展高度，可压缩
     display: flex; // nav部分
     flex-direction: column;
@@ -49,9 +50,11 @@
       }
     }
     .page {
-      flex: 1 1 auto; // 剩余空间高度，可压缩
+      min-height: 0; // 兼容firefox edge，否则无法使用滚动条
+      flex: 1 1 auto; // 剩余空间高度，可压缩 
       justify-content: center;
       .page-container {
+        height: 100%;
         overflow-y: auto; // 超出部分设置滚动条
       }
     }
