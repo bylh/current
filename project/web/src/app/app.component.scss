@@ -1,5 +1,5 @@
 /* min-height: 0 是flex布局兼容firefox edge， 否则在这两个浏览器滚动条无法使用
-参考链接 https://codeday.me/bug/20180501/160337.html， 另外flex-grow为1就不需要设置高度100%了。
+参考链接 https://codeday.me/bug/20180501/160337.html
  */
 .bylh-app {
   height: 100%; // 设置页面高度为100%
@@ -30,6 +30,7 @@
     }
   }
   .app-content {
+    height: 100%;
     min-height: 0; // 兼容firefox edge，否则无法使用滚动条
     flex: 1 1 auto; // 扩展高度，可压缩
     display: flex; // nav部分
@@ -51,6 +52,7 @@
     }
     .page {
       min-height: 0; // 兼容firefox edge，否则无法使用滚动条
+      height: 100%;
       flex: 1 1 auto; // 剩余空间高度，可压缩 
       justify-content: center;
       .page-container {
