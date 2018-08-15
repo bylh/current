@@ -1,2 +1,5 @@
 <div class="bylh-home">
+  <input type="file" name="fileUpload" (change)="getImg($event)" />
+  <div [innerHTML]="html | safe:'html'"></div>
+  <img [src]="fileUpload | safe:'url'" />
 </div>

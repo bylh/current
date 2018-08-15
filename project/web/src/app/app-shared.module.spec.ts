@@ -1,4 +1,4 @@
-import { AppMaterialModule } from './app-material.module';
+import { AppMaterialModule } from './app-shared.module';
 
 describe('AppMaterialModule', () => {
   let appMaterialModule: AppMaterialModule;

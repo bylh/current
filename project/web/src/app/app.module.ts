@@ -13,7 +13,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
-import { AppMaterialModule } from './app-material.module';
+import { AppMaterialModule } from './app-shared.module';
 import { ToolsModule } from './tools/tools.module';
 import { ProfileModule } from './profile/profile.module';
 

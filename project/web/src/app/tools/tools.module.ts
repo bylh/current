@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 
 import { ToolsRoutingModule } from './tools-routing.module';
 import { ToolsComponent } from './tools.component';
-import { AppMaterialModule } from '../app-material.module';
-import { FormsModule } from '../../../node_modules/@angular/forms';
+import { AppMaterialModule } from '../app-shared.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [

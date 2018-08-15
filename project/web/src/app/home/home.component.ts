@@ -1,5 +1,5 @@
 import { HomeService } from './home.service';
-import { environment } from './../../environments/environment';
+import { environment } from '../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import axios from 'axios';
 import { AppService } from '../app.service';
@@ -12,7 +12,8 @@ import { MatSnackBar } from '@angular/material';
 })
 export class HomeComponent implements OnInit {
   isLogined: boolean = false;
-
+  fileUpload: any;
+  html = `<h2>显示图片</h2>`;
   constructor(public appService: AppService, public homeService: HomeService, public snackBar: MatSnackBar) {
     this.isLogined = appService.isLogined();
     appService.getAuthStateOb().subscribe((user) => {
@@ -21,5 +22,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+  getImg(event) {
+    this.fileUpload = window.URL.createObjectURL(event.srcElement.files[0]);
+
+    console.log('url:', this.fileUpload);
   }
 }
