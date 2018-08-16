@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('ngOninit() : home init');
   }
   getImg(event) {
     this.fileUpload = window.URL.createObjectURL(event.srcElement.files[0]);
