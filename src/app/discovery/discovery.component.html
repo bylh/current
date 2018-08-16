@@ -1,6 +1,6 @@
-<div class="bylh-discovery">
+<div class="bylh-discovery bylh-page-base">
 
-  <table>
+  <!-- <table>
     <tr>
       <th>
         <a href="https://keep.google.com/">google keep</a>
@@ -12,7 +12,7 @@
         <a href="https://www.baidu.com/" target="_blank">baidu</a>
       </th>
     </tr>
-  </table>
+  </table> -->
 
   <!-- <div>发现{{selectedId}}</div> -->
   <!-- child方式 可以显示在任意位置 -->
@@ -29,10 +29,15 @@
   <!-- 平行方式 即覆盖当前页-->
   <div class="pure-g items-container">
     <div *ngFor="let item of items" [class.selected]="item?.id === selectedId" class="pure-u-1-1 pure-u-md-1-2 pure-u-lg-1-3">
-      <a [routerLink]="['/discovery', item.id]" routerLinkActive="active">
+      <a [routerLink]="[item.id]" routerLinkActive="active">
         <div>{{ item.id }}</div>
         <img [src]="item.src" />
       </a>
     </div>
   </div>
+
+  <div class="bylh-page-sub-container">
+      <router-outlet></router-outlet>
+    </div>
+
 </div>
