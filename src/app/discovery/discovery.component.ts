@@ -26,6 +26,7 @@ export class DiscoveryComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    console.log('disconvery init');
     this.route.paramMap.subscribe((params) => {this.selectedId = +params.get('backId'); console.log(this.selectedId); });
   }
 

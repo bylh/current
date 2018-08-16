@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { AppMaterialModule } from '../app-shared.module';
+import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { AppMaterialModule } from '../app-shared.module';
     AppMaterialModule,
     FormsModule
   ],
-  declarations: [HomeComponent]
+  declarations: [HomeComponent, DetailComponent]
 })
 export class HomeModule { }
