@@ -1,5 +1,4 @@
-import { DiscoveryModule } from './discovery/discovery.module';
-import { HomeModule } from './home/home.module';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -34,8 +33,6 @@ import { ProfileModule } from './profile/profile.module';
     FormsModule,
     ReactiveFormsModule,
     AppMaterialModule,
-    HomeModule,
-    DiscoveryModule,
     ToolsModule,
     ProfileModule
   ],

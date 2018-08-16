@@ -6,14 +6,19 @@ import { ToolsComponent } from './tools/tools.component';
 import { ProfileComponent } from './profile/profile.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', 
-  // component: HomeComponent
-  loadChildren: 'app/home/home.module#HomeModule',
-  data: { preload: true }
-},
-  { path: 'discovery', component: DiscoveryComponent },
+  {
+    path: 'home',
+    // component: HomeComponent
+    loadChildren: './home/home.module#HomeModule',
+    data: { preload: true }
+  },
+  {
+    path: 'discovery',
+    loadChildren: './discovery/discovery.module#DiscoveryModule',
+    data: {preload: true}
+  },
   { path: 'tools', component: ToolsComponent },
-  { path: 'profile', component: ProfileComponent}
+  { path: 'profile', component: ProfileComponent }
 ];
 @NgModule({
   exports: [RouterModule],

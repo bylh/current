@@ -4,15 +4,17 @@ import { DiscoveryComponent } from './discovery.component';
 import { DiscoveryDetailComponent } from './discovery-detail/discovery-detail.component';
 
 const routes: Routes = [
-  { path: 'discovery',  component: DiscoveryComponent,
-  // children: [ // child方式
-  //   {
-  //     path: ':id',
-  //     component: DiscoveryDetailComponent
-  //   }
-  // ]
-},
-  { path: 'discovery/:id', component: DiscoveryDetailComponent } // 平行方式，这两种方式只能存在一种
+  {
+    path: '',
+    component: DiscoveryComponent,
+    children: [ // child方式
+      {
+        path: ':id',
+        component: DiscoveryDetailComponent
+      }
+    ]
+  },
+  // { path: 'discovery/:id', component: DiscoveryDetailComponent } // 平行方式，这两种方式只能存在一种
 ];
 
 @NgModule({
