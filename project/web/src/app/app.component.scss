@@ -3,6 +3,7 @@
  */
 .bylh-app {
   height: 100%; // 设置页面高度为100%
+  width: 100%; // 设置页面宽度100%
   background-image: url(../assets/dust_scratches.png);
   display: flex;
   flex-direction: column; // 垂直方向flex
@@ -31,6 +32,7 @@
   }
   .app-content {
     height: 100%;
+    width: 100%; // 设置页面宽度100%
     min-height: 0; // 兼容firefox edge，否则无法使用滚动条
     flex: 1 1 auto; // 扩展高度，可压缩
     display: flex; // nav部分
@@ -53,11 +55,13 @@
     .page {
       min-height: 0; // 兼容firefox edge，否则无法使用滚动条
       height: 100%;
+      width: 100%; // 设置页面宽度100%
       flex: 1 1 auto; // 剩余空间高度，可压缩 
       justify-content: center;
       .page-container {
         position: relative;
         height: 100%;
+        width: 100%; // 设置页面宽度100%
       }
     }
   }
