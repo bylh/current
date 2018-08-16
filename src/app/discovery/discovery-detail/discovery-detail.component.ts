@@ -17,7 +17,7 @@ export class DiscoveryDetailComponent implements OnInit {
     this.id = +this.route.snapshot.paramMap.get('id'); // + 将string转化为number
   }
   back() {
-    console.log('to 2');
+    console.log('backId:', this.id);
     this.router.navigate(['/discovery', {backId: this.id}]);
   }
   pre() {
