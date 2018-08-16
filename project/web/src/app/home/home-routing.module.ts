@@ -5,8 +5,8 @@ import { DetailComponent } from './detail/detail.component';
 
 const routes: Routes = [
   {
-    path: 'home',
-    component: HomeComponent,
+    path: '',
+    component: HomeComponent, // 不加此句，不然home component在路由匹配过程中会重新加载一遍
     children: [{
       path: ':id',
       component: DetailComponent

@@ -18,7 +18,8 @@ export class HomeComponent implements OnInit {
     this.isLogined = appService.isLogined();
     appService.getAuthStateOb().subscribe((user) => {
       this.isLogined = user != null;
-    })
+    });
+    console.log('constructor(): home start');
   }
 
   ngOnInit() {

@@ -4,7 +4,7 @@
   <img [src]="fileUpload | safe:'url'" />
   <!-- <iframe width="100%" frameborder="0" height="100%" seamless src="http://dict.youdao.com/?keyfrom=dict2.index"></iframe> -->
 
-  <a [routerLink]="['1']">detail</a>
+  <a [routerLink]="['/home', 1]">detail</a>
   <div class="detail">
       <router-outlet></router-outlet>
   </div>
