@@ -18,6 +18,9 @@ export class DetailComponent implements OnInit {
       this.id = +params.get('id');
       console.log('detail id: ', this.id);
     }));
+    this.route.queryParamMap.subscribe(params => {
+      console.log(params.get('info'));
+    })
     this.id = +this.route.snapshot.paramMap.get('id'); // + 将string转化为number
   }
 
