@@ -4,10 +4,10 @@
   <!-- <img [src]="fileUpload | safe:'url'" /> -->
   <!-- <iframe width="100%" frameborder="0" height="100%" seamless src="http://dict.youdao.com/?keyfrom=dict2.index"></iframe> -->
   <div>
-    <a [routerLink]="['detail', 1]">子页面,覆盖当前页面,后退返回时不重新加载home页面</a>
+    <a [routerLink]="['detail', 1]" [queryParams]="{info: 'detail我是传递的参数'}">子页面,覆盖当前页面,后退返回时不重新加载home页面</a>
   </div>
   <div>
-    <a [routerLink]="'test'">子页面,替换当前页面,后退返回时重新加载home页面</a>
+    <a [routerLink]="'test'" [queryParams]="{info: 'test我是传递的参数'}">子页面,替换当前页面,后退返回时重新加载home页面</a>
   </div>
   <div [hidden]="router.isActive('/home', true)" class="bylh-page-sub-container">
     <router-outlet></router-outlet>

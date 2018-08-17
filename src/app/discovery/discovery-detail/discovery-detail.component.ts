@@ -15,7 +15,7 @@ export class DiscoveryDetailComponent implements OnInit {
   ngOnInit() {
     console.log('ngOnInit(): discovery detail init');
     this.route.paramMap.subscribe((params => this.id = +params.get('id')));
-    this.id = +this.route.snapshot.paramMap.get('id'); // + 将string转化为number
+    // this.id = +this.route.snapshot.paramMap.get('id'); // + 将string转化为number
   }
   back() {
     console.log('backId:', this.id);
