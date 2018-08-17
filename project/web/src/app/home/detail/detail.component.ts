@@ -14,7 +14,10 @@ export class DetailComponent implements OnInit {
 
   ngOnInit() {
     console.log('detail');
-    this.route.paramMap.subscribe((params => this.id = +params.get('id')));
+    this.route.paramMap.subscribe((params => {
+      this.id = +params.get('id');
+      console.log('detail id: ', this.id);
+    }));
     this.id = +this.route.snapshot.paramMap.get('id'); // + 将string转化为number
   }
 
