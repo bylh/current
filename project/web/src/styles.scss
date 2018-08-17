@@ -24,7 +24,6 @@ body {
   overflow: hidden;
   .bylh-page-base {
     height: 100%;
-    width: 100%;
     overflow: auto;
     background-image: url(assets/dust_scratches.png); // background-color:rgba(0,0,0,0.5)
   }
@@ -33,7 +32,7 @@ body {
     // 路由子页面
     position: absolute;
     top: 0;
-    // width: 100%; // 不能设置100%，否则绝对定位的占位符会覆盖无法点击等
+    width: 100%;
     // 绝对定位布局div宽高自适应，而不是充满
     // left: 0;
     // right: 0;

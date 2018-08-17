@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import axios from 'axios';
 import { AppService } from '../app.service';
 import { MatSnackBar } from '@angular/material';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,8 @@ export class HomeComponent implements OnInit {
   isLogined: boolean = false;
   fileUpload: any;
   html = `<h2>显示图片</h2>`;
-  constructor(public appService: AppService, public homeService: HomeService, public snackBar: MatSnackBar) {
+  constructor(public appService: AppService, public homeService: HomeService, public snackBar: MatSnackBar, public router: Router, public route: ActivatedRoute) {
+    console.log('home is active?', this.router.isActive('/home', true));
     this.isLogined = appService.isLogined();
     appService.getAuthStateOb().subscribe((user) => {
       this.isLogined = user != null;

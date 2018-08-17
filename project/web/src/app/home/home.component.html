@@ -1,10 +1,10 @@
 <div class="bylh-home bylh-page-base">
   <input type="file" name="fileUpload" (change)="getImg($event)" />
   <div [innerHTML]="html | safe:'html'"></div>
-  <img [src]="fileUpload | safe:'url'" />
+  <!-- <img [src]="fileUpload | safe:'url'" /> -->
   <!-- <iframe width="100%" frameborder="0" height="100%" seamless src="http://dict.youdao.com/?keyfrom=dict2.index"></iframe> -->
   <a [routerLink]="[1]">detail</a>
-  <div class="bylh-page-sub-container">
+  <div [hidden]="router.isActive('/home', true)" class="bylh-page-sub-container">
       <router-outlet></router-outlet>
   </div>
 </div>
