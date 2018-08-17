@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'discovery',
     loadChildren: './discovery/discovery.module#DiscoveryModule',
-    data: {preload: true}
+    data: { preload: true }
   },
   { path: 'tools', component: ToolsComponent },
   { path: 'profile', component: ProfileComponent }
