@@ -23,5 +23,8 @@ export class DetailComponent implements OnInit {
     })
     this.id = +this.route.snapshot.paramMap.get('id'); // + 将string转化为number
   }
+  back() {
+    this.router.navigate(['/home', {backId: this.id}]);
+  }
 
 }

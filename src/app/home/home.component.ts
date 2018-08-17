@@ -17,6 +17,9 @@ export class HomeComponent implements OnInit {
   html = `<h2>显示图片</h2>`;
   constructor(public appService: AppService, public homeService: HomeService, public snackBar: MatSnackBar, public router: Router, public route: ActivatedRoute) {
     console.log('home is active?', this.router.isActive('/home', true));
+    this.route.paramMap.subscribe(params => {
+      console.log('backId:', params.get('backId'));
+    });
     this.isLogined = appService.isLogined();
     appService.getAuthStateOb().subscribe((user) => {
       this.isLogined = user != null;
