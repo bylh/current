@@ -1,5 +1,5 @@
-<div class="bylh-home bylh-page-base">
-  <input/>
+<div class="bylh-home bylh-page-base" #home>
+  <input/><div (click)="showScroll()" style="height: 400px;">scroll</div>
     <div style="height: 3000px;"></div>
   <input type="file" name="fileUpload" (change)="getImg($event)" />
   <div [innerHTML]="html | safe:'html'"></div>
