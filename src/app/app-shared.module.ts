@@ -1,4 +1,4 @@
-import { RouteReuseStrategy } from '@angular/router';
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -7,7 +7,6 @@ import {
    MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatTableModule
 } from '@angular/material';
 import { SafePipe } from './pipe';
-import { AppReuseStrategy } from './app-reuse-strategy';
 @NgModule({
   imports: [
     CommonModule,
@@ -37,7 +36,6 @@ import { AppReuseStrategy } from './app-reuse-strategy';
   ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 , verticalPosition: 'top'} },
-    { provide: RouteReuseStrategy, useClass: AppReuseStrategy }
   ]
 })
 export class AppMaterialModule { }
