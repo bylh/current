@@ -10,14 +10,13 @@ const routes: Routes = [
     children: [{
       path: 'detail/:id',
       component: DetailComponent,
+      // data: {reload: false, path: 'detail/:id'}
     }]
   },
   {
-    path: 'test', 
+    path: 'test',
     component: DetailComponent,
-    data: {
-      reload: true
-    }
+    // data: { reload: false, path: 'test' }
   }
 ];
 
