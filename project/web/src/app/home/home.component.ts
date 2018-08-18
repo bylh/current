@@ -27,19 +27,19 @@ export class HomeComponent implements OnInit {
     this.router.events // 既然是ob为什么不支持filter等函数，暂时不明确
       .subscribe((event: Event) => {
         // console.log('navi Event: ', event);
-        if(event instanceof NavigationEnd) {
-          // console.log('NavigationEnd Event: ', event);
-          if(event.url === '/home') {
-            this.showScroll();
-          }
-        }
-        if(event instanceof NavigationStart) {
-          if(event.url != '/home') {
-            this.posY = this.home.nativeElement.scrollTop;
-            this.posX = this.home.nativeElement.scrollLeft;
-            console.log(this.posX, this.posY, event.url);
-          }
-        }
+        // if(event instanceof NavigationEnd) {
+        //   // console.log('NavigationEnd Event: ', event);
+        //   if(event.url === '/home') {
+        //     this.showScroll();
+        //   }
+        // }
+        // if(event instanceof NavigationStart) {
+        //   if(event.url != '/home') {
+        //     this.posY = this.home.nativeElement.scrollTop;
+        //     this.posX = this.home.nativeElement.scrollLeft;
+        //     console.log(this.posX, this.posY, event.url);
+        //   }
+        // }
       });
 
     this.isLogined = appService.isLogined();
