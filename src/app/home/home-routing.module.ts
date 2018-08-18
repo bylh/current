@@ -9,12 +9,15 @@ const routes: Routes = [
     component: HomeComponent,
     children: [{
       path: 'detail/:id',
-      component: DetailComponent
+      component: DetailComponent,
     }]
   },
   {
     path: 'test', 
     component: DetailComponent,
+    data: {
+      reload: true
+    }
   }
 ];
 
