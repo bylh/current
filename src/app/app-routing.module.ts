@@ -10,20 +10,22 @@ const routes: Routes = [
     path: 'home',
     // component: HomeComponent
     loadChildren: './home/home.module#HomeModule',
-    data: { preload: true, reload: false }
+    data: { preload: true, reload: false, path: 'home' }
   },
   {
     path: 'discovery',
     loadChildren: './discovery/discovery.module#DiscoveryModule',
-    data: { preload: true, reload: false }
+    data: { preload: true, reload: false, path: 'discovery' }
   },
   {
     path: 'tools',
     component: ToolsComponent,
+    data: { preload: true, reload: false, path: 'tools' }
   },
   {
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
+    data: { preload: true, reload: false, path: 'profile' }
   }
 ];
 @NgModule({
