@@ -10,18 +10,25 @@ const routes: Routes = [
     path: 'home',
     // component: HomeComponent
     loadChildren: './home/home.module#HomeModule',
-    data: { preload: true }
+    data: { preload: true, reload: false }
   },
   {
     path: 'discovery',
     loadChildren: './discovery/discovery.module#DiscoveryModule',
-    data: { preload: true }
+    data: { preload: true, reload: false }
   },
-  { path: 'tools', component: ToolsComponent },
-  { path: 'profile', component: ProfileComponent }
+  {
+    path: 'tools',
+    component: ToolsComponent,
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent
+  }
 ];
 @NgModule({
   exports: [RouterModule],
-  imports: [RouterModule.forRoot(routes)]
+  imports: [RouterModule.forRoot(routes)],
+  providers: []
 })
 export class AppRoutingModule { }
