@@ -1,7 +1,7 @@
-import { DiscoveryComponent } from './discovery/discovery.component';
+import { AppReuseStrategy } from './app-reuse-strategy';
+
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { RouterModule, Routes, RouteReuseStrategy } from '@angular/router';
 import { ToolsComponent } from './tools/tools.component';
 import { ProfileComponent } from './profile/profile.component';
 const routes: Routes = [
@@ -29,6 +29,6 @@ const routes: Routes = [
 @NgModule({
   exports: [RouterModule],
   imports: [RouterModule.forRoot(routes)],
-  providers: []
+  providers: [{ provide: RouteReuseStrategy, useClass: AppReuseStrategy }]
 })
 export class AppRoutingModule { }

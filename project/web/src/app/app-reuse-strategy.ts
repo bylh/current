@@ -1,38 +1,35 @@
-import {RouteReuseStrategy, DefaultUrlSerializer, ActivatedRouteSnapshot, DetachedRouteHandle} from '@angular/router';
+import {RouteReuseStrategy, ActivatedRouteSnapshot, DetachedRouteHandle} from '@angular/router';
 
 export class AppReuseStrategy implements RouteReuseStrategy {
 
-    _cacheRouters: { [key: string]: DetachedRouteHandle } = {};
+    public static handlers: { [key: string]: DetachedRouteHandle } = {};
 
-    // 是否分离此路由
-    shouldDetach(route: ActivatedRouteSnapshot): boolean {
-        console.log('是否分离', route.data.reload === false);
-        return route.data.reload === false;
-    }
-    // 存储分离的路由
-    store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
-        // this._cacheRouters[route.routeConfig.path] = {
-        //     snapshot: route,
-        //     handle: handle
-        // };
-        this._cacheRouters[route.routeConfig.path] = handle;
-        console.log('store: ', route.routeConfig.path, handle);
+    /** 表示对所有路由允许复用 如果你有路由不想利用可以在这加一些业务逻辑判断 */
+    public shouldDetach(route: ActivatedRouteSnapshot): boolean {
+        return true;
     }
 
-    // 确定是否应重新连接此路由（及其子树）
-    shouldAttach(route: ActivatedRouteSnapshot): boolean {
-        console.log('shouldAttach: ', !!route.routeConfig && !!this._cacheRouters[route.routeConfig.path]);
-        return !!route.routeConfig && !!this._cacheRouters[route.routeConfig.path];
-    }
-    // 检索先前存储的路线
-    retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle {
-        console.log('retrieve: ', route.routeConfig.path, this._cacheRouters[route.routeConfig.path]);
-        return this._cacheRouters[route.routeConfig.path];
+    /** 当路由离开时会触发。按path作为key存储路由快照&组件当前实例对象 */
+    public store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
+        AppReuseStrategy.handlers[route.routeConfig.path] = handle;
     }
 
-    // 确定是否应重用路由
-    shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
-        console.log('shouldReuseRoute: ', future.routeConfig, curr.routeConfig, future.routeConfig === curr.routeConfig);
+    /** 若 path 在缓存中有的都认为允许还原路由 */
+    public shouldAttach(route: ActivatedRouteSnapshot): boolean {
+        return !!route.routeConfig && !!AppReuseStrategy.handlers[route.routeConfig.path]
+    }
+
+    /** 从缓存中获取快照，若无则返回nul */
+    public retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle {
+        if (!route.routeConfig) {
+            return null;
+        }
+        console.log(AppReuseStrategy.handlers);
+        return AppReuseStrategy.handlers[route.routeConfig.path];
+    }
+
+    /** 进入路由触发，判断是否同一路由 */
+    public shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
         return future.routeConfig === curr.routeConfig;
     }
 }
