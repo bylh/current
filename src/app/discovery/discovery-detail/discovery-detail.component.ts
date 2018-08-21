@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-discovery-detail',
@@ -9,7 +10,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 export class DiscoveryDetailComponent implements OnInit {
 
   public id: number;
-  constructor(private route: ActivatedRoute, private router: Router) {
+
+  constructor(private route: ActivatedRoute, private router: Router, private location: Location) {
   }
 
   ngOnInit() {
@@ -19,7 +21,10 @@ export class DiscoveryDetailComponent implements OnInit {
   }
   back() {
     console.log('backId:', this.id);
-    this.router.navigate(['/discovery', {backId: this.id}]);
+    this.router.navigate(['/discovery', { backId: this.id }]);
+    // this.location.go('/home');
+    // this.router.navigate(['/home', {skipLocationChange: false}]);
+
   }
   pre() {
     this.router.navigate([`/discovery/${--this.id}`]);
