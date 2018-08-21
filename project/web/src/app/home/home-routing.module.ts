@@ -8,9 +8,15 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     children: [{
-      path: ':id',
-      component: DetailComponent
+      path: 'detail/:id',
+      component: DetailComponent,
+      // data: {reload: false, path: 'detail/:id'}
     }]
+  },
+  {
+    path: 'test',
+    component: DetailComponent,
+    // data: { reload: false, path: 'test' }
   }
 ];
 

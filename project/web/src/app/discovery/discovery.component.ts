@@ -23,7 +23,9 @@ export class DiscoveryComponent implements OnInit {
     src: 'https://img2.woyaogexing.com/2018/08/02/e410bef934484f86bb9906b95123cdba!600x600.jpeg'
   }];
   public selectedId: number;
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private router: Router) {
+    this.route.paramMap.subscribe(params => console.log('discovery: backId', params.get('backId')))
+   }
 
   ngOnInit() {
     console.log('disconvery init');
