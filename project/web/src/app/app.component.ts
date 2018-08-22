@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 
 import axios from 'axios';
 
@@ -18,7 +19,8 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   constructor(
     protected appService: AppService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    public router: Router
   ) {
   }
 

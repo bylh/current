@@ -11,7 +11,8 @@
   <div>
     <a [routerLink]="'test'" [queryParams]="{info: 'test我是传递的参数'}">子页面,替换当前页面,后退返回时重新加载home页面</a>
   </div>
-  <div [hidden]="router.isActive('/home', true)" class="bylh-page-sub-container">
+  <!-- <div [hidden]="router.isActive('/home', true)" class="bylh-page-sub-container">
     <router-outlet></router-outlet>
-  </div>
+  </div> -->
+  <router-outlet></router-outlet>
 </div>
