@@ -32,4 +32,7 @@ export class DiscoveryComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {this.selectedId = +params.get('backId'); console.log(this.selectedId); });
   }
 
+  public goTab(name: string){
+    this.router.navigateByUrl(name);
+  }
 }

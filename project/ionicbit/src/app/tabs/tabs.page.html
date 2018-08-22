@@ -1,4 +1,9 @@
+
 <ion-tabs>
+    <div style="position:absolute; bottom: 0; z-index: 100000;">
+        <button (click)="goTab('tabs/(home:home)')">home1</button>
+        <button (click)="goTab('tabs/(contact:contact)')">Contact</button>
+      </div>
   <ion-tab label="Home" icon="home" href="/tabs/(home:home)">
     <ion-router-outlet name="home"></ion-router-outlet>
   </ion-tab>

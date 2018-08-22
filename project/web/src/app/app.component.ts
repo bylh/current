@@ -70,6 +70,9 @@ export class AppComponent implements AfterViewInit, OnInit {
     });
   }
 
+  public goTab(name: string){
+    this.router.navigateByUrl(name);
+  }
   public async push() {
     console.log('push(): 测试推送');
     try {

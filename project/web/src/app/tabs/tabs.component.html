@@ -1,0 +1,38 @@
+<div class="bylh-tabs">
+  <div class="app-content">
+    <button (click)="goTab('tabs/(home:home)')">home</button>
+    <button (click)="goTab('tabs/(discovery:discovery)')">discovery</button>
+    <button (click)="goTab('tabs/(tools:tools)')">tools</button>
+    <button (click)="goTab('tabs/(profile:profile)')">profile</button>
+    <!-- ================模块三 路由页面部分=====================-->
+    <div class="nav pure-g">
+      <nav mat-tab-nav-bar backgroundColor="candy-app-accent" class="pure-u-1-1 pure-u-md-3-4 pure-u-lg-2-3">
+          <!-- <a mat-tab-link routerLink="/home" routerLinkActive #homeTab="routerLinkActive" [active]="homeTab.isActive">首页</a> -->
+        <a mat-tab-link [routerLink]="[{ outlets: { home: ['home'] } }]" routerLinkActive #homeTab="routerLinkActive" [active]="homeTab.isActive">首页</a>
+        <a mat-tab-link [routerLink]="[{ outlets: { discovery: ['discovery'] } }]" routerLinkActive #discoveryTab="routerLinkActive"
+          [active]="discoveryTab.isActive">发现</a>
+        <a mat-tab-link [routerLink]="[{ outlets: { tools: ['tools'] } }]" routerLinkActive #toolsTab="routerLinkActive" [active]="toolsTab.isActive">工具</a>
+        <a mat-tab-link [routerLink]="[{ outlets: { profile: ['profile'] } }]" skipLocationChange routerLinkActive #profileTab="routerLinkActive" [active]="profileTab.isActive">个人</a>
+      </nav>
+    </div>
+    <div class="page pure-g">
+      <!-- 路由页面占位符 -->
+      <div class="page-container pure-u-1-1 pure-u-md-3-4 pure-u-lg-2-3">
+        <div style="height: 100%" [hidden]="!router.url.startsWith('/tabs/(home')">
+            <router-outlet name="home"></router-outlet>
+        </div>
+        <div style="height: 100%"  [hidden]="!router.url.startsWith('/tabs/(discovery')">
+          <router-outlet name="discovery"></router-outlet>
+        </div>
+        <div style="height: 100%"  [hidden]="!router.url.startsWith('/tabs/(tools')">
+          <!-- <router-outlet></router-outlet> -->
+          <router-outlet name="tools"></router-outlet>
+        </div>
+        <div style="height: 100%"  [hidden]="!router.url.startsWith('/tabs/(profile')">
+          <!-- <router-outlet></router-outlet> -->
+          <router-outlet name="profile"></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

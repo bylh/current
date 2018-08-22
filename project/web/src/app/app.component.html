@@ -32,37 +32,8 @@
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
-
-  <div class="app-content">
-    <!-- ================模块三 路由页面部分=====================-->
-    <div class="nav pure-g">
-      <nav mat-tab-nav-bar backgroundColor="candy-app-accent" class="pure-u-1-1 pure-u-md-3-4 pure-u-lg-2-3">
-          <!-- <a mat-tab-link routerLink="/home" routerLinkActive #homeTab="routerLinkActive" [active]="homeTab.isActive">首页</a> -->
-        <a mat-tab-link [routerLink]="[{ outlets: { home: ['home'] } }]" routerLinkActive #homeTab="routerLinkActive" [active]="homeTab.isActive">首页</a>
-        <a mat-tab-link [routerLink]="[{ outlets: { discovery: ['discovery'] } }]" routerLinkActive #discoveryTab="routerLinkActive"
-          [active]="discoveryTab.isActive">发现</a>
-        <a mat-tab-link [routerLink]="[{ outlets: { tools: ['tools'] } }]" routerLinkActive #toolsTab="routerLinkActive" [active]="toolsTab.isActive">工具</a>
-        <a mat-tab-link [routerLink]="[{ outlets: { profile: ['profile'] } }]" skipLocationChange routerLinkActive #profileTab="routerLinkActive" [active]="profileTab.isActive">个人</a>
-      </nav>
-    </div>
-    <div class="page pure-g">
-      <!-- 路由页面占位符 -->
-      <div class="page-container pure-u-1-1 pure-u-md-3-4 pure-u-lg-2-3" [hidden]="!router.url.startsWith('/(home')">
-        <div style="height: 100%" [hidden]="!router.url.startsWith('/(home')">
-            <router-outlet name="home"></router-outlet>
-        </div>
-        <div style="height: 100%"  [hidden]="!router.url.startsWith('/(discovery')">
-          <router-outlet name="discovery"></router-outlet>
-        </div>
-        <div style="height: 100%"  [hidden]="!router.url.startsWith('/(tools')">
-          <!-- <router-outlet></router-outlet> -->
-          <router-outlet name="tools"></router-outlet>
-        </div>
-        <div style="height: 100%"  [hidden]="!router.url.startsWith('/(profile')">
-          <!-- <router-outlet></router-outlet> -->
-          <router-outlet name="profile"></router-outlet>
-        </div>
-      </div>
-    </div>
+  <div>
+    <a routeLink="/tabs"></a>
+    <router-outlet></router-outlet>
   </div>
 </div>
