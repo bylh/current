@@ -16,11 +16,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule } from './app-shared.module';
 import { ToolsModule } from './tools/tools.module';
 import { ProfileModule } from './profile/profile.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

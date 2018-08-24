@@ -1,0 +1,9 @@
+.bylh-page-not-found {
+    // 水平垂直居中
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .info {
+        text-align: center;
+    }
+}
