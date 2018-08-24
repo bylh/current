@@ -26,5 +26,8 @@ export class DetailComponent implements OnInit {
   back() {
     this.router.navigate(['/home', {backId: this.id}]);
   }
+  goPage(url: string) {
+    this.router.navigateByUrl(url);
+  }
 
 }
