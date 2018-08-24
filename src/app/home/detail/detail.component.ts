@@ -9,6 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class DetailComponent implements OnInit {
 
   public id: number;
+
+  fileUpload: any;
+  html = `<h2>显示图片</h2>`;
+
   constructor(private route: ActivatedRoute, private router: Router) {
   }
 
@@ -28,6 +32,11 @@ export class DetailComponent implements OnInit {
   }
   goPage(url: string) {
     this.router.navigateByUrl(url);
+  }
+  getImg(event) {
+    this.fileUpload = window.URL.createObjectURL(event.srcElement.files[0]);
+
+    console.log('url:', this.fileUpload);
   }
 
 }
