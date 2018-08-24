@@ -7,17 +7,15 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    children: [{
-      path: 'detail/:id',
-      component: DetailComponent,
-      // data: {reload: false, path: 'detail/:id'}
-    }]
+    children: [
+      {
+        path: 'detail/:id',
+        component: DetailComponent,
+        // data: {reload: false, path: 'detail/:id'}
+      }
+    ]
   },
-  {
-    path: 'test',
-    component: DetailComponent,
-    // data: { reload: false, path: 'test' }
-  }
+
 ];
 
 @NgModule({
