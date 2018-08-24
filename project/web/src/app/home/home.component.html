@@ -1,8 +1,6 @@
 <div class="bylh-home bylh-page-base" #home>
   <h5>首页</h5>
-  <input type="file" name="fileUpload" (change)="getImg($event)" />
-  <!-- <div [innerHTML]="html | safe:'html'"></div> -->
-  <img [src]="fileUpload | safe:'url'" />
+ 
   <!-- <iframe width="100%" frameborder="0" height="100%" seamless src="http://dict.youdao.com/?keyfrom=dict2.index"></iframe> -->
   <div>
     <a [routerLink]="['detail', 1]" [queryParams]="{info: 'detail我是传递的参数'}">子页面,覆盖tab</a>

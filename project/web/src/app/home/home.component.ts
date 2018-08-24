@@ -16,15 +16,12 @@ export class HomeComponent implements OnInit {
   protected posX: number = 0;
   protected posY: number = 0;
   isLogined: boolean = false;
-  fileUpload: any;
-  html = `<h2>显示图片</h2>`;
-  constructor(public appService: AppService, public homeService: HomeService, public snackBar: MatSnackBar, public router: Router, public route: ActivatedRoute) {
-    // console.log('home is active?', this.router.isActive('/home', true));
+  constructor(public homeService: HomeService, public snackBar: MatSnackBar, public router: Router, public route: ActivatedRoute) {
     this.route.paramMap.subscribe(params => {
-      // console.log('backId:', params.get('backId'));
+      console.log('backId:', params.get('backId'));
     });
 
-    this.router.events // 既然是ob为什么不支持filter等函数，暂时不明确
+    this.router.events // 既然是ob为什么不支持filter等函数，应该是rxjs的升级
       .subscribe((event: Event) => {
         // console.log('navi Event: ', event);
         // if(event instanceof NavigationEnd) {
@@ -42,20 +39,11 @@ export class HomeComponent implements OnInit {
         // }
       });
 
-    this.isLogined = appService.isLogined();
-    appService.getAuthStateOb().subscribe((user) => {
-      this.isLogined = user != null;
-    });
     console.log('constructor(): home start');
   }
 
   ngOnInit() {
     console.log('ngOninit() : home init');
-  }
-  getImg(event) {
-    this.fileUpload = window.URL.createObjectURL(event.srcElement.files[0]);
-
-    console.log('url:', this.fileUpload);
   }
   showScroll() {
     (this.home.nativeElement as Element).scrollTo(this.posX, this.posY);
