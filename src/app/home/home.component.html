@@ -7,7 +7,5 @@
   <div>
     <a [routerLink]="['detail', 1]" [queryParams]="{info: 'detail我是传递的参数'}">子页面,覆盖tab</a>
   </div>
-  <div [hidden]="router.isActive('/home', true)" class="bylh-page-sub-container">
-    <router-outlet></router-outlet>
-  </div>
+  <router-outlet></router-outlet>
 </div>
