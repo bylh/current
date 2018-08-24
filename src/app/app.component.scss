@@ -1,6 +1,7 @@
 /* min-height: 0 是flex布局兼容firefox edge， 否则在这两个浏览器滚动条无法使用
 参考链接 https://codeday.me/bug/20180501/160337.html
  */
+
 .bylh-app {
   height: 100%; // 设置页面高度为100%
   background-image: url(../assets/dust_scratches.png);
@@ -30,35 +31,46 @@
     }
   }
   .app-content {
-    position: relative; // tab页的子页面覆盖tab
     height: 100%;
     min-height: 0; // 兼容firefox edge，否则无法使用滚动条
     flex: 1 1 auto; // 扩展高度，可压缩
-    display: flex; // nav部分
-    flex-direction: column;
-    @media screen and (max-width: 500px) {
-      // 宽度小于500px反向，变为手机tab式按钮
-      flex-direction: column-reverse !important;
-      .nav {
-        // background: blanchedalmond;
-      }
-    }
-    .nav {
-      flex: 0 0 auto; // 自身高度，不压缩
-      justify-content: center;
-      /deep/ .mat-tab-links {
-        // 要加/deep/，否则不起作用，参考链接https://stackoverflow.com/questions/43690291/how-to-overwrite-angular-2-material-styles
-        justify-content: space-around;
-      }
-    }
-    .page {
-      min-height: 0; // 兼容firefox edge，否则无法使用滚动条
+    .app-content-g {
       height: 100%;
-      flex: 1 1 auto; // 剩余空间高度，可压缩 
+      display: flex;
       justify-content: center;
-      .page-container {
-        // position: relative; // tab页的子页面不覆盖tab
+      min-height: 0; // 兼容firefox edge，否则无法使用滚动条
+      .app-content-u {
+        position: relative; // tab页的子页面覆盖tab
         height: 100%;
+        min-height: 0; // 兼容firefox edge，否则无法使用滚动条
+        display: flex; // nav部分
+        flex-direction: column;
+        @media screen and (max-width: 500px) {
+          // 宽度小于500px反向，变为手机tab式按钮
+          flex-direction: column-reverse !important;
+          .nav {
+            // background: blanchedalmond;
+          }
+        }
+        .nav {
+          flex: 0 0 auto; // 自身高度，不压缩
+          justify-content: center;
+          /deep/ .mat-tab-links {
+            // 要加/deep/，否则不起作用，参考链接https://stackoverflow.com/questions/43690291/how-to-overwrite-angular-2-material-styles
+            justify-content: space-around;
+            letter-spacing: normal; // pure-g改变了此属性，不知道为啥要改这个属性
+          }
+        }
+        .page {
+          min-height: 0; // 兼容firefox edge，否则无法使用滚动条
+          height: 100%;
+          flex: 1 1 auto; // 剩余空间高度，可压缩 
+          justify-content: center;
+          .page-container {
+            // position: relative; // tab页的子页面不覆盖tab
+            height: 100%;
+          }
+        }
       }
     }
   }
