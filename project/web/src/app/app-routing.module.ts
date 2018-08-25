@@ -7,17 +7,10 @@ import { RouterModule, Routes, RouteReuseStrategy } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/tabs', pathMatch: 'full' },
   {
-    path: 'tabs',
+    path: '',
     loadChildren: './tabs/tabs.module#TabsModule',
-    // data: { preload: false}
-  },
-  {
-    path: 'home',
-    // component: TabsComponent,
-    loadChildren: './home/home.module#HomeModule',
-    // data: { preload: false}
+    data: { preload: true}
   },
   {
     path: '**',

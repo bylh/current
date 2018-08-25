@@ -30,7 +30,7 @@ const routes: Routes = [
         data: { preload: true, reload: false, path: 'profile' }
       }
     ]
-  },
+  }, 
   {
     path: '',
     redirectTo: '/tabs/home',
