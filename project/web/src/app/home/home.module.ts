@@ -4,14 +4,14 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { AppMaterialModule } from '../app-shared.module';
+import { AppSharedModule } from '../app-shared.module';
 import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
   imports: [
     CommonModule,
     HomeRoutingModule,
-    AppMaterialModule,
+    AppSharedModule,
     FormsModule
   ],
   declarations: [HomeComponent, DetailComponent]

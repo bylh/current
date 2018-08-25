@@ -13,9 +13,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
-import { AppMaterialModule } from './app-shared.module';
-import { ToolsModule } from './tools/tools.module';
-import { ProfileModule } from './profile/profile.module';
+import { AppSharedModule } from './app-shared.module';
+
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
@@ -35,9 +34,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AppMaterialModule,
-    ToolsModule,
-    ProfileModule
+    AppSharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

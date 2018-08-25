@@ -38,4 +38,4 @@ import { SafePipe } from './pipe';
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 , verticalPosition: 'top'} },
   ]
 })
-export class AppMaterialModule { }
+export class AppSharedModule { }
