@@ -12,6 +12,7 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./tabs.component.scss']
 })
 export class TabsComponent implements AfterViewInit, OnInit {
+
   title = '我的空间';
   userId: string;
   isLogined: boolean;
@@ -27,13 +28,6 @@ export class TabsComponent implements AfterViewInit, OnInit {
 
   public async ngOnInit() {
     console.log('ngOninit(): 获取订阅，可能之前订阅，也有可能是新的订阅，总之都返回订阅信息');
-
-    // try {
-    //   const pushSubscription = await this.appService.subscribeUser();
-    //   console.log('订阅信息并保存到服务器（成功状态）：', JSON.stringify(pushSubscription));
-    // } catch (err) {
-    //   console.log('ngOninit(): 订阅出错或保存到服务器出错', err);
-    // }
 
     // 监听推送消息
     this.appService.getSwPushMsgOb().subscribe((msg) => {

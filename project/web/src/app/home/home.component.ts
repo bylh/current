@@ -1,10 +1,10 @@
-import { HomeService } from './home.service';
-import { environment } from '../../environments/environment';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import axios from 'axios';
-import { AppService } from '../app.service';
 import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute, NavigationEnd, Event, NavigationStart } from '@angular/router';
+
+import { HomeService } from './home.service';
+
+
 
 @Component({
   selector: 'app-home',
@@ -38,8 +38,6 @@ export class HomeComponent implements OnInit {
         //   }
         // }
       });
-
-    console.log('constructor(): home start');
   }
 
   ngOnInit() {

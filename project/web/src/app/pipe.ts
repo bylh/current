@@ -1,5 +1,7 @@
 import { Pipe, PipeTransform, SecurityContext } from '@angular/core';
 import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
+
+// 转换为可加载的安全资源
 @Pipe({
   name: 'safe'
 })
