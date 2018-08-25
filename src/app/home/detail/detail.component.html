@@ -1,6 +1,6 @@
 <div class="bylh-home-detail bylh-page-base bylh-sub-page-base">
   <button (click)="back()">返回</button>
-  <button (click)="goPage('tools')">tools</button>
+  <button (click)="goPage('tabs/tools')">tools</button>
   <input type="file" name="fileUpload" (change)="getImg($event)" />
   <!-- <div [innerHTML]="html | safe:'html'"></div> -->
   <img width="100%" [src]="fileUpload | safe:'url'" />
