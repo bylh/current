@@ -1,5 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-detail',
@@ -10,7 +11,7 @@ export class DetailComponent implements OnInit {
 
   public id: number;
 
-  fileUpload: any;
+  fileUpload: any = null;
   html = `<h2>显示图片</h2>`;
 
   constructor(private route: ActivatedRoute, private router: Router) {
@@ -37,6 +38,17 @@ export class DetailComponent implements OnInit {
     this.fileUpload = window.URL.createObjectURL(event.srcElement.files[0]);
 
     console.log('url:', this.fileUpload);
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
+    if (this.fileUpload == null) {
+      return true;
+    }
+    // Otherwise ask the user with the dialog service and return its
+    // observable which resolves to true or false when the user decides
+    // return this.dialogService.confirm('Discard changes?');
+    return false;
   }
 
 }

@@ -1,3 +1,4 @@
+import { AppService } from './app.service';
 
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 @Component({
@@ -6,5 +7,7 @@ import { Component, AfterViewInit, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor() {}
+  constructor(appService: AppService) {
+    console.log('app: ', appService.isLogined());
+  }
 }

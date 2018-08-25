@@ -5,12 +5,14 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth'
   ;
 import { environment } from '../environments/environment';
+import { Defer } from '../utils/utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
 
+  redirectUrl: string;
   constructor(protected updates: SwUpdate, protected swPush: SwPush, protected afAuth: AngularFireAuth) {
 
     // 监听推送消息
@@ -70,6 +72,10 @@ export class AppService {
 
   // 用户是否登录
   isLogined(): boolean {
+    // let defer = new Defer<boolean>();
+    // setTimeout(() => {
+    //   defer.resolve(this.afAuth.auth.currentUser != null);
+    // }, 500);
     return this.afAuth.auth.currentUser != null;
   }
 

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import axios from 'axios';
 
 import { MatSnackBar } from '@angular/material';
@@ -19,6 +20,7 @@ export class TabsComponent implements AfterViewInit, OnInit {
 
   constructor(
     protected appService: AppService,
+    protected router: Router,
     public snackBar: MatSnackBar
   ) {
   }
@@ -100,6 +102,8 @@ export class TabsComponent implements AfterViewInit, OnInit {
     try {
       await this.appService.login(email, pwd);
       this.snackBar.open('登录成功', '关闭');
+      let redirect = this.appService.redirectUrl ? this.appService.redirectUrl : '/tabs/home';
+      this.router.navigate([redirect]);
 
     } catch (err) {
       console.log('登录失败', err);

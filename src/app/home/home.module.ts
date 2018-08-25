@@ -9,7 +9,7 @@ import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
   imports: [
-    CommonModule,
+  CommonModule,
     HomeRoutingModule,
     AppSharedModule,
     FormsModule

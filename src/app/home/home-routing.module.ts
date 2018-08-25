@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home.component';
 import { DetailComponent } from './detail/detail.component';
+import { CanDeactivateGuard } from '../can-deactivate-guard.service';
 
 const routes: Routes = [
   {
@@ -11,7 +12,11 @@ const routes: Routes = [
     children: [
       {
         path: 'detail/:id',
-        component: DetailComponent
+        component: DetailComponent,
+        canDeactivate: [CanDeactivateGuard],
+        // resolve: {
+        //   crisis: CrisisDetailResolver
+        // }
       }
     ]
   },
