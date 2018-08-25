@@ -23,3 +23,9 @@ export class Defer<T = void> {
         return this._promise;
     }
  }
+
+ export function timer(timeout: number): Promise<'timeout'> {
+    return new Promise<'timeout'>(resolve => {
+        setTimeout(() => resolve('timeout'), timeout);
+    });
+}
