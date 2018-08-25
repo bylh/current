@@ -116,8 +116,8 @@ export class TabsComponent implements AfterViewInit, OnInit {
   }
   public async signUp(email: string, pwd: string) {
     try {
-      await this.appService.signUp(email, pwd);
-      this.snackBar.open('注册邮件已发出，请注意查收邮箱确认链接', '关闭');
+      await this.appService.signUp(email, pwd); // 暂时注释发送邮件流程
+      this.snackBar.open('注册成功', '关闭');
     } catch (err) {
       console.log('注册失败', err);
     }

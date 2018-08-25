@@ -1,6 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-detail',
@@ -14,7 +15,7 @@ export class DetailComponent implements OnInit {
   fileUpload: any = null;
   html = `<h2>显示图片</h2>`;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -48,7 +49,8 @@ export class DetailComponent implements OnInit {
     // Otherwise ask the user with the dialog service and return its
     // observable which resolves to true or false when the user decides
     // return this.dialogService.confirm('Discard changes?');
-    return false;
+    
+    return confirm('确定离开？');
   }
 
 }
