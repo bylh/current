@@ -1,5 +1,5 @@
 <div class="bylh-tools bylh-page-base">
-  <div class="container">
+
     <div>
       <h5>比特儿交易所</h5>
       <div class="required-info">
@@ -11,7 +11,7 @@
       <button mat-stroked-button (click)="getGateCoinAdress()">获取充值地址</button>
       <button mat-stroked-button (click)="getMarkerList()">获取交易对</button>
       <h5>{{coinName}} {{address}}</h5>
-      <table class="balances pure-table-striped">
+      <table>
         <thead>
           <tr>
             <th>#</th>
@@ -28,6 +28,7 @@
           </tr>
         </tbody>
       </table>
+      
 
       <mat-table *ngIf="coins != null" [dataSource]="coins" class="mat-elevation-z8">
         <!-- symbol Column -->
@@ -58,5 +59,4 @@
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
     </div>
-  </div>
 </div>
