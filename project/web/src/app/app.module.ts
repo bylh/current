@@ -13,6 +13,8 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AuthGuard } from './auth-guard.service';
+import { CanDeactivateGuard } from './can-deactivate-guard.service';
 
 
 @NgModule({
@@ -30,7 +32,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [AuthGuard, CanDeactivateGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

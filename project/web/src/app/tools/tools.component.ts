@@ -17,8 +17,6 @@ export interface Coin {
   styleUrls: ['./tools.component.scss']
 })
 export class ToolsComponent implements OnInit {
-  isLogined: boolean = false;
-
   gateKey: string;
   gateSecret: string;
   coinName: string;
@@ -26,11 +24,7 @@ export class ToolsComponent implements OnInit {
   displayedColumns: string[] = ['symbol', 'pair', 'rate', 'rate_percent'];
   coins: Array<Coin> = null;
   balances: any;
-  constructor(public appService: AppService, public toolsService: ToolsService, public snackBar: MatSnackBar) {
-    this.isLogined = appService.isLogined();
-    appService.getAuthStateOb().subscribe((user) => {
-      this.isLogined = user != null;
-    })
+  constructor(public toolsService: ToolsService, public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -56,10 +50,6 @@ export class ToolsComponent implements OnInit {
   }
 
   async getGateBalances() {
-    if (!this.isLogined) {
-      this.snackBar.open('用户未登录');
-      return;
-    }
     try {
       const res = await axios.request({
         url: `${environment.BaseServerUrl}/get-gate-balances`,
@@ -80,10 +70,6 @@ export class ToolsComponent implements OnInit {
   }
 
   async getGateCoinAdress() {
-    if (!this.isLogined) {
-      this.snackBar.open('用户未登录');
-      return;
-    }
     if (this.coinName == null) {
       this.snackBar.open('请输入代币名称');
       return;
