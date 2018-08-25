@@ -14,7 +14,6 @@ const routes: Routes = [
       }
     ]
   },
-  // { path: 'discovery/:id', component: DiscoveryDetailComponent } // 平行方式，这两种方式只能存在一种
 ];
 
 @NgModule({

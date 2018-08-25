@@ -3,18 +3,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppComponent } from './app.component';
-
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { ServiceWorkerModule } from '@angular/service-worker';
+
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
-import { AppSharedModule } from './app-shared.module';
-
+import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
@@ -32,9 +29,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AppSharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

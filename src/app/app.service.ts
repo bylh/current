@@ -1,11 +1,10 @@
-import { environment } from '../environments/environment';
-import { Injectable } from '@angular/core';
-import { interval } from 'rxjs';
-import { SwUpdate, SwPush } from '@angular/service-worker';
 import axios from 'axios';
-import { AngularFireAuth } from 'angularfire2/auth';
 
-const publicKey = 'BJ3kbCc44PMG9THjY4Nc-JqYKsUkd64e-n4oFGErmuAuFfunVUK1hqrqLOHEO_L1KJQhAZgZSn4F8lUZCYhPRfk';
+import { SwUpdate, SwPush } from '@angular/service-worker';
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth'
+  ;
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,22 +12,24 @@ const publicKey = 'BJ3kbCc44PMG9THjY4Nc-JqYKsUkd64e-n4oFGErmuAuFfunVUK1hqrqLOHEO
 export class AppService {
 
   constructor(protected updates: SwUpdate, protected swPush: SwPush, protected afAuth: AngularFireAuth) {
+
     // 监听推送消息
     swPush.messages.subscribe(msg => {
       console.log('收到推送消息', msg);
     });
 
-    // 使用interval(1000 * 30).subscribe更新，不动
+    // 检查更新
     updates.checkForUpdate().then(() => console.log('检查更新'))
       .catch(err => console.log('检查更新出现错误', err));
 
-    // 是否需要更新
+    // 可用更新订阅
     updates.available.subscribe(event => {
       console.log('current version is', event.current);
       console.log('available version is', event.available);
       // TODO 提示用户更新，目前只要检测到新版本直接更新
       updates.activateUpdate().then(() => document.location.reload());
     });
+
     updates.activated.subscribe(event => {
       console.log('old version was', event.previous);
       console.log('new version is', event.current);
@@ -38,7 +39,7 @@ export class AppService {
   public async subscribeUser(): Promise<string> {
     try {
       const pushSubscription = await this.swPush.requestSubscription({
-        serverPublicKey: publicKey
+        serverPublicKey: environment.Pwa.serverPublicKey
       });
       console.log('subscribeUser(): 订阅成功');
       // 订阅成功将信息保存到服务器
@@ -57,14 +58,17 @@ export class AppService {
     }
   }
 
+  // 获取推送消息ob
   getSwPushMsgOb() {
     return this.swPush.messages;
   }
+
+  // 获取用户
   getAuth() {
     return this.afAuth;
   }
 
-
+  // 用户是否登录
   isLogined(): boolean {
     return this.afAuth.auth.currentUser != null;
   }
@@ -99,6 +103,8 @@ export class AppService {
       throw err;
     }
   }
+
+  // 登出
   async logOut() {
     try {
       await this.afAuth.auth.signOut();
@@ -106,6 +112,8 @@ export class AppService {
       throw err;
     }
   }
+
+  // 重置密码
   public async resetPwd() {
     try {
       await this.afAuth.auth.sendPasswordResetEmail(this.afAuth.auth.currentUser.email);

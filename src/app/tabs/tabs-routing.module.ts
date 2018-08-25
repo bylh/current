@@ -1,8 +1,10 @@
-import { ProfileComponent } from './../profile/profile.component';
-import { ToolsComponent } from './../tools/tools.component';
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import { TabsComponent } from './tabs.component';
+import { ProfileComponent } from './../profile/profile.component';
+import { ToolsComponent } from './../tools/tools.component';
 
 const routes: Routes = [
   {
