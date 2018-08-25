@@ -11,7 +11,7 @@
       <button mat-stroked-button (click)="getGateCoinAdress()">获取充值地址</button>
       <button mat-stroked-button (click)="getMarkerList()">获取交易对</button>
       <h5>{{coinName}} {{address}}</h5>
-      <table>
+      <table *ngIf="balances != null && balances.length > 0">
         <thead>
           <tr>
             <th>#</th>
