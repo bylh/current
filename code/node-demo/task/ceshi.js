@@ -3,14 +3,16 @@ function timer(timeout) {
         setTimeout(() => resolve('timeout'), timeout);
     });
 }
+let i = 0;
 setInterval(async () => {
-    console.log('开始');
-    await timer(Math.floor(Math.random()*3000));
+    i++;
+    console.log('开始-------:', i);
+    await timer(Math.floor(Math.random()*2000));
     console.log('选择');
     document.getElementsByClassName('SingleAnswer')[Math.floor(Math.random()*2)].click();
     await timer(Math.floor(Math.random()*2000));
     console.log('下一步');
     document.getElementsByClassName('NextButton')[0].click();
 }, 
-    8000 );
+    5000 );
 
