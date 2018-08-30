@@ -31,11 +31,11 @@ export class HomeComponent implements OnInit {
     { text: '翻译', url: 'https://translate.google.cn/', cols: 1, rows: 1, color: '#DDBDF1' },
   ];
   items = [
-    { title: 'webwork使用教程', discription: '', imgUrl: 'http://n.sinaimg.cn/translate/20170726/Zjd3-fyiiahz2863063.jpg', link: 'http://www.ruanyifeng.com/blog/2018/07/web-worker.html' },
-    { title: '浏览器数据库 IndexedDB 入门教程', discription: '', imgUrl: 'http://www.gx8899.com/uploads/allimg/2017111809/qwcgbkrwxcw.jpg', link: 'http://www.ruanyifeng.com/blog/2018/07/indexeddb.html' },
-    { title: 'JavaScript 的 this 原理', discription: '', imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuon2K23nnYHCFIJElE_Z52hj1naQSrbhPAlhARX46YL3LXL1c', link: 'http://www.ruanyifeng.com/blog/2018/06/javascript-this.html' },
-    { title: 'Node 定时器详解', discription: '', imgUrl: 'http://img.xiazaizhijia.com/uploads/2017/0825/20170825114525255.jpg', link: 'http://www.ruanyifeng.com/blog/2018/02/node-event-loop.html' },
-    { title: '禁止iframe页面自动重定向跳转', discription: '', imgUrl: 'http://hbimg.b0.upaiyun.com/4fb0d1d6c1046fdeebfccebb2c5d3ed6f1d68728328a-1BGoGh', link: 'https://blog.csdn.net/WKY_CSDN/article/details/71420490' }
+    { title: 'webwork使用教程', discription: '', imgUrl: '//n.sinaimg.cn/translate/20170726/Zjd3-fyiiahz2863063.jpg', link: '//www.ruanyifeng.com/blog/2018/07/web-worker.html' },
+    { title: '浏览器数据库 IndexedDB 入门教程', discription: '', imgUrl: '//www.gx8899.com/uploads/allimg/2017111809/qwcgbkrwxcw.jpg', link: '//www.ruanyifeng.com/blog/2018/07/indexeddb.html' },
+    { title: 'JavaScript 的 this 原理', discription: '', imgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuon2K23nnYHCFIJElE_Z52hj1naQSrbhPAlhARX46YL3LXL1c', link: '//www.ruanyifeng.com/blog/2018/06/javascript-this.html' },
+    { title: 'Node 定时器详解', discription: '', imgUrl: '//img.xiazaizhijia.com/uploads/2017/0825/20170825114525255.jpg', link: 'http://www.ruanyifeng.com/blog/2018/02/node-event-loop.html' },
+    { title: '禁止iframe页面自动重定向跳转', discription: '', imgUrl: '//hbimg.b0.upaiyun.com/4fb0d1d6c1046fdeebfccebb2c5d3ed6f1d68728328a-1BGoGh', link: '//blog.csdn.net/WKY_CSDN/article/details/71420490' }
   ];
   constructor(public homeService: HomeService, public snackBar: MatSnackBar, public router: Router, public route: ActivatedRoute) {
     this.route.paramMap.subscribe(params => {
