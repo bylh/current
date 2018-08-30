@@ -51,6 +51,7 @@
           .nav {
             // background: lightskyblue;
             border-top: 1px solid yellowgreen;
+            box-sizing: border-box; // border也计算在宽高内
           }
         }
         .nav {

@@ -12,6 +12,7 @@ export class DetailComponent implements OnInit {
 
   public id: number;
 
+  public link: string;
   fileUpload: any = null;
   html = `<h2>显示图片</h2>`;
 
@@ -25,12 +26,13 @@ export class DetailComponent implements OnInit {
       console.log('detail id: ', this.id);
     }));
     this.route.queryParamMap.subscribe(params => {
-      console.log(params.get('info'));
+      console.log(params.get('link'));
+      this.link = params.get('link');
     })
     this.id = +this.route.snapshot.paramMap.get('id'); // + 将string转化为number
   }
   back() {
-    this.router.navigate(['tabs/home', {backId: this.id}]);
+    this.router.navigate(['tabs/home']);
   }
   goPage(url: string) {
     this.router.navigateByUrl(url);
