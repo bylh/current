@@ -1,2 +1,10 @@
 .bylh-home {
+  .tile a{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none; // 去除a标签下划线
+  }
 }

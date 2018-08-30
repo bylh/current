@@ -1,8 +1,14 @@
 <div class="bylh-home-detail bylh-page-base bylh-sub-page-base">
-  <button (click)="back()">返回</button>
-  <button (click)="goPage('tabs/tools')">tools</button>
-  <input type="file" name="fileUpload" (change)="getImg($event)" />
+  <div class="header">
+      <button (click)="back()">返回</button>
+  </div>
+  <div class="content">
+      <iframe width="100%" frameborder="0" height="100%" seamless sandbox="allow-scripts allow-same-origin allow-popups"  [src]="link | safe:'resourceUrl'"></iframe>
+  </div>
+  <!-- <iframe width="100%" frameborder="0" height="100%" seamless src="http://dict.youdao.com/?keyfrom=dict2.index"></iframe> -->
+  <!-- <button (click)="goPage('tabs/tools')">tools</button> -->
+  <!-- <input type="file" name="fileUpload" (change)="getImg($event)" /> -->
   <!-- <div [innerHTML]="html | safe:'html'"></div> -->
-  <img width="100%" [src]="fileUpload | safe:'url'" />
-  detail works!{{id}}
+  <!-- <img width="100%" [src]="fileUpload | safe:'url'" /> -->
+  <!-- detail works!{{id}} -->
 </div>
