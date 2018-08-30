@@ -9,6 +9,10 @@
   flex-direction: column; // 垂直方向flex
   // toolboor部分
   .app-toolbar {
+    min-height: 0; // 默认是64px
+    .mat-toolbar-row, .mat-toolbar-single-row {
+      height: auto; // 默认根据媒体查询屏幕宽度64px, 56px;
+  }
     flex: 0 0 auto; // 自身高度，不压缩
     .header {
       .title {

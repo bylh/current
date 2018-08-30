@@ -3,6 +3,11 @@
     flex-direction: column;
     .header {
         flex: 0 0 auto;
+        display: flex;
+        .title {
+            flex: 1 1 auto;
+            text-align: center;
+        }
     }
     .content {
         flex: 1 1 auto;
