@@ -1,3 +1,4 @@
+
 import { Router } from '@angular/router';
 import axios from 'axios';
 
@@ -6,6 +7,7 @@ import { Component, AfterViewInit, OnInit } from '@angular/core';
 
 import { AppService } from '../app.service';
 import { environment } from '../../environments/environment';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-tabs',
@@ -21,6 +23,7 @@ export class TabsComponent implements AfterViewInit, OnInit {
   constructor(
     protected appService: AppService,
     protected router: Router,
+    protected location: Location,
     public snackBar: MatSnackBar
   ) {
   }
@@ -137,5 +140,14 @@ export class TabsComponent implements AfterViewInit, OnInit {
     } catch (err) {
       console.log('重置密码出错', err);
     }
+  }
+  public back() {
+    this.location.back();
+    
+  }
+  public isRootTab() {
+    return this.location.isCurrentPathEqualTo('/tabs/home') || this.location.isCurrentPathEqualTo('/tabs/discovery')
+     || this.location.isCurrentPathEqualTo('/tabs/tools') || this.location.isCurrentPathEqualTo('/tabs/profile')
+     || this.location.isCurrentPathEqualTo('/tabs');
   }
 }

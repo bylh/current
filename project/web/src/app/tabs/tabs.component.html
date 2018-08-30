@@ -2,6 +2,9 @@
     <mat-toolbar class="app-toolbar" color="primary">
         <!-- ================模块一 头部=====================-->
         <mat-toolbar-row class="header">
+            <button *ngIf="!isRootTab()" mat-icon-button (click)="back()">
+                <mat-icon>arrow_back_ios</mat-icon>
+              </button>
           <!-- 标题 -->
           <div class="title">{{ title }}</div>
     
