@@ -46,7 +46,7 @@ export class TabsComponent implements AfterViewInit, OnInit {
       if (user) {
         // 导航到正确目标
         let redirect = this.appService.redirectUrl ? this.appService.redirectUrl : '/tabs/home';
-        this.router.navigate([redirect]);
+        this.router.navigateByUrl(redirect);
 
         // console.log('用户邮箱地址是否验证', user.emailVerified);
         // if (user.emailVerified) { // 如果用户邮件被验证， 则订阅到服务器
@@ -57,7 +57,7 @@ export class TabsComponent implements AfterViewInit, OnInit {
           console.log('ngOninit(): 订阅出错或保存到服务器出错', err);
         }
       } else {
-        this.router.navigate(['login']);
+        this.router.navigateByUrl('login');
       }
       // }
     });

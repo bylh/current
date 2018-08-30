@@ -32,7 +32,7 @@ export class DetailComponent implements OnInit {
     this.id = +this.route.snapshot.paramMap.get('id'); // + 将string转化为number
   }
   back() {
-    this.router.navigate(['tabs/home']);
+    this.router.navigateByUrl('tabs/home');
   }
   goPage(url: string) {
     this.router.navigateByUrl(url);

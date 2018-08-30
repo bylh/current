@@ -21,16 +21,18 @@ export class DiscoveryDetailComponent implements OnInit {
   }
   back() {
     console.log('backId:', this.id);
-    this.router.navigate(['tabs/discovery', { backId: this.id }]);
+    this.router.navigateByUrl('tabs/discovery',  {
+      queryParams: { 'backId': this.id },
+    });
     // this.location.go('/home');
     // this.router.navigate(['/home', {skipLocationChange: false}]);
 
   }
   pre() {
-    this.router.navigate([`tabs/discovery/${--this.id}`]);
+    this.router.navigateByUrl(`tabs/discovery/${--this.id}`);
   }
   next() {
-    this.router.navigate([`tabs/discovery/${++this.id}`]);
+    this.router.navigateByUrl(`tabs/discovery/${++this.id}`);
   }
 
 }
