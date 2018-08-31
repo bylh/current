@@ -1,61 +1,68 @@
 <div class="bylh-tabs">
-    <mat-toolbar class="app-toolbar" color="primary">
-        <!-- ================模块一 头部=====================-->
-        <mat-toolbar-row class="header">
-            <button *ngIf="!isRootTab()" mat-icon-button (click)="back()">
-                <mat-icon>arrow_back_ios</mat-icon>
-              </button>
-          <!-- 标题 -->
-          <div class="title">{{ title }}</div>
-    
-          <!-- 显示用户名 -->
-          <div class="userId">{{userId}}</div>
-    
-          <!-- 用户菜单 > 重置密码 登出 测试推送 -->
-          <mat-menu #appMenu="matMenu">
-            <ng-container *ngIf="isLogined">
-              <button mat-menu-item (click)="resetPwd()">重置密码</button>
-              <button mat-menu-item (click)="logout()">登出</button>
-            </ng-container>
-            <button mat-menu-item (click)="push()">推送</button>
-            <button mat-menu-item (click)="test()">测试</button>
-          </mat-menu>
-          <button mat-icon-button [matMenuTriggerFor]="appMenu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-        </mat-toolbar-row>
-    
-        <!-- ================模块二 登录注册部分=====================-->
-        <mat-toolbar-row *ngIf="!isLogined" class="user-action">
-          <input type="email" [(ngModel)]="user" placeholder="用户名" #emailInput />
-          <input type="password" [(ngModel)]="pwd" placeholder="密码" #pwdInput />
-          <div>
-            <button mat-button (click)="login(emailInput?.value, pwdInput?.value)">登录</button>
-            <button mat-button (click)="signUp(emailInput?.value, pwdInput?.value)">注册</button>
-          </div>
-        </mat-toolbar-row>
-      </mat-toolbar>
-    
-      <div class="app-content">
-        <div class="app-content-g pure-g">
-          <div class="app-content-u pure-u-1-1 pure-u-lg-22-24 pure-u-xl-20-24">
-            <!-- ================模块三 路由页面部分=====================-->
-            <div class="nav pure-g">
-              <nav mat-tab-nav-bar backgroundColor="candy-app-accent">
-                <a mat-tab-link routerLink="/tabs/home" routerLinkActive #homeTab="routerLinkActive" [active]="homeTab.isActive">首页</a>
-                <a mat-tab-link routerLink="/tabs/discovery" routerLinkActive #discoveryTab="routerLinkActive" [active]="discoveryTab.isActive">发现</a>
-                <a mat-tab-link routerLink="/tabs/tools" routerLinkActive #toolsTab="routerLinkActive" [active]="toolsTab.isActive">工具</a>
-                <a mat-tab-link routerLink="/tabs/profile" routerLinkActive #profileTab="routerLinkActive" [active]="profileTab.isActive">个人</a>
-              </nav>
-            </div>
-            <div class="page">
-              <!-- 路由页面占位符 -->
-              <div class="page-container">
-                <router-outlet></router-outlet>
-              </div>
-            </div>
+  <mat-toolbar class="app-toolbar" color="primary">
+    <!-- ================模块一 头部=====================-->
+    <mat-toolbar-row class="header">
+      <button *ngIf="!isRootTab()" mat-icon-button (click)="back()">
+        <mat-icon>arrow_back_ios</mat-icon>
+      </button>
+      <!-- 标题 -->
+      <div class="title">{{ title }}</div>
+      <div class="nav">
+        <nav mat-tab-nav-bar backgroundColor="theme">
+          <a mat-tab-link routerLink="/tabs/home" routerLinkActive #homeTab="routerLinkActive" [active]="homeTab.isActive">首页</a>
+          <a mat-tab-link routerLink="/tabs/discovery" routerLinkActive #discoveryTab="routerLinkActive" [active]="discoveryTab.isActive">发现</a>
+          <a mat-tab-link routerLink="/tabs/tools" routerLinkActive #toolsTab="routerLinkActive" [active]="toolsTab.isActive">工具</a>
+          <a mat-tab-link routerLink="/tabs/profile" routerLinkActive #profileTab="routerLinkActive" [active]="profileTab.isActive">个人</a>
+        </nav>
+      </div>
+
+      <!-- 显示用户名 -->
+      <div class="userId">{{userId}}</div>
+
+      <!-- 用户菜单 > 重置密码 登出 测试推送 -->
+      <mat-menu #appMenu="matMenu">
+        <ng-container *ngIf="isLogined">
+          <button mat-menu-item (click)="resetPwd()">重置密码</button>
+          <button mat-menu-item (click)="logout()">登出</button>
+        </ng-container>
+        <button mat-menu-item (click)="push()">推送</button>
+        <button mat-menu-item (click)="test()">测试</button>
+      </mat-menu>
+      <button mat-icon-button [matMenuTriggerFor]="appMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </mat-toolbar-row>
+
+    <!-- ================模块二 登录注册部分=====================-->
+    <mat-toolbar-row *ngIf="!isLogined" class="user-action">
+      <input type="email" [(ngModel)]="user" placeholder="用户名" #emailInput />
+      <input type="password" [(ngModel)]="pwd" placeholder="密码" #pwdInput />
+      <div>
+        <button mat-button (click)="login(emailInput?.value, pwdInput?.value)">登录</button>
+        <button mat-button (click)="signUp(emailInput?.value, pwdInput?.value)">注册</button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div class="app-content">
+    <div class="app-content-g pure-g">
+      <div class="app-content-u pure-u-1-1 pure-u-lg-22-24 pure-u-xl-20-24">
+        <!-- ================模块三 路由页面部分=====================-->
+        <div class="page">
+          <!-- 路由页面占位符 -->
+          <div class="page-container">
+            <router-outlet></router-outlet>
           </div>
         </div>
+        <div class="nav pure-g">
+            <nav mat-tab-nav-bar backgroundColor="candy-app-accent">
+              <a mat-tab-link routerLink="/tabs/home" routerLinkActive #homeTab="routerLinkActive" [active]="homeTab.isActive">首页</a>
+              <a mat-tab-link routerLink="/tabs/discovery" routerLinkActive #discoveryTab="routerLinkActive" [active]="discoveryTab.isActive">发现</a>
+              <a mat-tab-link routerLink="/tabs/tools" routerLinkActive #toolsTab="routerLinkActive" [active]="toolsTab.isActive">工具</a>
+              <a mat-tab-link routerLink="/tabs/profile" routerLinkActive #profileTab="routerLinkActive" [active]="profileTab.isActive">个人</a>
+            </nav>
+          </div>
       </div>
+    </div>
   </div>
-  
+</div>
