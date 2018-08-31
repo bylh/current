@@ -33,10 +33,6 @@
         nav {
           flex: 0 1 auto;
         }
-        .mat-tab-label-active {
-          // router匹配时的class
-          color: whitesmoke;
-        }
         /deep/ .mat-tab-links {
           justify-content: space-around;
         }
@@ -79,9 +75,6 @@
           // 宽度小于500px反向，变为手机tab式按钮
           flex-direction: column-reverse !important;
           .nav {
-            // background: lightskyblue;
-            border-top: 1px solid yellowgreen;
-            box-sizing: border-box; // border也计算在宽高内
             display: flex !important;
           }
         }
