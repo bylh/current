@@ -75,19 +75,9 @@
         min-height: 0; // 兼容firefox edge，否则无法使用滚动条
         display: flex; // nav部分
         flex-direction: column;
-        .page {
-          min-height: 0; // 兼容firefox edge，否则无法使用滚动条
-          height: 100%;
-          flex: 1 1 auto; // 剩余空间高度，可压缩 
-          justify-content: center;
-          .page-container {
-            // position: relative; // tab页的子页面不覆盖tab
-            height: 100%;
-          }
-        }
         @media screen and (max-width: 600px) {
           // 宽度小于500px反向，变为手机tab式按钮
-          // flex-direction: column-reverse !important;
+          flex-direction: column-reverse !important;
           .nav {
             // background: lightskyblue;
             border-top: 1px solid yellowgreen;
@@ -106,6 +96,16 @@
             // 要加/deep/，否则不起作用，参考链接https://stackoverflow.com/questions/43690291/how-to-overwrite-angular-2-material-styles
             justify-content: space-around;
             letter-spacing: normal; // pure-g改变了此属性，不知道为啥要改这个属性
+          }
+        }
+        .page {
+          min-height: 0; // 兼容firefox edge，否则无法使用滚动条
+          height: 100%;
+          flex: 1 1 auto; // 剩余空间高度，可压缩 
+          justify-content: center;
+          .page-container {
+            // position: relative; // tab页的子页面不覆盖tab
+            height: 100%;
           }
         }
       }
