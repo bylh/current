@@ -1,4 +1,4 @@
-import { FormsModule } from '@angular/forms';
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -11,7 +11,6 @@ import { AppSharedModule } from '../app-shared.module';
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     TabsRoutingModule,
     ToolsModule,
     ProfileModule,

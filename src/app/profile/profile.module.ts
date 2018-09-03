@@ -1,3 +1,4 @@
+import { AppSharedModule } from './../app-shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -7,7 +8,8 @@ import { ProfileComponent } from './profile.component';
 @NgModule({
   imports: [
     CommonModule,
-    ProfileRoutingModule
+    ProfileRoutingModule,
+    AppSharedModule
   ],
   declarations: [ProfileComponent]
 })
