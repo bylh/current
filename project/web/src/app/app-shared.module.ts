@@ -1,11 +1,12 @@
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
   MatInputModule, MatButtonModule, MatGridListModule, MatFormFieldModule, MatIconModule,
   MatToolbarModule, MatExpansionModule, MatMenuModule, MatCardModule, MatTabsModule, MatDividerModule,
-   MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatTableModule, MatDialogModule, MatListModule
+   MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatTableModule, MatDialogModule, MatListModule, MatCheckboxModule, MatRadioModule, MatOptionModule, MatSelectModule
 } from '@angular/material';
 
 import { SafePipe } from './pipe';
@@ -20,6 +21,9 @@ import { SafePipe } from './pipe';
   exports: [
     // pipe
     SafePipe,
+
+    FormsModule,
+    ReactiveFormsModule,
 
     MatInputModule,
     MatButtonModule,
@@ -36,7 +40,11 @@ import { SafePipe } from './pipe';
     MatSnackBarModule,
     MatTableModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 , verticalPosition: 'top'} },
