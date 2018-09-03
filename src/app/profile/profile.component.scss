@@ -1,2 +1,12 @@
 .bylh-profile {
+    .form-container {
+        display: flex;
+        justify-content: center;
+        form {
+            width: 60%;
+            mat-form-field {
+                width: 100%;
+            }
+        }
+    }
 }
