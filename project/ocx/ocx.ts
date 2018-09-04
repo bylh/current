@@ -36,6 +36,9 @@ import DBHelper from './db-helper';
     app.enable('trust proxy'); // 支持反向代理
     app.use(bodyParser.json({limit: 1 * 1024 * 1024})); // 最大1M的JSON请求
     app.use(cors()); // 解决跨域访问的问题
+
+    app.use(express.static('public')); // 静态资源库
+
     app.use('/get-tickers', getTickers);
     // app.use('/auto-trade', autoTrade);
     app.use('/sign-up', signUp);
