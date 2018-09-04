@@ -25,3 +25,4 @@ project/ocx/config.ts
 project/web/src/config.ts
 project/web/src/environments/environment.ts
 project/web/src/environments/environment.prod.ts
+project/ocx/public/
