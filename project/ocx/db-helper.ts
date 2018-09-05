@@ -6,7 +6,7 @@ export interface WebPushInfo {
     pushSubscription: string
 }
 // ${Config.Server.IP}
-const CollectUri = `mongodb://${Config.Server.DB.User}:${Config.Server.DB.Pwd}@127.0.0.1:${Config.Server.DB.Port}/web`;
+export const CollectUri = `mongodb://${Config.Server.DB.User}:${Config.Server.DB.Pwd}@127.0.0.1:${Config.Server.DB.Port}/web`;
 const Schema = mongoose.Schema;
 const webPushSchema = new Schema({
     userId: String,

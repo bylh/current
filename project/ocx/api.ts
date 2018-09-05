@@ -40,7 +40,12 @@ const payloadTest = {
         }]
     }
 };
-
+export async function checkSession(req: express.Request, res: express.Response, next: express.NextFunction) {
+    if(req.session.userinfo == null) {
+        res.sendStatus(401);
+    }
+    next(); // 权限验证成功
+}
 export async function signUp(req: express.Request, res: express.Response) {
     try {
         console.log('开始注册', req.body);
@@ -58,7 +63,9 @@ export async function login(req: express.Request, res: express.Response) {
         console.log('开始登录', req.body);
         let isLogin = await DBHelper.findOne('user', { userId: req.body.userId, pwd: req.body.pwd });
         if(isLogin) {
-            console.log('登录成功');
+            console.log('登录成功前', req.session, req.sessionID);
+            req.session.userinfo = req.body.userId;  //设置session
+            console.log('登录成功后', req.session, req.sessionID);
             res.sendStatus(200);
             return;
         } else {
@@ -139,6 +146,7 @@ export async function autoTrade(req: express.Request, res: express.Response) {
 /* ------------------------gate-------------------*/
 export async function getGateMarketList(req: express.Request, res: express.Response) {
     console.log('getGateMarketList(): start');
+    console.log('getTickers:', req.session);
     try {
         let result = await axios.request({
             url: 'https://data.gateio.io/api2/1/marketlist',
