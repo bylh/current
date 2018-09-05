@@ -43,12 +43,32 @@ const payloadTest = {
 
 export async function signUp(req: express.Request, res: express.Response) {
     try {
-        console.log('开始注册');
-        await DBHelper.update(req.query, 'user')
+        console.log('开始注册', req.body);
+        await DBHelper.update(req.body, 'user')
         console.log('注册成功');
         res.sendStatus(200);
     } catch (err) {
         console.log('注册失败');
+        res.sendStatus(500);
+    }
+}
+
+export async function login(req: express.Request, res: express.Response) {
+    try {
+        console.log('开始登录', req.body);
+        let isLogin = await DBHelper.findOne('user', { userId: req.body.userId, pwd: req.body.pwd });
+        if(isLogin) {
+            console.log('登录成功');
+            res.sendStatus(200);
+            return;
+        } else {
+            console.log('找不到用户');
+            res.sendStatus(404);
+            return;
+        }
+        
+    } catch (err) {
+        console.log('登录失败');
         res.sendStatus(500);
     }
 }
