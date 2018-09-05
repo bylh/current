@@ -53,7 +53,7 @@ const MongoStore = connectMongo(session);
         // resave: false,   /*强制保存 session 即使它并没有变化,。默认为 true。建议设置成 false。*/
         // saveUninitialized: true,   //强制将未初始化的 session 存储。  默认值是true  建议设置成true
         cookie: {
-            maxAge: 10000000    /*过期时间*/
+            maxAge: 1000*3600*60*24    /*过期时间 1天*/
 
         },   
         /* secure:true  https这样的情况才可以访问cookie */
