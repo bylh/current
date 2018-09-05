@@ -1,9 +1,10 @@
+import { environment } from './../../environments/environment';
 import { DialogComponent } from './dialog/dialog.component';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material';
-
+import axios from 'axios';
 export interface DialogData {
   animal: string;
   name: string;
@@ -40,11 +41,42 @@ export class ProfileComponent implements OnInit {
       ])
     });
   }
-  submitForm() {
-    console.log('hello', this.form, JSON.stringify(this.form.value));
+  async submitForm() {
+    console.log('登录', this.form.value);
+    try {
+      let res = await axios.request({
+        url: `${environment.BaseServerUrl}/login`,
+        method: 'post',
+        data: {
+          userId: this.form.value.email,
+          pwd: this.form.value.password
+        }
+      });
+      console.log('登录成功');
+
+    } catch (err) {
+      if (err.response.status === 404) {
+        console.log('此用户未注册');
+        return;
+      }
+      console.log('登录失败', err.response.status);
+    }
   }
-  signUp() {
-    console.log('注册');
+  async signUp() {
+    console.log('注册', this.form.value);
+    try {
+      await axios.request({
+        url: `${environment.BaseServerUrl}/sign-up`,
+        method: 'post',
+        data: {
+          userId: this.form.value.email,
+          pwd: this.form.value.password
+        }
+      })
+    } catch (err) {
+      console.log('注册失败', err);
+    }
+
   }
 
   openDialog(): void {

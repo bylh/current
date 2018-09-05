@@ -15,6 +15,10 @@ const webPushSchema = new Schema({
 const userSchema = new Schema({
     userId: String,
     pwd: String, // 可能用不到
+    // isAdmin: {
+    //     type: Boolean,
+    //     default: false
+    // }
 
 })
 const webPushModel = mongoose.model('webpushes', webPushSchema);
@@ -28,6 +32,20 @@ class DBHelper {
         } catch (err) {
             throw err;
         }
+    }
+    public async findOne(type: string, conditions: any): Promise<boolean>{
+        let defer = new Defer<boolean>();
+        let model: mongoose.Model<mongoose.Document> = null;
+        if(type === 'user') {
+            model = userModel;
+        } else if(type === 'webpush') {
+            model = webPushModel;
+        }
+        model.findOne(conditions, (err, res) => {
+            console.log('getOne(): res:', res, 'err', err);
+            defer.resolve(res != null);
+        });
+        return await defer.promise;;
     }
     public async getOne(conditions: any) {
         let defer = new Defer<any>();
@@ -69,7 +87,8 @@ class DBHelper {
         }
         try {
             await userModel.update({
-                userId: info.userId
+                userId: info.userId,
+                pwd: info.pwd
             }, info, {upsert: true},(err, raw) => console.log(err, raw));
             // await data.update(info);
         } catch (err) {
