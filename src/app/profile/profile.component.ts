@@ -5,6 +5,7 @@ import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormG
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material';
 import axios from 'axios';
+axios.defaults.withCredentials = true    // 请求携带cookie信息  
 export interface DialogData {
   animal: string;
   name: string;
@@ -76,7 +77,34 @@ export class ProfileComponent implements OnInit {
     } catch (err) {
       console.log('注册失败', err);
     }
+  }
 
+  async logout() {
+    console.log('登出', this.form.value);
+    try {
+      await axios.request({
+        url: `${environment.BaseServerUrl}/logout`,
+        method: 'post',
+        data: {
+          userId: this.form.value.email,
+        }
+      });
+      console.log('登出成功');
+    } catch (err) {
+      console.log('登出失败', err);
+    }
+  }
+
+  async getMarkerList() {
+    try {
+      const res = await axios.request({
+        url: `${environment.BaseServerUrl}/get-gate-marketlist`,
+        method: 'get',
+      });
+      console.log('res:', res);
+    } catch (err) {
+      console.log('err:', err);
+    }
   }
 
   openDialog(): void {
