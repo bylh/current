@@ -1,4 +1,6 @@
+
 // import webpush from 'web-push';
+
 import bodyParser from 'body-parser';
 import { UrlType, getUrl, getSignal, getTickers } from './common';
 import http from 'http';
@@ -7,6 +9,9 @@ import cors from 'cors';
 import program from 'commander';
 import { autoTrade, subscribe, sendNotification, sendNotificationToUsers, getGateMarketList, startGateAutoTrade, getGateBalances, getGateCoinAdress, signUp, login} from './api';
 import DBHelper from './db-helper';
+import session from 'express-session';
+import connectMongo from 'connect-mongo';
+const MongoStore = connectMongo(session);
 
 (async function main(): Promise<void> {
     program.version('1.0.0')
