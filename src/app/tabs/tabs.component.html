@@ -17,8 +17,11 @@
       </div>
 
       <!-- 显示用户名 -->
-      <div class="userId" (click)="toProfile()">{{auth.getAuthSubject().getValue() != null ? auth.getAuthSubject().getValue() : '未登录'}}</div>
-
+      <div class="userId" (click)="toProfile()">
+        <img class="mat-card-avatar" src="https://bit.bylh.top/avatars/default.jpg">
+        <!-- {{auth.getAuthSubject().getValue() != null ? auth.getAuthSubject().getValue() : '未登录'}} -->
+      </div>
+      
       <!-- 用户菜单 > 重置密码 登出 测试推送 -->
       <mat-menu #appMenu="matMenu">
         <ng-container *ngIf="!auth.getAuthSubject().getValue()">

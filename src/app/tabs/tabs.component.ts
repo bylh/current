@@ -23,7 +23,7 @@ export class TabsComponent implements AfterViewInit, OnInit {
 
   constructor(
     protected appService: AppService,
-    protected auth: AuthService,
+    public auth: AuthService,
     protected router: Router,
     protected location: Location,
     public snackBar: MatSnackBar
