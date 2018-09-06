@@ -23,8 +23,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  animal: string;
-  name: string;
+  fileUpload: any = null;
+  html = `<h2>显示图片</h2>`;
 
 
   form: FormGroup;
@@ -73,12 +73,17 @@ export class ProfileComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogComponent, {
       // height: '400px',
       // width: '600px',
-      data: { name: this.name, animal: this.animal }
+      data: { name: this.auth.getAuthSubject().getValue() }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
-      this.animal = result;
     });
+  }
+  
+  getImg(event) {
+    this.fileUpload = window.URL.createObjectURL(event.srcElement.files[0]);
+
+    console.log('url:', this.fileUpload);
   }
 }
