@@ -53,8 +53,9 @@ const MongoStore = connectMongo(session);
         resave: false,   /*强制保存 session 即使它并没有变化,。默认为 true。建议设置成 false。*/
         saveUninitialized: true,   //强制将未初始化的 session 存储。  默认值是true  建议设置成true
         cookie: {
+            httpOnly: false, // 决定了用户是否有读写此cookie的权限
             // expires: // 过期的日期
-            maxAge: 1000*3600*60*24    /*过期时间 1天*/
+            maxAge: 1000*3600*24    /*过期时间 1天*/
 
         },   
         
@@ -69,14 +70,17 @@ const MongoStore = connectMongo(session);
     app.use(express.static('public')); // 静态资源库
 
 
-    // app.use("/", function (req, res) {
-    //     console.log(req.session);
-    //     if (req.session.userinfo) {  //获取session
-    //         res.send('你好' + req.session.userinfo + '欢迎回来');
-    //     } else {
-    //         res.send('未登录');
-    //     }
-    // });
+    app.use("/check-session", (req, res, next) => {
+        console.log(req.session);
+        if (req.session.userinfo) {  //获取session
+            // res.send('你好' + req.session.userinfo + '欢迎回来');
+            res.status(200).json({
+                userId: req.session.userinfo
+            });
+        } else {
+            res.send('未登录');
+        }
+    });
 
 
     app.use('/get-tickers', getTickers);
@@ -85,13 +89,14 @@ const MongoStore = connectMongo(session);
     app.use('/sign-up', signUp);
     app.use('/login', login);
 
-    app.use("/logout",  (req, res) => {
+    app.use("/logout",  (req, res, next) => {
         console.log('登出', req.session.userinfo);
         // req.session.cookie = null;
         // req.session.cookie.maxAge=0;  //重新设置过期时间来销毁。cookie中保存有sessionID
         req.session.destroy(function (err) {  //通过destroy()函数销毁session
             console.log('错误', err);
         });
+        res.clearCookie('connect.sid')
         res.sendStatus(200);
     });
 

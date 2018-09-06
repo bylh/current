@@ -2,8 +2,7 @@ import axios from 'axios';
 
 import { SwUpdate, SwPush } from '@angular/service-worker';
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth'
-  ;
+import { AngularFireAuth } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import { Defer } from '../utils/utils';
 
