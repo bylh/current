@@ -5,6 +5,7 @@ import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormG
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material';
 import axios from 'axios';
+import { AuthService } from '../auth.service';
 axios.defaults.withCredentials = true    // 请求携带cookie信息  
 export interface DialogData {
   animal: string;
@@ -29,7 +30,10 @@ export class ProfileComponent implements OnInit {
 
   form: FormGroup;
   matcher = new MyErrorStateMatcher();
-  constructor(public fb: FormBuilder, public dialog: MatDialog) { }
+  constructor(
+    public auth: AuthService,
+    public fb: FormBuilder,
+    public dialog: MatDialog) { }
   ngOnInit() {
     this.form = this.fb.group({
       'email': new FormControl('', [
@@ -45,17 +49,11 @@ export class ProfileComponent implements OnInit {
   async submitForm() {
     console.log('登录', this.form.value);
     try {
-      let res = await axios.request({
-        url: `${environment.BaseServerUrl}/login`,
-        method: 'post',
-        data: {
-          userId: this.form.value.email,
-          pwd: this.form.value.password
-        }
-      });
+      await this.auth.login(this.form.value.email, this.form.value.password);
       console.log('登录成功');
 
     } catch (err) {
+      console.log('失败', err);
       if (err.response.status === 404) {
         console.log('此用户未注册');
         return;
@@ -66,14 +64,7 @@ export class ProfileComponent implements OnInit {
   async signUp() {
     console.log('注册', this.form.value);
     try {
-      await axios.request({
-        url: `${environment.BaseServerUrl}/sign-up`,
-        method: 'post',
-        data: {
-          userId: this.form.value.email,
-          pwd: this.form.value.password
-        }
-      })
+      await this.auth.signUp(this.form.value.email, this.form.value.password);
     } catch (err) {
       console.log('注册失败', err);
     }
@@ -82,13 +73,7 @@ export class ProfileComponent implements OnInit {
   async logout() {
     console.log('登出', this.form.value);
     try {
-      await axios.request({
-        url: `${environment.BaseServerUrl}/logout`,
-        method: 'post',
-        data: {
-          userId: this.form.value.email,
-        }
-      });
+      await this.auth.logOut()
       console.log('登出成功');
     } catch (err) {
       console.log('登出失败', err);

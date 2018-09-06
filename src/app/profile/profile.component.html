@@ -1,5 +1,5 @@
 <div class="bylh-profile bylh-page-base">
-  <h5>个人详情</h5>
+  <h5 *ngIf="auth.getAuthSubject().getValue()">个人详情</h5>
   <div class="form-container">
     <form [formGroup]="form" (ngSubmit)="submitForm()">
       <mat-form-field>
