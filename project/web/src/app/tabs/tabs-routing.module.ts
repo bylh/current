@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: 'tabs',
     component: TabsComponent,
-    canActivateChild: [AuthGuard],  // 此时登录状态还未初始化结束？
+    // canActivateChild: [AuthGuard],  // 此时登录状态还未初始化结束？
     children: [
       {
         path: 'home',

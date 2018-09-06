@@ -2,17 +2,15 @@ import axios from 'axios';
 
 import { SwUpdate, SwPush } from '@angular/service-worker';
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import { Defer } from '../utils/utils';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
-
-  redirectUrl: string;
-  constructor(protected updates: SwUpdate, protected swPush: SwPush, protected afAuth: AngularFireAuth) {
+  constructor(protected auth: AuthService, protected updates: SwUpdate, protected swPush: SwPush) {
 
     // 监听推送消息
     swPush.messages.subscribe(msg => {
@@ -48,7 +46,7 @@ export class AppService {
         url: `${environment.BaseServerUrl}/subscribe`,
         method: 'post',
         params: {
-          userId: this.afAuth.auth.currentUser.email,
+          userId: this.auth.getAuthSubject().getValue,
           pushSubscription: JSON.stringify(pushSubscription)
         },
       });
@@ -62,68 +60,5 @@ export class AppService {
   // 获取推送消息ob
   getSwPushMsgOb() {
     return this.swPush.messages;
-  }
-
-  // 获取用户
-  getAuth() {
-    return this.afAuth;
-  }
-
-  // 用户是否登录
-  isLogined(): boolean {
-    // let defer = new Defer<boolean>();
-    // setTimeout(() => {
-    //   defer.resolve(this.afAuth.auth.currentUser != null);
-    // }, 500);
-    return this.afAuth.auth.currentUser != null;
-  }
-
-  // 获取用户状态ob
-  getAuthStateOb() {
-    return this.afAuth.authState;
-  }
-
-  // 登录
-  async login(email: string, pwd: string) {
-    try {
-      await this.afAuth.auth.signInWithEmailAndPassword(email, pwd);
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  // 注册
-  async signUp(email: string, pwd: string) { // 暂时不发送注册邮箱
-    try {
-      await this.afAuth.auth.createUserWithEmailAndPassword(email, pwd); // 邮箱密码创建账户
-      // await this.afAuth.auth.currentUser.sendEmailVerification(); // 发送用户验证邮箱
-      await axios.request({
-        url: `${environment.BaseServerUrl}/sign-up`,
-        params: {
-          userId: email,
-          pwd: pwd
-        }
-      });
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  // 登出
-  async logOut() {
-    try {
-      await this.afAuth.auth.signOut();
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  // 重置密码
-  public async resetPwd() {
-    try {
-      await this.afAuth.auth.sendPasswordResetEmail(this.afAuth.auth.currentUser.email);
-    } catch (err) {
-      throw err;
-    }
   }
 }
