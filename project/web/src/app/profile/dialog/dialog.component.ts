@@ -1,4 +1,4 @@
-import { DialogData } from './../profile.component';
+
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AuthService } from '../../auth.service';
@@ -14,7 +14,7 @@ export class DialogComponent implements OnInit {
   constructor(
     public auth: AuthService,
     public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+    @Inject(MAT_DIALOG_DATA) public data: any) {
       console.log(this.data);
      }
 

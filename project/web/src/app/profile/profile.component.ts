@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material';
-import axios from 'axios';
 import { AuthService } from '../auth.service';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -31,7 +30,7 @@ export class ProfileComponent implements OnInit {
     public dialog: MatDialog) { }
   ngOnInit() {
     this.form = this.fb.group({
-      'email': new FormControl('', [
+      email: new FormControl('', [
         Validators.required,
         Validators.email,
       ]),
