@@ -9,18 +9,15 @@ axios.defaults.withCredentials = true    // 请求携带cookie信息
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements OnInit {
+export class AuthService {
+  redirectUrl: string;
 
   authSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
   constructor() {
     console.log('connect.sid:',  Cookies.get('connect.sid', { domain: 'localhost' }));
-    this.isLogined().then(() => {
-      console.log('hello');
-    })
-  }
-  async ngOnInit() {
-    console.log('dsadasfafasfasfa');
-    await this.isLogined()
+    this.isLogined().then((value) => {
+      console.log('登录状态：', value);
+    }).catch();
   }
 
   getAuthSubject() {
@@ -95,8 +92,11 @@ export class AuthService implements OnInit {
         url: `${environment.BaseServerUrl}/check-session`,
         method: 'post',
       });
-      console.log('是否登录', res, res.data);
+      console.log('是否登录', res, res.data.userId);
       this.authSubject.next(res.data.userId);
+      if(res.data.userId == null) {
+        return false;
+      }
       return true;
     } catch (err) {
       this.authSubject.next(null);

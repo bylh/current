@@ -8,10 +8,11 @@ import {
   CanLoad, Route,
 }                           from '@angular/router';
 import { AppService } from './app.service';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
-  constructor(private appService: AppService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router) {}
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     let url: string = state.url;
 
@@ -29,10 +30,10 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
   checkLogin(url: string): boolean {
-    if (this.appService.isLogined()) { return true; }
+    if (this.auth.isLogined()) { return true; }
 
     // Store the attempted URL for redirecting
-    this.appService.redirectUrl = url;
+    this.auth.redirectUrl = url;
 
     // Create a dummy session id
     let sessionId = 123456789;
