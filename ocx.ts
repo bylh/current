@@ -50,12 +50,14 @@ const MongoStore = connectMongo(session);
     app.use(session({
         secret: 'this is a string key',   // 可以随便写。 一个 String 类型的字符串，作为服务器端生成 session 的签名
         // name: 'session_id',/*保存在本地cookie的一个名字 默认connect.sid  可以不设置*/
-        // resave: false,   /*强制保存 session 即使它并没有变化,。默认为 true。建议设置成 false。*/
-        // saveUninitialized: true,   //强制将未初始化的 session 存储。  默认值是true  建议设置成true
+        resave: false,   /*强制保存 session 即使它并没有变化,。默认为 true。建议设置成 false。*/
+        saveUninitialized: true,   //强制将未初始化的 session 存储。  默认值是true  建议设置成true
         cookie: {
+            // expires: // 过期的日期
             maxAge: 1000*3600*60*24    /*过期时间 1天*/
 
         },   
+        
         /* secure:true  https这样的情况才可以访问cookie */
         // rolling: true, //在每次请求时强行设置 cookie，这将重置 cookie 过期时间（默认：false）
         store: new MongoStore({
@@ -85,7 +87,8 @@ const MongoStore = connectMongo(session);
 
     app.use("/logout",  (req, res) => {
         console.log('登出', req.session.userinfo);
-        //req.session.cookie.maxAge=0;  //重新设置过期时间来销毁。cookie中保存有sessionID
+        // req.session.cookie = null;
+        // req.session.cookie.maxAge=0;  //重新设置过期时间来销毁。cookie中保存有sessionID
         req.session.destroy(function (err) {  //通过destroy()函数销毁session
             console.log('错误', err);
         });

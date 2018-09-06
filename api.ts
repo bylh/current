@@ -43,6 +43,7 @@ const payloadTest = {
 export async function checkSession(req: express.Request, res: express.Response, next: express.NextFunction) {
     if(req.session.userinfo == null) {
         res.sendStatus(401);
+        return;
     }
     next(); // 权限验证成功
 }
