@@ -76,27 +76,10 @@ export class TabsComponent implements AfterViewInit, OnInit {
   }
 
   // 登录
-  public async login(email: string, pwd: string) {
-    if (await this.auth.isLogined()) {
-      this.snackBar.open('用户已登录', '关闭');
-      return;
-    }
-
-    try {
-      await this.auth.login(email, pwd);
-      this.snackBar.open('登录成功', '关闭');
-    } catch (err) {
-      console.log('登录失败', err);
-    }
+  public async toProfile() {
+    this.router.navigateByUrl('/tabs/profile');
   }
-  public async signUp(email: string, pwd: string) {
-    try {
-      await this.auth.signUp(email, pwd);
-      this.snackBar.open('注册成功', '关闭');
-    } catch (err) {
-      console.log('注册失败', err);
-    }
-  }
+  
   public async logout() {
     try {
       await this.auth.logOut();
@@ -105,14 +88,7 @@ export class TabsComponent implements AfterViewInit, OnInit {
       console.log('账户登出出错', err);
     }
   }
-  public async resetPwd() {
-    try {
-      await this.auth.resetPwd();
-      this.snackBar.open('重置密码成功', '关闭');
-    } catch (err) {
-      console.log('重置密码出错', err);
-    }
-  }
+  
   public back() {
     this.location.back();
 

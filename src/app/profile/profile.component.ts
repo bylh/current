@@ -1,4 +1,4 @@
-import { environment } from './../../environments/environment';
+
 import { DialogComponent } from './dialog/dialog.component';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
@@ -6,7 +6,6 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material';
 import axios from 'axios';
 import { AuthService } from '../auth.service';
-axios.defaults.withCredentials = true    // 请求携带cookie信息  
 export interface DialogData {
   animal: string;
   name: string;
@@ -70,28 +69,6 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  async logout() {
-    console.log('登出', this.form.value);
-    try {
-      await this.auth.logOut()
-      console.log('登出成功');
-    } catch (err) {
-      console.log('登出失败', err);
-    }
-  }
-
-  async getMarkerList() {
-    try {
-      const res = await axios.request({
-        url: `${environment.BaseServerUrl}/get-gate-marketlist`,
-        method: 'get',
-      });
-      console.log('res:', res);
-    } catch (err) {
-      console.log('err:', err);
-    }
-  }
-
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       // height: '400px',
@@ -100,9 +77,8 @@ export class ProfileComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log('The dialog was closed', result);
       this.animal = result;
     });
   }
-
 }
