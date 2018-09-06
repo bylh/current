@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-
 // @import "~@angular/material/prebuilt-themes/purple-green.css";
 // @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
@@ -15,11 +14,13 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  // background-image: url(assets/dust_scratches.png);
+  // background:rgba(66, 66, 66, 1);
+
   .bylh-page-base {
     height: 100%;
     width: 100%;
     overflow: auto;
-    background-image: url(assets/dust_scratches.png); // background-color:rgba(0,0,0,0.5)
   }
 
   .bylh-sub-page-base {
@@ -36,6 +37,11 @@ body {
 [padding-left] {
   padding-left: 8px;
 }
+
 [margin-right] {
   margin-right: 8px !important;
+}
+
+[blackbg] {
+  background: rgb(66, 66, 66) !important;
 }

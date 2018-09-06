@@ -6,10 +6,6 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material';
 import axios from 'axios';
 import { AuthService } from '../auth.service';
-export interface DialogData {
-  animal: string;
-  name: string;
-}
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -71,8 +67,8 @@ export class ProfileComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
-      // height: '400px',
-      // width: '600px',
+      // height: '100%',
+      // width: '100%',
       data: { name: this.auth.getAuthSubject().getValue() }
     });
 
@@ -80,7 +76,7 @@ export class ProfileComponent implements OnInit {
       console.log('The dialog was closed', result);
     });
   }
-  
+
   getImg(event) {
     this.fileUpload = window.URL.createObjectURL(event.srcElement.files[0]);
 
