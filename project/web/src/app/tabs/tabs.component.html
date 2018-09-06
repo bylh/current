@@ -17,14 +17,19 @@
       </div>
 
       <!-- 显示用户名 -->
-      <div class="userId">{{auth.getAuthSubject().getValue()}}</div>
+      <div class="userId" (click)="toProfile()">{{auth.getAuthSubject().getValue() != null ? auth.getAuthSubject().getValue() : '未登录'}}</div>
 
       <!-- 用户菜单 > 重置密码 登出 测试推送 -->
       <mat-menu #appMenu="matMenu">
+        <ng-container *ngIf="!auth.getAuthSubject().getValue()">
+          <button mat-menu-item (click)="toProfile()">登录</button>
+          <button mat-menu-item (click)="toProfile()">注册</button>
+        </ng-container>
         <ng-container *ngIf="auth.getAuthSubject().getValue()">
-          <button mat-menu-item (click)="resetPwd()">重置密码</button>
+          <button mat-menu-item (click)="toProfile()">重置密码</button>
           <button mat-menu-item (click)="logout()">登出</button>
         </ng-container>
+
         <button mat-menu-item (click)="push()">推送</button>
         <button mat-menu-item (click)="test()">测试</button>
       </mat-menu>
@@ -33,14 +38,8 @@
       </button>
     </mat-toolbar-row>
 
-    <!-- ================模块二 登录注册部分=====================-->
+    <!-- ================模块二 扩展部分=====================-->
     <mat-toolbar-row *ngIf="!auth.getAuthSubject().getValue()" class="user-action">
-      <input type="email" [(ngModel)]="user" placeholder="用户名" #emailInput />
-      <input type="password" [(ngModel)]="pwd" placeholder="密码" #pwdInput />
-      <div>
-        <button mat-button (click)="login(emailInput?.value, pwdInput?.value)">登录</button>
-        <button mat-button (click)="signUp(emailInput?.value, pwdInput?.value)">注册</button>
-      </div>
     </mat-toolbar-row>
   </mat-toolbar>
 

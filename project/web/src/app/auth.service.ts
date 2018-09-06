@@ -75,8 +75,17 @@ export class AuthService {
   }
 
   // 重置密码
-  public async resetPwd() {
+  public async resetPwd(orgPwd: string, newPwd: string) {
     try {
+      await axios.request({
+        url: `${environment.BaseServerUrl}/reset-pwd`,
+        method: 'post',
+        data: {
+          orgPwd,
+          newPwd,
+        }
+      });
+      await this.logOut();
     } catch (err) {
       throw err;
     }

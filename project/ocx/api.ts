@@ -3,8 +3,8 @@ import qs from 'qs';
 const webpush = require('web-push');
 import axios from 'axios';
 import express from 'express';
-import { getSignal, postSignal } from './common';
-import DBHelper, { WebPushInfo } from './db-helper';
+import { getSignal, postSignal, Defer } from './common';
+import DBHelper, { WebPushInfo, userModel } from './db-helper';
 import Config from './config';
 
 const payload = {
@@ -41,7 +41,7 @@ const payloadTest = {
     }
 };
 export async function checkSession(req: express.Request, res: express.Response, next: express.NextFunction) {
-    if(req.session.userinfo == null) {
+    if (req.session.userId == null) {
         res.sendStatus(401);
         return;
     }
@@ -63,9 +63,9 @@ export async function login(req: express.Request, res: express.Response) {
     try {
         console.log('开始登录', req.body);
         let isLogin = await DBHelper.findOne('user', { userId: req.body.userId, pwd: req.body.pwd });
-        if(isLogin) {
+        if (isLogin) {
             console.log('登录成功前', req.session, req.sessionID);
-            req.session.userinfo = req.body.userId;  //设置session
+            req.session.userId = req.body.userId;  //设置session
             console.log('登录成功后', req.session, req.sessionID);
             res.sendStatus(200);
             return;
@@ -74,9 +74,38 @@ export async function login(req: express.Request, res: express.Response) {
             res.sendStatus(404);
             return;
         }
-        
+
     } catch (err) {
         console.log('登录失败');
+        res.sendStatus(500);
+    }
+}
+
+export async function resetPwd(req: express.Request, res: express.Response) {
+    try {
+        console.log('开始重置密码', req.body);
+        if (req.session.userId == null) {
+            res.sendStatus(401);
+            console.log('未登录不能重置密码');
+            return;
+        }
+        let defer = new Defer<boolean>();
+        userModel.findOne({ userId: req.session.userId }, (err, res) => {
+            console.log('getOne(): res:', res, 'err', err, (res as any).pwd);
+            defer.resolve((res as any).pwd === req.body.orgPwd);
+        });
+        let match = await defer.promise;
+        if (!match) {
+            console.log('原密码输入错误');
+            res.sendStatus(402);
+            return;
+        }
+        await userModel.update({ userId: req.session.userId }, { pwd: req.body.newPwd });
+        console.log('重置成功');
+        res.sendStatus(200);
+        return;
+    } catch (err) {
+        console.log('重置失败');
         res.sendStatus(500);
     }
 }

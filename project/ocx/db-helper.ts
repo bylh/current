@@ -22,7 +22,7 @@ const userSchema = new Schema({
 
 })
 const webPushModel = mongoose.model('webpushes', webPushSchema);
-const userModel = mongoose.model('users', userSchema);
+export const userModel = mongoose.model('users', userSchema);
 class DBHelper {
     protected db: Mongoose = null;
     // 初始化连接数据库

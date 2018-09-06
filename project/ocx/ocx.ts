@@ -7,7 +7,7 @@ import http from 'http';
 import express from 'express';
 import cors from 'cors';
 import program from 'commander';
-import { autoTrade, subscribe, sendNotification, sendNotificationToUsers, getGateMarketList, startGateAutoTrade, getGateBalances, getGateCoinAdress, signUp, login, checkSession } from './api';
+import { autoTrade, subscribe, sendNotification, sendNotificationToUsers, getGateMarketList, startGateAutoTrade, getGateBalances, getGateCoinAdress, signUp, login, checkSession, resetPwd } from './api';
 import DBHelper, { CollectUri } from './db-helper';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
@@ -72,10 +72,10 @@ const MongoStore = connectMongo(session);
 
     app.use("/check-session", (req, res, next) => {
         console.log(req.session);
-        if (req.session.userinfo) {  //获取session
-            // res.send('你好' + req.session.userinfo + '欢迎回来');
+        if (req.session.userId) {  //获取session
+            // res.send('你好' + req.session.userId + '欢迎回来');
             res.status(200).json({
-                userId: req.session.userinfo
+                userId: req.session.userId
             });
         } else {
             res.send('未登录');
@@ -90,7 +90,7 @@ const MongoStore = connectMongo(session);
     app.use('/login', login);
 
     app.use("/logout",  (req, res, next) => {
-        console.log('登出', req.session.userinfo);
+        console.log('登出', req.session.userId);
         // req.session.cookie = null;
         // req.session.cookie.maxAge=0;  //重新设置过期时间来销毁。cookie中保存有sessionID
         req.session.destroy(function (err) {  //通过destroy()函数销毁session
@@ -99,6 +99,7 @@ const MongoStore = connectMongo(session);
         res.clearCookie('connect.sid')
         res.sendStatus(200);
     });
+    app.use('/reset-pwd', resetPwd);
 
 
     app.use('/subscribe', subscribe); // 用户订阅

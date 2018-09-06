@@ -1,6 +1,5 @@
 <div class="bylh-profile bylh-page-base">
-  <h5 *ngIf="auth.getAuthSubject().getValue()">个人详情</h5>
-  <div class="form-container">
+  <div class="form-container" *ngIf="!auth.getAuthSubject().getValue()">
     <form [formGroup]="form" (ngSubmit)="submitForm()">
       <mat-form-field>
         <input matInput placeholder="Email" name="email" type="email" [formControl]="form.controls['email']"
@@ -26,10 +25,9 @@
       </mat-form-field>
       <button mat-stroked-button color="primary" margin-right>登录</button>
       <button mat-stroked-button color="primary" margin-right type="button" (click)="signUp()">注册</button>
-      <button mat-stroked-button color="primary" margin-right type="button" (click)="logout()">登出</button>
-      <button mat-stroked-button color="primary" margin-right type="button" (click)="getMarkerList()">测试</button>
     </form>
   </div>
+  <div></div>
 
 
   <ol>
