@@ -2,25 +2,25 @@
   <div class="form-container" *ngIf="!auth.getAuthSubject().getValue()">
     <form [formGroup]="form" (ngSubmit)="submitForm()">
       <mat-form-field>
-        <input matInput placeholder="Email" name="email" type="email" [formControl]="form.controls['email']"
-          [errorStateMatcher]="matcher">
+        <input matInput placeholder="Email" name="email" type="email" [formControl]="form.controls['email']" [errorStateMatcher]="matcher">
         <!-- <mat-hint>email</mat-hint> -->
         <mat-error *ngIf="form.controls['email'].hasError('email') && !form.controls['email'].hasError('required')">
           Please enter a valid email address
         </mat-error>
         <mat-error *ngIf="form.controls['email'].hasError('required')">
-          Email is <strong>required</strong>
+          Email is
+          <strong>required</strong>
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Password" name="password" type="password" [formControl]="form.controls['password']"
-          [errorStateMatcher]="matcher">
+        <input matInput placeholder="Password" name="password" type="password" [formControl]="form.controls['password']" [errorStateMatcher]="matcher">
         <!-- <mat-hint>email</mat-hint> -->
         <mat-error *ngIf="form.controls['password'].hasError('minlength')">
           Enter at least 6-digit password
         </mat-error>
         <mat-error *ngIf="form.controls['password'].hasError('required')">
-          Password is <strong>required</strong>
+          Password is
+          <strong>required</strong>
         </mat-error>
       </mat-form-field>
       <button mat-stroked-button color="primary" margin-right>登录</button>
@@ -30,6 +30,25 @@
   <div></div>
 
 
+  <mat-card>
+    <mat-card-header>
+      <img mat-card-avatar src="https://bit.bylh.top/avatars/img1.jpg"/>
+      <mat-card-title>{{auth.getAuthSubject().getValue()}}</mat-card-title>
+      <mat-card-subtitle>区块链</mat-card-subtitle>
+    </mat-card-header>
+    <!-- <img width="200px" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+    <mat-card-content>
+      <p>
+        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes
+        very well with mountainous terrain, the Shiba Inu was originally bred for hunting.
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+  </mat-card>
+
   <ol>
     <li>
       <mat-form-field>
@@ -37,11 +56,13 @@
       </mat-form-field>
     </li>
     <li>
-      <button mat-raised-button (click)="openDialog()">Pick one</button>
+      <button mat-raised-button (click)="openDialog()">修改密码</button>
     </li>
-    <li *ngIf="animal">
-      You chose: <i>{{animal}}</i>
+    <li>
+      <input type="file" name="fileUpload" (change)="getImg($event)" />
+      <!-- <div [innerHTML]="html | safe:'html'"></div> -->
+      <img *ngIf="fileUpload != null" width="100%" [src]="fileUpload | safe:'url'" />
     </li>
   </ol>
-  
+
 </div>
