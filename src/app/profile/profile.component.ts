@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 
 import { DialogComponent } from './dialog/dialog.component';
 import { Component, OnInit } from '@angular/core';
@@ -5,6 +6,7 @@ import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormG
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material';
 import { AuthService } from '../auth.service';
+import axios from '../../common/rewrite/axios';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -19,6 +21,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class ProfileComponent implements OnInit {
   fileUpload: any = null;
+  file: any;
   html = `<h2>显示图片</h2>`;
 
 
@@ -77,10 +80,37 @@ export class ProfileComponent implements OnInit {
   }
 
   getImg(event) {
-    let file = event.target.files[0]
-    console.log(file);
+    this.file = event.target.files[0];
     this.fileUpload = window.URL.createObjectURL(event.srcElement.files[0]);
 
     console.log('url:', this.fileUpload);
+  }
+  async uploadFile() {
+    console.log(this.file);
+    let fd = new FormData();
+    fd.append('file', this.file);
+    let config = {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }
+    // await axios.post(`${environment.BaseServerUrl}/upload-img`, fd, {
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data'
+    //   }
+    // });
+    try {
+      await axios.request({
+        url: `${environment.BaseServerUrl}/upload-img`,
+        method: 'post',
+        headers: {
+          'Content-Type':'application/x-www-form-urlencoded'
+        },
+        data: fd
+      });
+    } catch (err) {
+      console.log('出错', err);
+      throw err;
+    }
   }
 }

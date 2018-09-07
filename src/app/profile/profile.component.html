@@ -2,8 +2,7 @@
   <div class="form-container" *ngIf="!auth.getAuthSubject().getValue()">
     <form [formGroup]="form" (ngSubmit)="submitForm()">
       <mat-form-field backgroundColor="primary" color="primary">
-        <input matInput placeholder="Email" name="email" type="email" [formControl]="form.controls['email']"
-          [errorStateMatcher]="matcher">
+        <input matInput placeholder="Email" name="email" type="email" [formControl]="form.controls['email']" [errorStateMatcher]="matcher">
         <!-- <mat-hint>email</mat-hint> -->
         <mat-error *ngIf="form.controls['email'].hasError('email') && !form.controls['email'].hasError('required')">
           Please enter a valid email address
@@ -14,8 +13,7 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Password" name="password" type="password" [formControl]="form.controls['password']"
-          [errorStateMatcher]="matcher">
+        <input matInput placeholder="Password" name="password" type="password" [formControl]="form.controls['password']" [errorStateMatcher]="matcher">
         <!-- <mat-hint>email</mat-hint> -->
         <mat-error *ngIf="form.controls['password'].hasError('minlength')">
           Enter at least 6-digit password
@@ -42,9 +40,8 @@
 
     <mat-card-content>
       <p>
-        每一条道路上都有出发的人， 每个人头顶上都有一方天空， 每一方天空上都有莫测的云， 每一朵云都兆示着命运。 无声的选择方向，一颗星辰或者一双眼睛， 人怎样选择世界， 世界就怎样地选择人。 默默地选择起点， 骄傲地选择归程，
-        夜间选择黎明的人， 黎明选择他为自由的风。 选择飞鸟或者一片落叶， 选择岩石或者一阵灰尘。 谁在无可选择中选择， 他就是被选择的人。 每个人都有一颗无名的心， 每颗心都有寂寞的时辰， 谁选择寂寞的世界， 世界选择他的歌声。
-        流星在选择中下沉， 太阳在选择中上升。
+        每一条道路上都有出发的人， 每个人头顶上都有一方天空， 每一方天空上都有莫测的云， 每一朵云都兆示着命运。 无声的选择方向，一颗星辰或者一双眼睛， 人怎样选择世界， 世界就怎样地选择人。 默默地选择起点， 骄傲地选择归程， 夜间选择黎明的人，
+        黎明选择他为自由的风。 选择飞鸟或者一片落叶， 选择岩石或者一阵灰尘。 谁在无可选择中选择， 他就是被选择的人。 每个人都有一颗无名的心， 每颗心都有寂寞的时辰， 谁选择寂寞的世界， 世界选择他的歌声。 流星在选择中下沉， 太阳在选择中上升。
       </p>
     </mat-card-content>
     <mat-card-actions>
@@ -59,10 +56,11 @@
         <button mat-icon-button (click)="selectFile.click()">
           <mat-icon color="primary">cloud_upload</mat-icon>
         </button>
-        <input hidden type="file" name="fileUpload" (change)="getImg($event)" #selectFile />
+        <input hidden type="file" name="imgfileUpload" (change)="getImg($event)" #selectFile />
       </div>
       <!-- <div [innerHTML]="html | safe:'html'"></div> -->
       <img *ngIf="fileUpload != null" width="100%" [src]="fileUpload | safe:'url'" />
     </mat-card-footer>
   </mat-card>
+  <button mat-button (click)="uploadFile()">上传到服务器</button>
 </div>
