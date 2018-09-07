@@ -7,7 +7,7 @@ import http from 'http';
 import express from 'express';
 import cors from 'cors';
 import program from 'commander';
-import { autoTrade, subscribe, sendNotification, sendNotificationToUsers, getGateMarketList, startGateAutoTrade, getGateBalances, getGateCoinAdress, signUp, login, checkSession, resetPwd } from './api';
+import { autoTrade, subscribe, sendNotification, sendNotificationToUsers, getGateMarketList, startGateAutoTrade, getGateBalances, getGateCoinAdress, signUp, login, checkSession, resetPwd, uploadImg } from './api';
 import DBHelper, { CollectUri } from './db-helper';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
@@ -101,6 +101,8 @@ const MongoStore = connectMongo(session);
         res.sendStatus(200);
     });
     app.use('/reset-pwd', resetPwd);
+
+    app.use('/upload-img', uploadImg);
 
 
     app.use('/subscribe', subscribe); // 用户订阅
