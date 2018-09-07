@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from '../common/rewrite/axios';
 
 import { SwUpdate, SwPush } from '@angular/service-worker';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
-import { Defer } from '../utils/utils';
+import { Defer } from '../common/utils/utils';
 import { AuthService } from './auth.service';
 
 @Injectable({

@@ -77,6 +77,8 @@ export class ProfileComponent implements OnInit {
   }
 
   getImg(event) {
+    let file = event.target.files[0]
+    console.log(file);
     this.fileUpload = window.URL.createObjectURL(event.srcElement.files[0]);
 
     console.log('url:', this.fileUpload);

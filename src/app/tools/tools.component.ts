@@ -1,7 +1,7 @@
 import { ToolsService } from './tools.service';
 import { environment } from '../../environments/environment';
 import { Component, OnInit } from '@angular/core';
-import axios from 'axios';
+import axios from '../../common/rewrite/axios';
 import { AppService } from '../app.service';
 import { MatSnackBar } from '@angular/material';
 export interface Coin {

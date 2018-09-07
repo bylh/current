@@ -1,6 +1,6 @@
 
 import { Router } from '@angular/router';
-import axios from 'axios';
+import axios from '../../common/rewrite/axios';
 
 import { MatSnackBar } from '@angular/material';
 import { Component, AfterViewInit, OnInit } from '@angular/core';
