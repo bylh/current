@@ -1,10 +1,9 @@
 import { Injectable, OnInit } from '@angular/core';
 import { environment } from '../environments/environment';
-import { Defer } from '../utils/utils';
+import { Defer } from '../common/utils/utils';
 import { BehaviorSubject } from 'rxjs';
 import Cookies from 'js-cookie';
-import axios from 'axios';
-axios.defaults.withCredentials = true    // 请求携带cookie信息
+import axios from '../common/rewrite/axios';
 
 @Injectable({
   providedIn: 'root'

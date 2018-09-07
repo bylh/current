@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import axios from 'axios';
+import axios from '../../common/rewrite/axios';
 
 @Injectable({
   providedIn: 'root'
