@@ -1,4 +1,5 @@
 import JsSHA from 'jssha';
+import fs from 'fs';
 import qs from 'qs';
 const webpush = require('web-push');
 import axios from 'axios';
@@ -264,6 +265,18 @@ export async function startGateAutoTrade(req: express.Request, res: express.Resp
         console.log('startGateAutoTrade(): finish', result);
     } catch (err) {
         console.log('startGateAutoTrade(): get err', err);
+        res.sendStatus(500);
+    }
+}
+
+export async function uploadImg(req: express.Request, res: express.Response) {
+    try {
+        console.log('开始上传', req.body);
+        
+        console.log('上传成功');
+        res.sendStatus(200);
+    } catch (err) {
+        console.log('失败');
         res.sendStatus(500);
     }
 }
