@@ -1,3 +1,4 @@
+import { AppService } from './../app.service';
 
 import { environment } from './../../environments/environment';
 
@@ -26,14 +27,20 @@ export class ProfileComponent implements OnInit {
   html = `<h2>显示图片</h2>`;
 
   avatarUrl: string = 'https://bit.bylh.top/avatars/default.jpg';
-  bgUrl: string = 'https://bit.bylh.top/images/defaultbg.jpg'
+  bgUrl: string = 'https://bit.bylh.top/images/defaultbg.jpg';
+  description = '对未来的最大慷慨，是把一切献给现在。';
 
   form: FormGroup;
   matcher = new MyErrorStateMatcher();
   constructor(
     public auth: AuthService,
     public fb: FormBuilder,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog) {
+      this.auth.getAuthSubject().subscribe((userId) => {
+        this.avatarUrl = `${environment.BaseServerUrl}/avatars/${userId}-avatar.jpg`;
+        this.bgUrl = `${environment.BaseServerUrl}/imgs/${userId}-bg.jpg`;
+      });
+  }
   async ngOnInit() {
     this.form = this.fb.group({
       email: new FormControl('', [
@@ -45,9 +52,6 @@ export class ProfileComponent implements OnInit {
         Validators.minLength(6)
       ])
     });
-    
-    this.avatarUrl = `${environment.BaseServerUrl}/avatars/${this.auth.getAuthSubject().getValue()}-avatar.jpg`;
-    this.bgUrl = `${environment.BaseServerUrl}/imgs/${this.auth.getAuthSubject().getValue()}-bg.jpg`;
   }
   async submitForm() {
     console.log('登录', this.form.value);
@@ -74,7 +78,7 @@ export class ProfileComponent implements OnInit {
   }
 
   openDialog(): void {
-    
+
     const dialogRef = this.dialog.open(DialogComponent, {
       // height: '100%',
       // width: '100%',
@@ -121,4 +125,23 @@ export class ProfileComponent implements OnInit {
       throw err;
     }
   }
+  async updateProfile() {
+    try {
+      await axios.request({
+        url: `${environment.BaseServerUrl}/update-profile`,
+        method: 'post',
+        data: {
+          userId: this.auth.getAuthSubject().getValue(),
+          info: {
+            avatarUrl: this.avatarUrl,
+            bgUrl: this.bgUrl
+          }
+        }
+      });
+    } catch (err) {
+      console.log('出错', err);
+      throw err;
+    }
+  }
+
 }

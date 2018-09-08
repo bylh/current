@@ -15,10 +15,16 @@ const webPushSchema = new Schema({
 const userSchema = new Schema({
     userId: String,
     pwd: String, // 可能用不到
-    // isAdmin: {
-    //     type: Boolean,
-    //     default: false
-    // }
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
+    info: {
+        avatarUrl: String,
+        bgUrl: String,
+        description: String,
+        age: String,
+    }
 
 })
 const webPushModel = mongoose.model('webpushes', webPushSchema);
@@ -78,21 +84,29 @@ class DBHelper {
         console.log('保存数据成功', info);
         return info;
     }
-    public async update(info: any, type: 'user' | 'webpush' = 'webpush', conditions: any = null) {
+    public async update(info: any, type: 'user' | 'profile' | 'webpush' = 'webpush', conditions: any = null) {
         let data;
         if (type === 'user') {
             data = new userModel(info);
+            try {
+                await userModel.update({
+                    userId: info.userId,
+                    pwd: info.pwd
+                }, info, {upsert: true},(err, raw) => console.log(err, raw));
+            } catch (err) {
+                throw err;
+            }
+        } else if(type === 'profile') {
+            try {
+                console.log('profile数据库更新', conditions, {info: info});
+                await userModel.update(conditions, {info: info}, {upsert: true},(err, raw) => console.log(err, raw));
+                // await data.update(info);
+            } catch (err) {
+                throw err;
+            }
+
         } else if (type === 'webpush') {
             data = new webPushModel(info);
-        }
-        try {
-            await userModel.update({
-                userId: info.userId,
-                pwd: info.pwd
-            }, info, {upsert: true},(err, raw) => console.log(err, raw));
-            // await data.update(info);
-        } catch (err) {
-            throw err;
         }
         console.log('保存数据成功', info);
         return info;

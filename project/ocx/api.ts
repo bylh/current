@@ -285,3 +285,43 @@ export async function uploadImg(req: express.Request, res: express.Response) {
         res.sendStatus(500);
     }
 }
+
+export async function getProfile(req: express.Request, res: express.Response) {
+    try {
+        console.log('获取个人资料开始', req.body);
+        let profile = await DBHelper.findOne('user', { userId: req.body.userId});
+        if (profile) {
+            console.log('获取个人资料成功');
+            res.sendStatus(200);
+            return;
+        } else {
+            console.log('找不到用户');
+            res.sendStatus(404);
+            return;
+        }
+
+    } catch (err) {
+        console.log('获取个人资料失败');
+        res.sendStatus(500);
+    }
+}
+
+export async function updateProfile(req: express.Request, res: express.Response) {
+    try {
+        console.log('更新个人资料开始', req.body);
+        let profile = await DBHelper.update(req.body.info, 'profile', { userId: req.body.userId});
+        if (profile) {
+            console.log('更新个人资料成功', profile);
+            res.sendStatus(200);
+            return;
+        } else {
+            console.log('找不到用户');
+            res.sendStatus(404);
+            return;
+        }
+
+    } catch (err) {
+        console.log('更新个人资料失败');
+        res.sendStatus(500);
+    }
+}
