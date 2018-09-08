@@ -20,9 +20,9 @@ platforms/
 plugins/
 www/
 .sourcemaps/
-project/ocx/temp.ts
-project/ocx/config.ts
 project/web/src/config.ts
 project/web/src/environments/environment.ts
 project/web/src/environments/environment.prod.ts
 project/ocx/public/
+project/ocx/config.ts
+project/ocx/src/config.ts

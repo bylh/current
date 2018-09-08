@@ -2,15 +2,16 @@
 // import webpush from 'web-push';
 import multer from 'multer';
 import bodyParser from 'body-parser';
-import { UrlType, getUrl, getSignal, getTickers } from './common';
 import http from 'http';
 import express from 'express';
 import cors from 'cors';
 import program from 'commander';
-import { autoTrade, subscribe, sendNotification, sendNotificationToUsers, getGateMarketList, startGateAutoTrade, getGateBalances, getGateCoinAdress, signUp, login, checkSession, resetPwd, uploadImg, getProfile, updateProfile } from './api';
-import DBHelper, { CollectUri } from './db-helper';
+import { subscribe, sendNotificationToUsers, signUp, login, checkSession, resetPwd, uploadImg, getProfile, updateProfile } from './src/api/auth';
+import DBHelper, { CollectUri } from './src/common/db-helper';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
+import { getGateMarketList } from './src/api/data';
+import { getGateBalances, getGateCoinAdress, startGateAutoTrade } from './src/api/data';
 const MongoStore = connectMongo(session);
 
 
@@ -115,26 +116,21 @@ const upload = multer({
         }
     });
 
-
-    app.use('/get-tickers', getTickers);
-    // app.use('/auto-trade', autoTrade);
-
     app.use('/sign-up', signUp);
     app.use('/login', login);
 
-    app.use('/get-profile', getProfile);
-    app.use('/update-profile', updateProfile);
     app.use("/logout", (req, res, next) => {
         console.log('登出', req.session.userId);
-        // req.session.cookie = null;
-        // req.session.cookie.maxAge=0;  //重新设置过期时间来销毁。cookie中保存有sessionID
         req.session.destroy((err) => {  //通过destroy()函数销毁session
             console.log('错误', err);
         });
         res.clearCookie('connect.sid')
         res.sendStatus(200);
     });
-    app.use('/reset-pwd', resetPwd);
+    app.use('/reset-pwd', checkSession, resetPwd);
+
+    app.use('/get-profile', getProfile);
+    app.use('/update-profile', updateProfile);
 
     app.use('/upload-img', upload.single('file'), uploadImg);
 
@@ -142,7 +138,8 @@ const upload = multer({
     app.use('/subscribe', subscribe); // 用户订阅
     app.use('/send-all', sendNotificationToUsers); // 若未指定用户则给所有用户发消息, 否则给单个用户发消息
 
-    app.use('/get-gate-marketlist', checkSession, getGateMarketList);
+
+    app.use('/get-gate-marketlist', getGateMarketList);
     app.use('/get-gate-balances', getGateBalances);
     app.use('/get-gate-coinAdress', getGateCoinAdress);
     app.use('/start-gate-autotrade', startGateAutoTrade);
