@@ -6,7 +6,7 @@ import http from 'http';
 import express from 'express';
 import cors from 'cors';
 import program from 'commander';
-import { subscribe, sendNotificationToUsers, signUp, login, checkSession, resetPwd, uploadImg, getProfile, updateProfile } from './src/api/auth';
+import { subscribe, sendNotificationToUsers, signUp, login, checkSession, resetPwd, getProfile, updateProfile, uploadBgImg, uploadAvatarImg } from './src/api/auth';
 import DBHelper, { CollectUri } from './src/common/db-helper';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
@@ -15,10 +15,10 @@ import { getGateBalances, getGateCoinAdress, startGateAutoTrade } from './src/ap
 const MongoStore = connectMongo(session);
 
 
-const storage = multer.diskStorage({
+const storageBg = multer.diskStorage({
     //destination 用来设置上传文件的路径 可以接收一个回调函数， 或者一个字符串
     //如果传递一个回调函数的话，则需要确保路径有效
-    destination: 'public/imgs/',
+    destination: 'public/bgs/',
 
     //filename 属性可以用来指定文件上传以后保存到服务器中的名字
     filename: (req, file, cb) => {
@@ -38,8 +38,40 @@ const storage = multer.diskStorage({
         cb(null, req.session.userId + '-' + 'bg' + extName);
     }
 });
-const upload = multer({
-    storage: storage,
+
+const uploadBg = multer({
+    storage: storageBg,
+    limits: {
+        //限制文件的大小为1M
+        fileSize: 1024 * 1024
+    }
+});
+
+const storageAvatar = multer.diskStorage({
+    //destination 用来设置上传文件的路径 可以接收一个回调函数， 或者一个字符串
+    //如果传递一个回调函数的话，则需要确保路径有效
+    destination: 'public/avatars/',
+
+    //filename 属性可以用来指定文件上传以后保存到服务器中的名字
+    filename: (req, file, cb) => {
+        //cb(null, file.fieldname + '-' + Date.now())
+        //获取文件的扩展名
+        //Chrysanthemum.jpg
+        let fname = file.originalname;
+        let extName = "";
+        //判断文件是否具有扩展名
+        if (fname.lastIndexOf(".") != -1) {
+            extName = fname.slice(fname.lastIndexOf("."));
+        }
+
+        //上传文件时，一般不会直接将用户的文件名直接保存的服务器中
+        //一般会随机生成一个文件名
+        // cb(null, file.fieldname + '-' + Date.now() + extName);
+        cb(null, req.session.userId + '-' + 'avatar' + extName);
+    }
+});
+const uploadAvatar = multer({
+    storage: storageAvatar,
     limits: {
         //限制文件的大小为1M
         fileSize: 1024 * 1024
@@ -132,8 +164,8 @@ const upload = multer({
     app.use('/get-profile', getProfile);
     app.use('/update-profile', updateProfile);
 
-    app.use('/upload-img', upload.single('file'), uploadImg);
-
+    app.use('/upload-bg', uploadBg.single('bg'), uploadBgImg);
+    app.use('/upload-avatar', uploadAvatar.single('avatar'), uploadAvatarImg);
 
     app.use('/subscribe', subscribe); // 用户订阅
     app.use('/send-all', sendNotificationToUsers); // 若未指定用户则给所有用户发消息, 否则给单个用户发消息

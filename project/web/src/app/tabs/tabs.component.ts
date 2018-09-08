@@ -19,8 +19,7 @@ export class TabsComponent implements AfterViewInit, OnInit {
 
   title = '我的空间';
   userId: string;
-  isLogined: boolean;
-
+  avatarUrl: string;
   constructor(
     protected appService: AppService,
     public auth: AuthService,
@@ -28,6 +27,18 @@ export class TabsComponent implements AfterViewInit, OnInit {
     protected location: Location,
     public snackBar: MatSnackBar
   ) {
+    this.auth.getAuthSubject().subscribe( async(userId) => {
+      this.userId = userId;
+      this.avatarUrl = `${environment.BaseServerUrl}/avatars/${userId}-avatar.jpg`;
+      if(userId != null) {
+        try {
+          const pushSubscription = await this.appService.subscribeUser();
+          console.log('订阅信息并保存到服务器（成功状态）：', JSON.stringify(pushSubscription));
+        } catch (err) {
+          console.log('ngOninit(): 订阅出错或保存到服务器出错', err);
+        }
+      }
+    });
   }
 
   public async ngAfterViewInit() {
@@ -47,13 +58,6 @@ export class TabsComponent implements AfterViewInit, OnInit {
     this.appService.getSwPushMsgOb().subscribe((msg) => {
       console.log('收到消息', msg);
     });
-
-    try {
-      const pushSubscription = await this.appService.subscribeUser();
-      console.log('订阅信息并保存到服务器（成功状态）：', JSON.stringify(pushSubscription));
-    } catch (err) {
-      console.log('ngOninit(): 订阅出错或保存到服务器出错', err);
-    }
   }
 
   public async push() {

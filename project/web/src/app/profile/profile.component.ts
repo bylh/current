@@ -22,10 +22,13 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  fileUpload: any = null;
-  file: any;
+
+  bgFile: any;
+  avatarFile: any;
+
   html = `<h2>显示图片</h2>`;
 
+  userId: string;
   avatarUrl: string = 'https://bit.bylh.top/avatars/default.jpg';
   bgUrl: string = 'https://bit.bylh.top/images/defaultbg.jpg';
   description = '对未来的最大慷慨，是把一切献给现在。';
@@ -38,7 +41,8 @@ export class ProfileComponent implements OnInit {
     public dialog: MatDialog) {
       this.auth.getAuthSubject().subscribe((userId) => {
         this.avatarUrl = `${environment.BaseServerUrl}/avatars/${userId}-avatar.jpg`;
-        this.bgUrl = `${environment.BaseServerUrl}/imgs/${userId}-bg.jpg`;
+        this.bgUrl = `${environment.BaseServerUrl}/bgs/${userId}-bg.jpg`;
+        this.userId = userId;
       });
   }
   async ngOnInit() {
@@ -82,7 +86,7 @@ export class ProfileComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogComponent, {
       // height: '100%',
       // width: '100%',
-      data: { name: this.auth.getAuthSubject().getValue() }
+      data: { name: this.userId }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -90,29 +94,25 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  getImg(event) {
-    this.file = event.target.files[0];
-    this.fileUpload = window.URL.createObjectURL(event.srcElement.files[0]);
+  getBgImg(event) {
+    this.bgFile = event.target.files[0];
+    this.bgUrl = window.URL.createObjectURL(event.srcElement.files[0]);
 
-    console.log('url:', this.fileUpload);
+    console.log('url:', this.bgUrl);
   }
-  async uploadFile() {
-    console.log(this.file);
+  getAvatarImg(event) {
+    this.avatarFile = event.target.files[0];
+    this.avatarUrl = window.URL.createObjectURL(event.srcElement.files[0]);
+    console.log('url:', this.avatarUrl);
+  }
+  
+  async uploadFile(type: 'bg' | 'avatar') {
+ 
     let fd = new FormData();
-    fd.append('file', this.file);
-    let config = {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }
-    // await axios.post(`${environment.BaseServerUrl}/upload-img`, fd, {
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data'
-    //   }
-    // });
+    fd.append(type, type === 'bg' ? this.bgFile : this.avatarFile);
     try {
       await axios.request({
-        url: `${environment.BaseServerUrl}/upload-img`,
+        url: type === 'bg' ? `${environment.BaseServerUrl}/upload-bg` : `${environment.BaseServerUrl}/upload-avatar`,
         method: 'post',
         headers: {
           // 'Content-Type':'application/x-www-form-urlencoded'
@@ -131,7 +131,7 @@ export class ProfileComponent implements OnInit {
         url: `${environment.BaseServerUrl}/update-profile`,
         method: 'post',
         data: {
-          userId: this.auth.getAuthSubject().getValue(),
+          userId: this.userId,
           info: {
             avatarUrl: this.avatarUrl,
             bgUrl: this.bgUrl

@@ -107,7 +107,7 @@ class DBHelper {
         return info;
     }
 
-    public async update(info: any, type: 'user' | 'profile' | 'webpush' = 'webpush', conditions: any = null) {
+    public async update(type: 'user' | 'profile' | 'webpush' = 'webpush', info: any, conditions: any = null) {
         if (type === 'user') {
             try {
                 await userModel.update({
@@ -119,7 +119,7 @@ class DBHelper {
             }
         } else if (type === 'profile') {
             try {
-                console.log('profile数据库更新', conditions, { info: info });
+                console.log('profile数据库更新', conditions, info);
                 await userModel.update(conditions, info, { upsert: true }, (err, raw) => console.log(err, raw));
             } catch (err) {
                 throw err;

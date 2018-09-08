@@ -22,7 +22,7 @@ export async function signUp(req: express.Request, res: express.Response) {
             res.sendStatus(409);
             return;
         }
-        await DBHelper.update(req.body, 'user')
+        await DBHelper.update('user', req.body, { userId: req.body.userId })
         console.log('注册成功');
         res.sendStatus(200);
     } catch (err) {
@@ -82,7 +82,7 @@ export async function resetPwd(req: express.Request, res: express.Response) {
     }
 }
 
-export async function uploadImg(req: express.Request, res: express.Response) {
+export async function uploadBgImg(req: express.Request, res: express.Response) {
     try {
         console.log('开始上传', req.body, req.file);
         let file = req.file;
@@ -91,6 +91,25 @@ export async function uploadImg(req: express.Request, res: express.Response) {
         console.log('原始文件名：%s', file.originalname);
         console.log('文件大小：%s', file.size);
         console.log('文件保存路径：%s', file.path);
+        await DBHelper.update('profile', { $set: { 'info.bgUrl': file.filename  } }, { userId: req.session.userId });
+        console.log('上传成功');
+
+        res.sendStatus(200);
+    } catch (err) {
+        console.log('失败');
+        res.sendStatus(500);
+    }
+}
+export async function uploadAvatarImg(req: express.Request, res: express.Response) {
+    try {
+        console.log('开始上传', req.body, req.file);
+        let file = req.file;
+
+        console.log('文件类型：%s', file.mimetype);
+        console.log('原始文件名：%s', file.originalname);
+        console.log('文件大小：%s', file.size);
+        console.log('文件保存路径：%s', file.path);
+        await DBHelper.update('profile', { $set: { 'info.avatarUrl': file.filename } }, { userId: req.session.userId });
         console.log('上传成功');
         res.sendStatus(200);
     } catch (err) {
@@ -122,7 +141,7 @@ export async function getProfile(req: express.Request, res: express.Response) {
 export async function updateProfile(req: express.Request, res: express.Response) {
     try {
         console.log('更新个人资料开始', req.body);
-        let profile = await DBHelper.update({ info: req.body.info }, 'profile', { userId: req.body.userId });
+        let profile = await DBHelper.update('profile', { info: req.body.info }, { userId: req.body.userId });
         if (profile) {
             console.log('更新个人资料成功', profile);
             res.sendStatus(200);

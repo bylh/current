@@ -1,5 +1,5 @@
 <div class="bylh-profile bylh-page-base mat-app-background">
-  <div class="form-container" *ngIf="!auth.getAuthSubject().getValue()">
+  <div class="form-container" *ngIf="!userId">
     <form [formGroup]="form" (ngSubmit)="submitForm()">
       <mat-form-field backgroundColor="primary" color="primary">
         <input matInput placeholder="Email" name="email" type="email" [formControl]="form.controls['email']" [errorStateMatcher]="matcher">
@@ -31,10 +31,12 @@
 
 
   <mat-card>
-    <img mat-card-image [src]="bgUrl" alt="Photo of a Shiba Inu">
+    <img mat-card-image [src]="bgUrl | safe:'url'" alt="Photo of a Shiba Inu" (click)="selectBg.click()">
+    <input hidden type="file" name="bgFileUpload" (change)="getBgImg($event)" #selectBg />
     <mat-card-header>
-      <img mat-card-avatar [src]="avatarUrl" />
-      <mat-card-title>{{auth.getAuthSubject().getValue()}}</mat-card-title>
+      <img mat-card-avatar [src]="avatarUrl | safe:'url'"  (click)="selectAvatar.click()"/>
+      <input hidden type="file" name="avatarFileUpload" (change)="getAvatarImg($event)" #selectAvatar />
+      <mat-card-title>{{userId}}</mat-card-title>
       <mat-card-subtitle>对未来的最大慷慨，是把一切献给现在。</mat-card-subtitle>
     </mat-card-header>
 
@@ -53,15 +55,15 @@
         <button mat-icon-button (click)="openDialog()">
           <mat-icon>border_color</mat-icon>
         </button>
-        <button mat-icon-button (click)="selectFile.click()">
+        <button mat-icon-button>
           <mat-icon color="primary">cloud_upload</mat-icon>
         </button>
-        <input hidden type="file" name="imgfileUpload" (change)="getImg($event)" #selectFile />
       </div>
       <!-- <div [innerHTML]="html | safe:'html'"></div> -->
-      <img *ngIf="fileUpload != null" width="100%" [src]="fileUpload | safe:'url'" />
+      <!-- <img *ngIf="fileUpload != null" width="100%" [src]="fileUpload | safe:'url'" /> -->
     </mat-card-footer>
   </mat-card>
-  <button mat-button (click)="uploadFile()">上传到服务器</button>
-  <button mat-button (click)="updateProfile()">更新个人资料</button>
+  <button mat-button (click)="uploadFile('bg')">上传背景到服务器</button>
+  <button mat-button (click)="uploadFile('avatar')">上传头像到服务器</button>
+  <!-- <button mat-button (click)="updateProfile()">更新个人资料</button> -->
 </div>
