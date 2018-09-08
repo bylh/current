@@ -34,6 +34,13 @@ export class TabsComponent implements AfterViewInit, OnInit {
   }
 
   public async ngOnInit() {
+
+    try {
+      let logined = await this.auth.isLogined();
+      console.log('是否登录', logined);
+    } catch(err) {
+      console.log('检查是否登录出错', err);
+    }
     console.log('ngOninit(): 获取订阅，可能之前订阅，也有可能是新的订阅，总之都返回订阅信息');
 
     // 监听推送消息

@@ -31,9 +31,9 @@
 
 
   <mat-card>
-    <img mat-card-image src="https://bit.bylh.top/images/defaultbg.jpg" alt="Photo of a Shiba Inu">
+    <img mat-card-image [src]="bgUrl" alt="Photo of a Shiba Inu">
     <mat-card-header>
-      <img mat-card-avatar src="https://bit.bylh.top/avatars/default.jpg" />
+      <img mat-card-avatar [src]="avatarUrl" />
       <mat-card-title>{{auth.getAuthSubject().getValue()}}</mat-card-title>
       <mat-card-subtitle>对未来的最大慷慨，是把一切献给现在。</mat-card-subtitle>
     </mat-card-header>

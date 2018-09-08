@@ -1,3 +1,4 @@
+
 import { environment } from './../../environments/environment';
 
 import { DialogComponent } from './dialog/dialog.component';
@@ -24,6 +25,8 @@ export class ProfileComponent implements OnInit {
   file: any;
   html = `<h2>显示图片</h2>`;
 
+  avatarUrl: string = 'https://bit.bylh.top/avatars/default.jpg';
+  bgUrl: string = 'https://bit.bylh.top/images/defaultbg.jpg'
 
   form: FormGroup;
   matcher = new MyErrorStateMatcher();
@@ -31,7 +34,7 @@ export class ProfileComponent implements OnInit {
     public auth: AuthService,
     public fb: FormBuilder,
     public dialog: MatDialog) { }
-  ngOnInit() {
+  async ngOnInit() {
     this.form = this.fb.group({
       email: new FormControl('', [
         Validators.required,
@@ -42,6 +45,9 @@ export class ProfileComponent implements OnInit {
         Validators.minLength(6)
       ])
     });
+    
+    this.avatarUrl = `${environment.BaseServerUrl}/avatars/${this.auth.getAuthSubject().getValue()}-avatar.jpg`;
+    this.bgUrl = `${environment.BaseServerUrl}/imgs/${this.auth.getAuthSubject().getValue()}-bg.jpg`;
   }
   async submitForm() {
     console.log('登录', this.form.value);
@@ -68,6 +74,7 @@ export class ProfileComponent implements OnInit {
   }
 
   openDialog(): void {
+    
     const dialogRef = this.dialog.open(DialogComponent, {
       // height: '100%',
       // width: '100%',
@@ -104,7 +111,8 @@ export class ProfileComponent implements OnInit {
         url: `${environment.BaseServerUrl}/upload-img`,
         method: 'post',
         headers: {
-          'Content-Type':'application/x-www-form-urlencoded'
+          // 'Content-Type':'application/x-www-form-urlencoded'
+          'Content-Type': 'multipart/form-data'
         },
         data: fd
       });
