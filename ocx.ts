@@ -7,7 +7,7 @@ import http from 'http';
 import express from 'express';
 import cors from 'cors';
 import program from 'commander';
-import { autoTrade, subscribe, sendNotification, sendNotificationToUsers, getGateMarketList, startGateAutoTrade, getGateBalances, getGateCoinAdress, signUp, login, checkSession, resetPwd, uploadImg } from './api';
+import { autoTrade, subscribe, sendNotification, sendNotificationToUsers, getGateMarketList, startGateAutoTrade, getGateBalances, getGateCoinAdress, signUp, login, checkSession, resetPwd, uploadImg, getProfile, updateProfile } from './api';
 import DBHelper, { CollectUri } from './db-helper';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
@@ -122,6 +122,8 @@ const upload = multer({
     app.use('/sign-up', signUp);
     app.use('/login', login);
 
+    app.use('/get-profile', getProfile);
+    app.use('/update-profile', updateProfile);
     app.use("/logout", (req, res, next) => {
         console.log('登出', req.session.userId);
         // req.session.cookie = null;
