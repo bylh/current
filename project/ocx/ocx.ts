@@ -1,6 +1,6 @@
 
 // import webpush from 'web-push';
-
+import multer from 'multer';
 import bodyParser from 'body-parser';
 import { UrlType, getUrl, getSignal, getTickers } from './common';
 import http from 'http';
@@ -12,6 +12,38 @@ import DBHelper, { CollectUri } from './db-helper';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
 const MongoStore = connectMongo(session);
+
+
+const storage = multer.diskStorage({
+    //destination 用来设置上传文件的路径 可以接收一个回调函数， 或者一个字符串
+    //如果传递一个回调函数的话，则需要确保路径有效
+    destination: 'public/imgs/',
+
+    //filename 属性可以用来指定文件上传以后保存到服务器中的名字
+    filename: (req, file, cb) => {
+        //cb(null, file.fieldname + '-' + Date.now())
+        //获取文件的扩展名
+        //Chrysanthemum.jpg
+        let fname = file.originalname;
+        let extName = "";
+        //判断文件是否具有扩展名
+        if (fname.lastIndexOf(".") != -1) {
+            extName = fname.slice(fname.lastIndexOf("."));
+        }
+
+        //上传文件时，一般不会直接将用户的文件名直接保存的服务器中
+        //一般会随机生成一个文件名
+        // cb(null, file.fieldname + '-' + Date.now() + extName);
+        cb(null, req.session.userId + '-' + 'bg' + extName);
+    }
+});
+const upload = multer({
+    storage: storage,
+    limits: {
+        //限制文件的大小为1M
+        fileSize: 1024 * 1024
+    }
+});
 
 (async function main(): Promise<void> {
     program.version('1.0.0')
@@ -56,10 +88,10 @@ const MongoStore = connectMongo(session);
         cookie: {
             httpOnly: false, // 决定了用户是否有读写此cookie的权限
             // expires: // 过期的日期
-            maxAge: 1000*3600*24    /*过期时间 1天*/
+            maxAge: 1000 * 3600 * 24    /*过期时间 1天*/
 
-        },   
-        
+        },
+
         /* secure:true  https这样的情况才可以访问cookie */
         // rolling: true, //在每次请求时强行设置 cookie，这将重置 cookie 过期时间（默认：false）
         store: new MongoStore({
@@ -90,11 +122,11 @@ const MongoStore = connectMongo(session);
     app.use('/sign-up', signUp);
     app.use('/login', login);
 
-    app.use("/logout",  (req, res, next) => {
+    app.use("/logout", (req, res, next) => {
         console.log('登出', req.session.userId);
         // req.session.cookie = null;
         // req.session.cookie.maxAge=0;  //重新设置过期时间来销毁。cookie中保存有sessionID
-        req.session.destroy(function (err) {  //通过destroy()函数销毁session
+        req.session.destroy((err) => {  //通过destroy()函数销毁session
             console.log('错误', err);
         });
         res.clearCookie('connect.sid')
@@ -102,7 +134,7 @@ const MongoStore = connectMongo(session);
     });
     app.use('/reset-pwd', resetPwd);
 
-    app.use('/upload-img', uploadImg);
+    app.use('/upload-img', upload.single('file'), uploadImg);
 
 
     app.use('/subscribe', subscribe); // 用户订阅

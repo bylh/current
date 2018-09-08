@@ -271,7 +271,7 @@ export async function startGateAutoTrade(req: express.Request, res: express.Resp
 
 export async function uploadImg(req: express.Request, res: express.Response) {
     try {
-        console.log('开始上传', req.body);
+        console.log('开始上传', req.body, req.file);
         
         console.log('上传成功');
         res.sendStatus(200);
