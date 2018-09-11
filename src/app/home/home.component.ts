@@ -20,6 +20,10 @@ export interface Tile {
 })
 export class HomeComponent implements OnInit {
   @ViewChild('home') home: ElementRef;
+  @ViewChild('preview') preview: ElementRef;
+
+  protected previewHtml: string;
+
   protected posX: number = 0;
   protected posY: number = 0;
   isLogined: boolean = false;
@@ -75,11 +79,15 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.editDialog.open(PreviewEditorComponent, {
       height: '100%',
       width: '100%',
-      data: { name: '' }
+      data: { html: this.previewHtml }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
+      if(result != null) {
+        (this.preview.nativeElement as Element).innerHTML = result;
+        this.previewHtml = result;
+      }
     });
   }
 

@@ -23,13 +23,15 @@ export class PreviewEditorComponent implements OnInit {
       el: this.editElementRef.nativeElement,
       initialEditType: 'markdown',
       previewStyle: 'vertical',
+      initialValue: '# hello', // 这个初始值为markdown
       height: '100%',
       width: '100%'
     });
+    // this.editor.setHtml(this.data.html, true);
   }
 
   cancel(): void {
-    this.dialogRef.close('取消');
+    this.dialogRef.close(null);
   }
 
   async save() {
@@ -37,7 +39,7 @@ export class PreviewEditorComponent implements OnInit {
     } catch (err) {
       return;
     }
-    this.dialogRef.close('修改成功')
+    this.dialogRef.close(this.editor.getHtml());
   }
 
 }

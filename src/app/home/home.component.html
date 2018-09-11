@@ -12,7 +12,8 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <mat-grid-list cols="5" rowHeight="50px" role="list">
-        <mat-grid-tile role="listitem" class="tile" *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows" [style.background]="tile.color">
+        <mat-grid-tile role="listitem" class="tile" *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows"
+          [style.background]="tile.color">
           <a [href]="tile.url" target="_blank">{{tile.text}}</a>
         </mat-grid-tile>
       </mat-grid-list>
@@ -42,10 +43,9 @@
     </mat-expansion-panel>
   </mat-accordion>
 
-  <!-- <iframe width="100%" frameborder="0" height="100%" seamless src="http://dict.youdao.com/?keyfrom=dict2.index"></iframe> -->
-  <div (click)="edit()">
-    测试
-    <!-- <a [routerLink]="['detail', 1]" [queryParams]="{info: 'detail我是传递的参数'}">测试</a> -->
+  <button mat-button (click)="edit()">测试</button>
+  <div class="preview" #preview>
   </div>
+
   <router-outlet></router-outlet>
 </div>
