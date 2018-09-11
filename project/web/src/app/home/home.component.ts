@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { Router, ActivatedRoute, NavigationEnd, Event, NavigationStart } from '@angular/router';
 
 import { HomeService } from './home.service';
+import { PreviewEditorComponent } from './preview-editor/preview-editor.component';
 
 export interface Tile {
   color?: string;
@@ -37,7 +38,11 @@ export class HomeComponent implements OnInit {
     { title: 'purecss grid布局', discription: '', imgUrl: '../assets/thumbs/item4.jpg', link: 'https://purecss.io/grids/' },
     { title: '禁止iframe页面自动重定向跳转', discription: '', imgUrl: '../assets/thumbs/item5.jpg', link: '//blog.csdn.net/WKY_CSDN/article/details/71420490' }
   ];
-  constructor(public homeService: HomeService, public snackBar: MatSnackBar, public router: Router, public route: ActivatedRoute) {
+  constructor(public homeService: HomeService,
+     public editDialog: MatDialog,
+     public snackBar: MatSnackBar, 
+     public router: Router, 
+     public route: ActivatedRoute) {
     this.route.paramMap.subscribe(params => {
       console.log('backId:', params.get('backId'));
     });
@@ -64,6 +69,20 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     console.log('ngOninit() : home init');
   }
+
+  edit(): void {
+
+    const dialogRef = this.editDialog.open(PreviewEditorComponent, {
+      height: '100%',
+      width: '100%',
+      data: { name: '' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+    });
+  }
+
   showScroll() {
     (this.home.nativeElement as Element).scrollTo(this.posX, this.posY);
   }
