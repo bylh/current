@@ -1,9 +1,16 @@
 <div class="bylh-preview-editor bylh-page-base bylh-sub-page-base mat-app-background">
   <div class="header">
-    <div class="icon" (click)="cancel()"><mat-icon color="primary">clear</mat-icon></div>
+    <div class="icon" (click)="cancel()">
+      <mat-icon color="primary">clear</mat-icon>
+    </div>
     <div class="title">编辑</div>
   </div>
   <div class="content">
+
+    <input class="input-title" [(ngModel)]="data.title" placeholder="输入标题">
+
+    <textarea placeholder="输入描述" [(ngModel)]="data.description"></textarea>
+
     <div class="editor-container" #editSection></div>
   </div>
 

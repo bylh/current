@@ -1,15 +1,13 @@
 <div class="bylh-home-detail bylh-page-base bylh-sub-page-base mat-app-background">
   <div class="header">
-      <div class="icon" (click)="back()"><mat-icon color="primary">home</mat-icon></div>
+      <div class="left-icon" (click)="back()"><mat-icon color="primary">home</mat-icon></div>
       <div class="title">文章详情</div>
+      <div class="right-icon" (click)="edit()"><mat-icon color="primary">create</mat-icon></div>
   </div>
   <div class="content">
-      <iframe width="100%" frameborder="0" height="100%" seamless sandbox="allow-scripts allow-same-origin allow-popups"  [src]="link | safe:'resourceUrl'"></iframe>
+      <!-- <iframe width="100%" frameborder="0" height="100%" seamless sandbox="allow-scripts allow-same-origin allow-popups"  [src]="link | safe:'resourceUrl'"></iframe> -->
+      <div class="preview" #preview>
+      </div>
   </div>
-  <!-- <iframe width="100%" frameborder="0" height="100%" seamless src="http://dict.youdao.com/?keyfrom=dict2.index"></iframe> -->
-  <!-- <button (click)="goPage('tabs/tools')">tools</button> -->
-  <!-- <input type="file" name="fileUpload" (change)="getImg($event)" /> -->
-  <!-- <div [innerHTML]="html | safe:'html'"></div> -->
-  <!-- <img width="100%" [src]="fileUpload | safe:'url'" /> -->
-  <!-- detail works!{{id}} -->
+
 </div>

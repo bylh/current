@@ -13,7 +13,7 @@ const routes: Routes = [
       {
         path: 'detail/:id',
         component: DetailComponent,
-        canDeactivate: [CanDeactivateGuard],
+        // canDeactivate: [CanDeactivateGuard],
         // resolve: {
         //   crisis: CrisisDetailResolver
         // }
