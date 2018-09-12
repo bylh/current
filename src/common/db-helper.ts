@@ -72,6 +72,9 @@ class DBHelper {
             case 'webpush':
                 model = webPushModel;
                 break;
+            case 'article':
+                model = articleModel;
+                break;
         }
         return model;
     }
@@ -80,7 +83,7 @@ class DBHelper {
         let model = this.getModel(type);
         let defer = new Defer<any>();
         model.findOne(conditions, (err, res) => {
-            console.log('getOne(): res:', res, 'err', err);
+            console.log('getOne(): res:', res, 'id:', res.id, 'err', err);
             defer.resolve(res);
         });
         return await defer.promise;;
@@ -107,6 +110,7 @@ class DBHelper {
             data = new articleModel(info);
         }
         try {
+            console.log('保存的id：', data.id);
             await data.save();
         } catch (err) {
             throw err;

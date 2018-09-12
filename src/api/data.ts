@@ -128,3 +128,14 @@ export async function saveHtml(req: express.Request, res: express.Response) {
         res.sendStatus(500);
     }
 }
+export async function getArticles(req: express.Request, res: express.Response) {
+    try {
+        console.log('开始查找文章', req.body);
+        let subs = await dbHelper.getAll('article', {userId: req.body.userId});
+        console.log(subs);
+        res.status(200).json(subs);
+    } catch (err) {
+        console.log('失败');
+        res.sendStatus(500);
+    }
+}
