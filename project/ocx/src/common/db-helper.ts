@@ -6,7 +6,7 @@ export interface WebPushInfo { // 推送信息
     pushSubscription: string
 }
 
-export type ModelType = 'user' | 'profile' | 'webpush'; // 数据类型
+export type ModelType = 'user' | 'profile' | 'webpush' | 'article'; // 数据类型
 
 // 数据库URL
 export const CollectUri = `mongodb://${Config.Server.DB.User}:${Config.Server.DB.Pwd}@127.0.0.1:${Config.Server.DB.Port}/web`;
@@ -18,7 +18,13 @@ const webPushSchema = new Schema({
     userId: String,
     pushSubscription: String
 });
-
+const articleSchema = new Schema({
+    userId: String,
+    title: String,
+    description: String,
+    html: String,
+    md: String
+});
 const userSchema = new Schema({
     userId: String,
     pwd: String,
@@ -39,7 +45,7 @@ const userSchema = new Schema({
 });
 
 const webPushModel = mongoose.model('webpushes', webPushSchema);
-
+const articleModel = mongoose.model('article', articleSchema);
 export const userModel = mongoose.model('users', userSchema);
 
 class DBHelper {
@@ -97,6 +103,8 @@ class DBHelper {
             data = new userModel(info);
         } else if (type === 'webpush') {
             data = new webPushModel(info);
+        } else if (type === 'article') {
+            data = new articleModel(info);
         }
         try {
             await data.save();
@@ -107,7 +115,7 @@ class DBHelper {
         return info;
     }
 
-    public async update(type: 'user' | 'profile' | 'webpush' = 'webpush', info: any, conditions: any = null) {
+    public async update(type: ModelType, info: any, conditions: any = null) {
         if (type === 'user') {
             try {
                 await userModel.update({

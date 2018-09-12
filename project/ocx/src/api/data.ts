@@ -2,6 +2,7 @@ import JsSHA from 'jssha';
 import qs from 'qs';
 import axios from 'axios';
 import express from 'express';
+import dbHelper from '../common/db-helper';
 
 
 /* ------------------------gate-------------------*/
@@ -116,3 +117,14 @@ export function getGateUrl(key: string, sec: string, type: string): string {
     return url;
 }
 
+
+export async function saveHtml(req: express.Request, res: express.Response) {
+    try {
+        console.log('开始保存html', req.body);
+        await dbHelper.set('article', req.body);
+        res.sendStatus(200);
+    } catch (err) {
+        console.log('失败');
+        res.sendStatus(500);
+    }
+}

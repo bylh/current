@@ -22,6 +22,9 @@ export class AuthService {
   getAuthSubject() {
     return this.authSubject
   }
+  getUserId() {
+    return this.authSubject.getValue();
+  }
 
   // 登录
   async login(email: string, pwd: string) {
