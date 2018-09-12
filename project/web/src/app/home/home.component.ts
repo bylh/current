@@ -2,8 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { Router, ActivatedRoute, NavigationEnd, Event, NavigationStart } from '@angular/router';
 
-import { HomeService } from './home.service';
+import { HomeService, Article } from './home.service';
 import { PreviewEditorComponent } from './preview-editor/preview-editor.component';
+import { AuthService } from '../auth.service';
 
 export interface Tile {
   color?: string;
@@ -20,9 +21,8 @@ export interface Tile {
 })
 export class HomeComponent implements OnInit {
   @ViewChild('home') home: ElementRef;
-  @ViewChild('preview') preview: ElementRef;
 
-  protected previewHtml: string;
+  articles: Array<Article>;
 
   protected posX: number = 0;
   protected posY: number = 0;
@@ -43,10 +43,11 @@ export class HomeComponent implements OnInit {
     { title: '禁止iframe页面自动重定向跳转', discription: '', imgUrl: '../assets/thumbs/item5.jpg', link: '//blog.csdn.net/WKY_CSDN/article/details/71420490' }
   ];
   constructor(public homeService: HomeService,
-     public editDialog: MatDialog,
-     public snackBar: MatSnackBar, 
-     public router: Router, 
-     public route: ActivatedRoute) {
+    public authService: AuthService,
+    public createArticleDialog: MatDialog,
+    public snackBar: MatSnackBar,
+    public router: Router,
+    public route: ActivatedRoute) {
     this.route.paramMap.subscribe(params => {
       console.log('backId:', params.get('backId'));
     });
@@ -70,28 +71,37 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     console.log('ngOninit() : home init');
-  }
-
-  edit(): void {
-
-    const dialogRef = this.editDialog.open(PreviewEditorComponent, {
-      height: '100%',
-      width: '100%',
-      data: { html: this.previewHtml }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-      if(result != null) {
-        (this.preview.nativeElement as Element).innerHTML = result;
-        this.previewHtml = result;
-      }
-    });
+    try {
+      this.articles = await this.homeService.getArticles();
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   showScroll() {
     (this.home.nativeElement as Element).scrollTo(this.posX, this.posY);
+  }
+
+  createArticle(): void {
+
+    const dialogRef = this.createArticleDialog.open(PreviewEditorComponent, {
+      height: '100%',
+      width: '100%',
+      data: {
+        userId: this.authService.getUserId(),
+        title: null,
+        description: null,
+        html: null,
+      } as Article
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result != null) {
+        this.ngOnInit();
+      }
+    });
   }
 }

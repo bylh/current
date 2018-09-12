@@ -1,7 +1,10 @@
+import { HomeService } from './../home.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material';
+import { PreviewEditorComponent } from '../preview-editor/preview-editor.component';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-detail',
@@ -10,13 +13,19 @@ import { MatDialog } from '@angular/material';
 })
 export class DetailComponent implements OnInit {
 
+  @ViewChild('preview') preview: ElementRef;
+
+  protected previewHtml: string;
+
   public id: number;
-
   public link: string;
-  fileUpload: any = null;
-  html = `<h2>显示图片</h2>`;
 
-  constructor(private route: ActivatedRoute, private router: Router, public dialog: MatDialog) {
+  constructor(
+    private homeService: HomeService,
+    private auth: AuthService,
+    private route: ActivatedRoute,
+    private router: Router,
+    public editDialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -37,22 +46,31 @@ export class DetailComponent implements OnInit {
   goPage(url: string) {
     this.router.navigateByUrl(url);
   }
-  getImg(event) {
-    this.fileUpload = window.URL.createObjectURL(event.srcElement.files[0]);
-
-    console.log('url:', this.fileUpload);
-  }
 
   canDeactivate(): Observable<boolean> | boolean {
-    // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
-    if (this.fileUpload == null) {
-      return true;
-    }
-    // Otherwise ask the user with the dialog service and return its
-    // observable which resolves to true or false when the user decides
-    // return this.dialogService.confirm('Discard changes?');
-    
     return confirm('确定离开？');
   }
 
+  edit(): void {
+
+    const dialogRef = this.editDialog.open(PreviewEditorComponent, {
+      height: '100%',
+      width: '100%',
+      data: {
+        userId: this.auth.getUserId(),
+        id: null,
+        html: null,
+        title: null,
+        description: null,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if (result != null) {
+        (this.preview.nativeElement as Element).innerHTML = result;
+        this.previewHtml = result;
+      }
+    });
+  }
 }

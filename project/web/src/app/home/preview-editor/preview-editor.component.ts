@@ -1,4 +1,4 @@
-import { HomeService } from './../home.service';
+import { HomeService, Article } from './../home.service';
 
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -16,21 +16,24 @@ export class PreviewEditorComponent implements OnInit {
     public auth: AuthService,
     public homeService: HomeService,
     public dialogRef: MatDialogRef<PreviewEditorComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    @Inject(MAT_DIALOG_DATA) public data: Article) {
     console.log(this.data);
   }
 
   ngOnInit() {
-   
+
     this.editor = new Editor({
       el: this.editElementRef.nativeElement,
       // viewer: true,
       // initialEditType: 'markdown',
-      previewStyle: 'vertical',
+      previewStyle: 'vertical', // tab  vertical
+      initialEditType: 'wysiwyg', // markdown, wysiwyg
       // initialValue: '# hello', // 这个初始值为markdown
       height: '100%',
       width: '100%'
     });
+    if (this.data.html != null)
+      this.editor.setHtml(this.data.html);
   }
 
   cancel(): void {
@@ -38,15 +41,14 @@ export class PreviewEditorComponent implements OnInit {
   }
 
   async save() {
-    let html: string;
     try {
-      html = this.editor.getHtml();
-      await this.homeService.saveHtml(this.auth.getUserId(), html);
+      this.data.html = this.editor.getHtml();
+      await this.homeService.saveArticle(this.data);
     } catch (err) {
-      console.log('保存失败');
+      console.log('保存失败', err);
       return;
     }
-    this.dialogRef.close(html);
+    this.dialogRef.close(this.data.html);
   }
 
 }

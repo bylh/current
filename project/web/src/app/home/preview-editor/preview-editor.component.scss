@@ -14,8 +14,20 @@
         display: flex; // 注意： 必须设为display为flex， 若为block则高度100%不是分割后的100%，而是最顶层的100%
         height: 100%;
         width: 100%;
+        flex-direction: column;
+        .input-title {
+            font-size: 1rem;
+        }
         .editor-container {
+            flex: 1 1 auto;
+            display: flex;
+            height: 100%;
             width: 100%;
+            // 改了组件的代码 TODO待研究清楚flex宽度的问题
+            /deep/ .tui-editor-defaultUI {
+                width: 100%;
+            }
+            
         }
     }
     .footer {
