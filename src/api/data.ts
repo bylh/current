@@ -121,11 +121,23 @@ export function getGateUrl(key: string, sec: string, type: string): string {
 export async function saveHtml(req: express.Request, res: express.Response) {
     try {
         console.log('开始保存html', req.body);
+        if (req.body._id == null) {
+            await dbHelper.set('article', {
+                userId: req.body.userId,
+                title: req.body.title,
+                description: req.body.description,
+                html: req.body.html,
+                md: req.body.md
+            });
+            res.sendStatus(200);
+            return;
+        }
         await dbHelper.update('article', {
             userId: req.body.userId,
             title: req.body.title,
             description: req.body.description,
-            html: req.body.html
+            html: req.body.html,
+            md: req.body.md
         }, {
                 _id: req.body._id
             });
