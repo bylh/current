@@ -1,31 +1,34 @@
 .bylh-home-detail {
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    flex: 0 0 auto;
     display: flex;
-    flex-direction: column;
-    .header {
-        flex: 0 0 auto;
-        display: flex;
-        justify-content: space-between;
-        .title {
-            flex: 1 1 auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-        }
-        .left-icon, .right-icon {
-            padding: 8px;
-            display: flex;
-            align-items: center;
-        }
+    justify-content: space-between;
+
+    .title {
+      flex: 1 1 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
     }
-    .content {
-        flex: 1 1 auto;
-        display: flex; // 注意： 必须设为display为flex， 若为block则高度100%不是分割后的100%，而是最顶层的100%
-        height: 100%;
-        overflow: auto;
-        .preview {
-            padding: 8px;
-            flex: 1 1 auto;
-        } 
+
+    .left-icon,
+    .right-icon {
+      padding: 8px;
+      display: flex;
+      align-items: center;
     }
+  }
+
+  .content {
+    flex: 1 1 auto;
+    overflow: auto;
+
+    .preview {
+      padding: 8px;
+    }
+  }
 }
