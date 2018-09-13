@@ -1,17 +1,26 @@
 .bylh-profile {
+  .content {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+
     .form-container {
-        display: flex;
-        justify-content: center;
-        form {
-            width: 60%;
-            mat-form-field {
-                width: 100%;
-            }
+      display: flex;
+      justify-content: center;
+
+      form {
+        width: 60%;
+
+        mat-form-field {
+          width: 100%;
         }
+      }
     }
+
     .footer-container {
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: space-between;
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
     }
+  }
 }
