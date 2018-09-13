@@ -7,7 +7,13 @@
         justify-content: space-between;
         .title {
             flex: 1 1 auto;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+        .left-icon, .right-icon {
+            padding: 8px;
         }
     }
     .content {
@@ -15,6 +21,7 @@
         display: flex; // 注意： 必须设为display为flex， 若为block则高度100%不是分割后的100%，而是最顶层的100%
         height: 100%;
         .preview {
+            padding: 8px;
             flex: 1 1 auto;
         } 
     }

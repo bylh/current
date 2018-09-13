@@ -1,12 +1,12 @@
 <div class="bylh-home-detail bylh-page-base bylh-sub-page-base mat-app-background">
   <div class="header">
-      <div class="left-icon" (click)="back()"><mat-icon color="primary">home</mat-icon></div>
-      <div class="title">文章详情</div>
-      <div class="right-icon" (click)="edit()"><mat-icon color="primary">create</mat-icon></div>
+      <div class="left-icon" (click)="back()"><mat-icon color="primary">arrow_back_ios</mat-icon></div>
+      <div class="title">{{article != null? article?.title : '详情'}}</div>
+      <div [hidden]="articleId == null" class="right-icon" (click)="edit()"><mat-icon color="primary">create</mat-icon></div>
   </div>
   <div class="content">
-      <!-- <iframe width="100%" frameborder="0" height="100%" seamless sandbox="allow-scripts allow-same-origin allow-popups"  [src]="link | safe:'resourceUrl'"></iframe> -->
-      <div class="preview" #preview>
+      <iframe [hidden]="articleId != null" width="100%" frameborder="0" height="100%" seamless sandbox="allow-scripts allow-same-origin allow-popups"  [src]="link | safe:'resourceUrl'"></iframe>
+      <div [hidden]="articleId == null" class="preview" #preview>
       </div>
   </div>
 

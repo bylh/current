@@ -6,10 +6,12 @@
     <div class="title">编辑</div>
   </div>
   <div class="content">
-
-    <input class="input-title" [(ngModel)]="data.title" placeholder="输入标题">
-
-    <textarea placeholder="输入描述" [(ngModel)]="data.description"></textarea>
+    <mat-form-field>
+        <input matInput class="input-title" [(ngModel)]="data.title" placeholder="输入标题">
+    </mat-form-field>
+    <mat-form-field>
+        <textarea matInput placeholder="输入描述" [(ngModel)]="data.description"></textarea>
+    </mat-form-field>
 
     <div class="editor-container" #editSection></div>
   </div>

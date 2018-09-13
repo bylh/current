@@ -47,8 +47,8 @@
       <mat-list>
         <h3 mat-subheader>原创</h3>
         <mat-divider></mat-divider>
-        <ng-container *ngFor="let article of articles">
-          <mat-list-item>
+        <ng-container *ngFor="let article of articles; let i = index">
+          <mat-list-item (click)="viewArticle(i)">
             <mat-icon mat-list-icon>note</mat-icon>
             <h2 matLine>{{article.title}}</h2>
             <p matLine>

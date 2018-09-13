@@ -88,7 +88,7 @@ export class TabsComponent implements AfterViewInit, OnInit {
 
   // 登录
   public async toProfile() {
-    this.router.navigateByUrl('/tabs/profile');
+    this.router.navigate(['tabs/profile']);
   }
   
   public async logout() {
@@ -103,10 +103,5 @@ export class TabsComponent implements AfterViewInit, OnInit {
   public back() {
     this.location.back();
 
-  }
-  public isRootTab() {
-    return this.location.isCurrentPathEqualTo('/tabs/home') || this.location.isCurrentPathEqualTo('/tabs/discovery')
-      || this.location.isCurrentPathEqualTo('/tabs/tools') || this.location.isCurrentPathEqualTo('/tabs/profile')
-      || this.location.isCurrentPathEqualTo('/tabs');
   }
 }

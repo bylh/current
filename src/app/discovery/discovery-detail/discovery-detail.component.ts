@@ -16,12 +16,15 @@ export class DiscoveryDetailComponent implements OnInit {
 
   ngOnInit() {
     console.log('ngOnInit(): discovery detail init');
-    this.route.paramMap.subscribe((params => this.id = +params.get('id')));
+    this.route.paramMap.subscribe((params => {this.id = +params.get('id'); console.log('id:', this.id)}));
     // this.id = +this.route.snapshot.paramMap.get('id'); // + 将string转化为number
+    this.route.queryParamMap.subscribe((params => {
+      console.log(params.get('id'));
+    }));
   }
   back() {
     console.log('backId:', this.id);
-    this.router.navigateByUrl('tabs/discovery', {
+    this.router.navigate(['tabs/discovery'], {
       queryParams: { 'backId': this.id },
     });
     // this.location.go('/home');
@@ -29,10 +32,10 @@ export class DiscoveryDetailComponent implements OnInit {
 
   }
   pre() {
-    this.router.navigateByUrl(`tabs/discovery/${--this.id}`);
+    this.router.navigate([`tabs/discovery/${--this.id}`]);
   }
   next() {
-    this.router.navigateByUrl(`tabs/discovery/${++this.id}`);
+    this.router.navigate([`tabs/discovery/${++this.id}`]);
   }
 
 }

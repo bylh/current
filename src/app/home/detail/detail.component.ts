@@ -1,4 +1,5 @@
-import { HomeService } from './../home.service';
+import { Location } from '@angular/common';
+import { HomeService, Article } from './../home.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -15,36 +16,42 @@ export class DetailComponent implements OnInit {
 
   @ViewChild('preview') preview: ElementRef;
 
-  protected previewHtml: string;
-
   public id: number;
+  public articleId: string;
   public link: string;
+  public article: Article;
 
   constructor(
     private homeService: HomeService,
     private auth: AuthService,
     private route: ActivatedRoute,
     private router: Router,
+    private loaction: Location,
     public editDialog: MatDialog) {
-  }
-
-  ngOnInit() {
-    console.log('detail');
     this.route.paramMap.subscribe((params => {
       this.id = +params.get('id');
       console.log('detail id: ', this.id);
     }));
     this.route.queryParamMap.subscribe(params => {
-      console.log(params.get('link'));
       this.link = params.get('link');
+      this.articleId = params.get('articleId');
     })
-    this.id = +this.route.snapshot.paramMap.get('id'); // + 将string转化为number
+  }
+
+  async ngOnInit() {
+    console.log('detail');
+    try {
+      this.article = await this.homeService.getArticle(this.articleId);
+      (this.preview.nativeElement as Element).innerHTML = this.article.html;
+    } catch(err) {
+    }
   }
   back() {
-    this.router.navigateByUrl('tabs/home');
+    // this.router.navigate(['tabs/home']);
+    this.loaction.back();
   }
   goPage(url: string) {
-    this.router.navigateByUrl(url);
+    this.router.navigate([url]);
   }
 
   canDeactivate(): Observable<boolean> | boolean {
@@ -56,20 +63,14 @@ export class DetailComponent implements OnInit {
     const dialogRef = this.editDialog.open(PreviewEditorComponent, {
       height: '100%',
       width: '100%',
-      data: {
-        userId: this.auth.getUserId(),
-        id: null,
-        html: null,
-        title: null,
-        description: null,
-      }
+      data:this.article
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
       if (result != null) {
         (this.preview.nativeElement as Element).innerHTML = result;
-        this.previewHtml = result;
+        this.article.html = result;
       }
     });
   }
