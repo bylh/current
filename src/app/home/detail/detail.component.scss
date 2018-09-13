@@ -14,6 +14,8 @@
         }
         .left-icon, .right-icon {
             padding: 8px;
+            display: flex;
+            align-items: center;
         }
     }
     .content {

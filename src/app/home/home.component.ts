@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { Router, ActivatedRoute, NavigationEnd, Event, NavigationStart, NavigationExtras } from '@angular/router';
@@ -48,12 +49,19 @@ export class HomeComponent implements OnInit {
     public authService: AuthService,
     public createArticleDialog: MatDialog,
     public snackBar: MatSnackBar,
+    public location: Location,
     public router: Router,
     public route: ActivatedRoute) {
     this.route.paramMap.subscribe(params => {
       console.log('backId:', params.get('backId'));
     });
-
+    this.location.subscribe(event => {
+      console.log(event);
+      if (event.url === '/tabs/home') {
+        console.log(event.url, this.authService.getUserId())
+        this.refreshSubject.next(this.authService.getUserId());
+      }
+    });
     this.router.events // 既然是ob为什么不支持filter等函数，应该是rxjs的升级
       .subscribe((event: Event) => {
         // console.log('navi Event: ', event);
@@ -72,7 +80,8 @@ export class HomeComponent implements OnInit {
         // }
       });
 
-    merge(this.authService.getAuthSubject()).subscribe(async (userId) => {
+    merge(this.authService.getAuthSubject(), this.refreshSubject).subscribe(async (userId) => {
+      console.log('收到subject', userId);
       if (userId != null) {
         try {
           this.articles = await this.homeService.getArticles();
@@ -114,6 +123,6 @@ export class HomeComponent implements OnInit {
     });
   }
   viewArticle(index: number) {
-    this.router.navigate([`detail/${index}`], { queryParams: { 'articleId': this.articles[index]._id } });
+    this.router.navigate([`tabs/home/detail/${index}`], { queryParams: { 'articleId': this.articles[index]._id } });
   }
 }

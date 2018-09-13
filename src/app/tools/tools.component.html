@@ -2,20 +2,20 @@
 
   <div>
     <h5>比特儿交易所</h5>
-    <form class="required-info">
-      <mat-form-field>
-        <input matInput [(ngModel)]="gateKey" placeholder="key" />
-      </mat-form-field>
+    <!-- <form class="required-info"> -->
+    <mat-form-field>
+      <input matInput [(ngModel)]="gateKey" placeholder="key" />
+    </mat-form-field>
 
-      <mat-form-field>
-        <input matInput [(ngModel)]="gateSecret" placeholder="secret" />
-      </mat-form-field>
-      
-      <mat-form-field>
-        <input matInput [(ngModel)]="coinName" placeholder="coinName" />
-      </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="gateSecret" placeholder="secret" />
+    </mat-form-field>
 
-    </form>
+    <mat-form-field>
+      <input matInput [(ngModel)]="coinName" placeholder="coinName" />
+    </mat-form-field>
+    <!-- </form> -->
+
     <button mat-stroked-button (click)="getGateBalances()">获取余额</button>
     <button mat-stroked-button (click)="getGateCoinAdress()">获取充值地址</button>
     <button mat-stroked-button (click)="getMarkerList()">获取交易对</button>

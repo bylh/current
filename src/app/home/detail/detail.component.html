@@ -5,7 +5,7 @@
       <div [hidden]="articleId == null" class="right-icon" (click)="edit()"><mat-icon color="primary">create</mat-icon></div>
   </div>
   <div class="content">
-      <iframe [hidden]="articleId != null" width="100%" frameborder="0" height="100%" seamless sandbox="allow-scripts allow-same-origin allow-popups"  [src]="link | safe:'resourceUrl'"></iframe>
+      <iframe *ngIf="articleId == null" width="100%" frameborder="0" height="100%" seamless sandbox="allow-scripts allow-same-origin allow-popups"  [src]="link | safe:'resourceUrl'"></iframe>
       <div [hidden]="articleId == null" class="preview" #preview>
       </div>
   </div>
