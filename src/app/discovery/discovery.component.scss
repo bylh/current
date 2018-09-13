@@ -1,7 +1,13 @@
 .bylh-discovery {
+  .content {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+
     .items-container {
-        img {
-            width: 100%;
-        } 
+      img {
+        width: 100%;
+      }
     }
+  }
 }

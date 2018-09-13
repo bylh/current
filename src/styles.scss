@@ -20,13 +20,9 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-
-  // background-image: url(assets/dust_scratches.png);
-  // background:rgba(66, 66, 66, 1);
   .bylh-page-base {
     height: 100%;
     width: 100%;
-    overflow: auto;
   }
 
   .bylh-sub-page-base {
@@ -36,7 +32,6 @@ body {
     // 绝对定位布局div宽高自适应，而不是充满
     left: 0;
     right: 0;
-    // height: 100%;
   }
 
   /* 修复一些问题 */
