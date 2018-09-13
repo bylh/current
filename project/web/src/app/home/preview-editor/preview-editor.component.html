@@ -4,6 +4,9 @@
       <mat-icon color="primary">clear</mat-icon>
     </div>
     <div class="title">编辑</div>
+    <div class="right-icon" (click)="save()">
+        <mat-icon color="primary">check_box</mat-icon>
+      </div>
   </div>
   <div class="content">
     <mat-form-field>
@@ -16,7 +19,7 @@
     <div class="editor-container" #editSection></div>
   </div>
 
-  <div class="footer">
+  <!-- <div class="footer">
     <button mat-button (click)="save()">确定</button>
-  </div>
+  </div> -->
 </div>

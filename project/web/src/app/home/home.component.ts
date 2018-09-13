@@ -123,6 +123,7 @@ export class HomeComponent implements OnInit {
     });
   }
   viewArticle(index: number) {
+    console.log('文章详情页');
     this.router.navigate([`tabs/home/detail/${index}`], { queryParams: { 'articleId': this.articles[index]._id } });
   }
 }
