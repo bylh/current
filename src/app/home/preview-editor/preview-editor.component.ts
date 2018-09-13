@@ -22,19 +22,23 @@ export class PreviewEditorComponent implements OnInit {
 
   ngOnInit() {
 
-    this.editor = new Editor({
-      el: this.editElementRef.nativeElement,
-      // viewer: true,
-      // initialEditType: 'markdown',
-      previewStyle: 'vertical', // tab  vertical
-      initialEditType: 'wysiwyg', // markdown, wysiwyg
-      // initialValue: '# hello', // 这个初始值为markdown
-      language: 'zh',
-      height: '100%',
-      width: '100%'
-    });
-    if (this.data.html != null)
-      this.editor.setHtml(this.data.html);
+    try {
+      this.editor = new Editor({
+        el: this.editElementRef.nativeElement,
+        // viewer: true,
+        // initialEditType: 'markdown',
+        previewStyle: 'vertical', // tab  vertical
+        initialEditType: 'wysiwyg', // markdown, wysiwyg
+        // initialValue: '# hello', // 这个初始值为markdown
+        language: 'zh',
+        height: '100%',
+        width: '100%'
+      });
+      if (this.data.html != null)
+        this.editor.setHtml(this.data.html);
+    } catch(err) {
+      console.log('创建编辑器出错', err);
+    }
   }
 
   cancel(): void {
