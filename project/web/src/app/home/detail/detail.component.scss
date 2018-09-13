@@ -1,7 +1,6 @@
 .bylh-home-detail {
     display: flex;
     flex-direction: column;
-    // overflow: hidden;
     .header {
         flex: 0 0 auto;
         display: flex;
@@ -23,7 +22,7 @@
         flex: 1 1 auto;
         display: flex; // 注意： 必须设为display为flex， 若为block则高度100%不是分割后的100%，而是最顶层的100%
         height: 100%;
-        overflow: scroll;
+        overflow: auto;
         .preview {
             padding: 8px;
             flex: 1 1 auto;
