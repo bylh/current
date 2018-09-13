@@ -29,6 +29,7 @@ export class PreviewEditorComponent implements OnInit {
       previewStyle: 'vertical', // tab  vertical
       initialEditType: 'wysiwyg', // markdown, wysiwyg
       // initialValue: '# hello', // 这个初始值为markdown
+      language: 'zh',
       height: '100%',
       width: '100%'
     });
