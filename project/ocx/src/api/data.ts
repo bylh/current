@@ -121,7 +121,14 @@ export function getGateUrl(key: string, sec: string, type: string): string {
 export async function saveHtml(req: express.Request, res: express.Response) {
     try {
         console.log('开始保存html', req.body);
-        await dbHelper.set('article', req.body);
+        await dbHelper.update('article', {
+            userId: req.body.userId,
+            title: req.body.title,
+            description: req.body.description,
+            html: req.body.html
+        }, {
+                _id: req.body._id
+            });
         res.sendStatus(200);
     } catch (err) {
         console.log('失败');
@@ -131,9 +138,20 @@ export async function saveHtml(req: express.Request, res: express.Response) {
 export async function getArticles(req: express.Request, res: express.Response) {
     try {
         console.log('开始查找文章', req.body);
-        let subs = await dbHelper.getAll('article', {userId: req.body.userId});
+        let subs = await dbHelper.getAll('article', { userId: req.body.userId });
         console.log(subs);
         res.status(200).json(subs);
+    } catch (err) {
+        console.log('失败');
+        res.sendStatus(500);
+    }
+}
+export async function getArticle(req: express.Request, res: express.Response) {
+    try {
+        console.log('开始根据id查找文章', req.body);
+        let sub = await dbHelper.getOne('article', { _id: req.body.articleId });
+        console.log(sub);
+        res.status(200).json(sub);
     } catch (err) {
         console.log('失败');
         res.sendStatus(500);

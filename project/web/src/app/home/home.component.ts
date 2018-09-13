@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatSnackBar, MatDialog } from '@angular/material';
-import { Router, ActivatedRoute, NavigationEnd, Event, NavigationStart } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd, Event, NavigationStart, NavigationExtras } from '@angular/router';
 
 import { HomeService, Article } from './home.service';
 import { PreviewEditorComponent } from './preview-editor/preview-editor.component';
 import { AuthService } from '../auth.service';
+import { Observable, merge, Subject } from 'rxjs';
 
 export interface Tile {
   color?: string;
@@ -22,6 +23,7 @@ export interface Tile {
 export class HomeComponent implements OnInit {
   @ViewChild('home') home: ElementRef;
 
+  refreshSubject: Subject<string> = new Subject<string>();
   articles: Array<Article>;
 
   protected posX: number = 0;
@@ -69,15 +71,23 @@ export class HomeComponent implements OnInit {
         //   }
         // }
       });
+
+    merge(this.authService.getAuthSubject()).subscribe(async (userId) => {
+      if (userId != null) {
+        try {
+          this.articles = await this.homeService.getArticles();
+        } catch (err) {
+          console.log(err);
+        }
+      } else {
+        console.log('登出置空数据');
+        this.articles = null;
+      }
+    });
   }
 
   async ngOnInit() {
     console.log('ngOninit() : home init');
-    try {
-      this.articles = await this.homeService.getArticles();
-    } catch (err) {
-      console.log(err);
-    }
   }
 
   showScroll() {
@@ -85,7 +95,6 @@ export class HomeComponent implements OnInit {
   }
 
   createArticle(): void {
-
     const dialogRef = this.createArticleDialog.open(PreviewEditorComponent, {
       height: '100%',
       width: '100%',
@@ -100,8 +109,11 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed', result);
       if (result != null) {
-        this.ngOnInit();
+        this.refreshSubject.next(this.authService.getUserId());
       }
     });
+  }
+  viewArticle(index: number) {
+    this.router.navigate([`detail/${index}`], { queryParams: { 'articleId': this.articles[index]._id } });
   }
 }

@@ -83,7 +83,7 @@ class DBHelper {
         let model = this.getModel(type);
         let defer = new Defer<any>();
         model.findOne(conditions, (err, res) => {
-            console.log('getOne(): res:', res, 'id:', res.id, 'err', err);
+            console.log('getOne(): res:', res, 'id:', 'err', err);
             defer.resolve(res);
         });
         return await defer.promise;;
@@ -125,7 +125,7 @@ class DBHelper {
                 await userModel.update({
                     userId: info.userId,
                     pwd: info.pwd
-                }, info, { upsert: true }, (err, raw) => console.log(err, raw));
+                }, {title: info.title}, { upsert: true }, (err, raw) => console.log(err, raw));
             } catch (err) {
                 throw err;
             }
@@ -136,6 +136,9 @@ class DBHelper {
             } catch (err) {
                 throw err;
             }
+        } else if (type === 'article') {
+            // console.log(info, conditions); 
+            await articleModel.update(conditions, info, { upsert: true }, (err, raw) => console.log(err, raw));
         }
         console.log('保存数据成功', info);
         return info;

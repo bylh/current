@@ -14,7 +14,7 @@ export class PageNotFoundComponent implements OnInit {
   ngOnInit() {
   }
   goPage(url: string) {
-    this.router.navigateByUrl(url);
+    this.router.navigate([url]);
   }
   back() {
     this.location.back();

@@ -37,5 +37,15 @@ export class HomeService {
       throw err;
     }
   }
-
+  async getArticle(articleId: string): Promise<Article> {
+    try {
+      let res = await axios.post(`${environment.BaseServerUrl}/get-article`, {
+        userId: this.auth.getUserId(),
+        articleId: articleId
+      });
+      return res.data;
+    } catch (err) {
+      throw err;
+    }
+  }
 }
