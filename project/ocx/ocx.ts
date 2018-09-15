@@ -10,7 +10,7 @@ import { subscribe, sendNotificationToUsers, signUp, login, checkSession, resetP
 import DBHelper, { CollectUri } from './src/common/db-helper';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
-import { getGateMarketList, saveHtml, getArticles, getArticle } from './src/api/data';
+import { getGateMarketList, saveArticle, getArticleIds, getArticle } from './src/api/data';
 import { getGateBalances, getGateCoinAdress, startGateAutoTrade } from './src/api/data';
 const MongoStore = connectMongo(session);
 
@@ -167,8 +167,8 @@ const uploadAvatar = multer({
     app.use('/upload-bg', uploadBg.single('bg'), uploadBgImg);
     app.use('/upload-avatar', uploadAvatar.single('avatar'), uploadAvatarImg);
 
-    app.use('/save-html', saveHtml);
-    app.use('/get-articles', getArticles)
+    app.use('/save-article', saveArticle);
+    app.use('/get-articleIds', getArticleIds)
     app.use('/get-article', getArticle);
 
     app.use('/subscribe', subscribe); // 用户订阅
