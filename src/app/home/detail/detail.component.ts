@@ -1,4 +1,4 @@
-import { DBService } from './../../db.service';
+
 import { Location } from '@angular/common';
 import { HomeService, Article } from './../home.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,7 +23,6 @@ export class DetailComponent implements OnInit {
   public article: Article;
 
   constructor(
-    public dbService: DBService,
     private homeService: HomeService,
     private auth: AuthService,
     private route: ActivatedRoute,
@@ -44,7 +43,6 @@ export class DetailComponent implements OnInit {
     console.log('detail');
     try {
       this.article = await this.homeService.getArticle(this.articleId);
-      console.log('hello', await this.dbService.get('hello') );
       (this.preview.nativeElement as Element).innerHTML = this.article.html;
     } catch(err) {
     }

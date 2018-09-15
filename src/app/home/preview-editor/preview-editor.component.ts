@@ -1,4 +1,4 @@
-import { DBService } from './../../db.service';
+
 import { HomeService, Article } from './../home.service';
 
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
@@ -14,7 +14,6 @@ export class PreviewEditorComponent implements OnInit {
   @ViewChild('editSection') editElementRef: ElementRef;
   public editor: Editor;
   constructor(
-    public dbService: DBService,
     public auth: AuthService,
     public homeService: HomeService,
     public dialogRef: MatDialogRef<PreviewEditorComponent>,
@@ -51,7 +50,6 @@ export class PreviewEditorComponent implements OnInit {
     try {
       this.data.html = this.editor.getHtml();
       await this.homeService.saveArticle(this.data);
-      await this.dbService.set('hello', this.data);
     } catch (err) {
       console.log('保存失败', err);
       return;
