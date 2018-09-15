@@ -120,7 +120,7 @@ export function getGateUrl(key: string, sec: string, type: string): string {
 
 export async function saveArticle(req: express.Request, res: express.Response) {
     try {
-        console.log('开始保存html', req.body);
+        console.log('开始保存article', req.body);
         if (req.body._id == null) {
             let article  = await dbHelper.set('article', {
                 userId: req.body.userId,
@@ -129,7 +129,7 @@ export async function saveArticle(req: express.Request, res: express.Response) {
                 html: req.body.html,
                 md: req.body.md
             });
-            res.status(200).json({article});
+            res.status(200).json(article);
             return;
         }
         await dbHelper.update('article', {

@@ -120,11 +120,11 @@ export async function uploadAvatarImg(req: express.Request, res: express.Respons
 
 export async function getProfile(req: express.Request, res: express.Response) {
     try {
-        console.log('获取个人资料开始', req.body);
-        let profile = await DBHelper.getOne('user', { userId: req.body.userId });
+        console.log('获取个人资料开始', req.query);
+        let profile = await DBHelper.getOne('user', { userId: req.query.userId });
         if (profile) {
             console.log('获取个人资料成功');
-            res.sendStatus(200);
+            res.status(200).json((profile as any).info);
             return;
         } else {
             console.log('找不到用户');
@@ -141,7 +141,7 @@ export async function getProfile(req: express.Request, res: express.Response) {
 export async function updateProfile(req: express.Request, res: express.Response) {
     try {
         console.log('更新个人资料开始', req.body);
-        let profile = await DBHelper.update('profile', { info: req.body.info }, { userId: req.body.userId });
+        let profile = await DBHelper.update('profile', {$set: { 'info': req.body.info }}, { userId: req.body.userId });
         if (profile) {
             console.log('更新个人资料成功', profile);
             res.sendStatus(200);
