@@ -118,18 +118,18 @@ export function getGateUrl(key: string, sec: string, type: string): string {
 }
 
 
-export async function saveHtml(req: express.Request, res: express.Response) {
+export async function saveArticle(req: express.Request, res: express.Response) {
     try {
         console.log('开始保存html', req.body);
         if (req.body._id == null) {
-            await dbHelper.set('article', {
+            let article  = await dbHelper.set('article', {
                 userId: req.body.userId,
                 title: req.body.title,
                 description: req.body.description,
                 html: req.body.html,
                 md: req.body.md
             });
-            res.sendStatus(200);
+            res.status(200).json({article});
             return;
         }
         await dbHelper.update('article', {
@@ -147,12 +147,12 @@ export async function saveHtml(req: express.Request, res: express.Response) {
         res.sendStatus(500);
     }
 }
-export async function getArticles(req: express.Request, res: express.Response) {
+export async function getArticleIds(req: express.Request, res: express.Response) {
     try {
         console.log('开始查找文章', req.body);
         let subs = await dbHelper.getAll('article', { userId: req.body.userId });
         console.log(subs);
-        res.status(200).json(subs);
+        res.status(200).json(subs.map(sub => sub._id));
     } catch (err) {
         console.log('失败');
         res.sendStatus(500);

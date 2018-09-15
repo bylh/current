@@ -100,7 +100,7 @@ class DBHelper {
         return await defer.promise;
     }
 
-    public async set(type: ModelType, info: any): Promise<any> { // 区别于update，直接保存
+    public async set(type: ModelType, info: any): Promise<mongoose.Document> { // 区别于update，直接保存
         let data;
         if (type === 'user') {
             data = new userModel(info);
@@ -115,17 +115,14 @@ class DBHelper {
         } catch (err) {
             throw err;
         }
-        console.log('保存数据成功', info);
-        return info;
+        console.log('保存数据成功', data);
+        return data;
     }
 
     public async update(type: ModelType, info: any, conditions: any = null) {
         if (type === 'user') {
             try {
-                await userModel.update({
-                    userId: info.userId,
-                    pwd: info.pwd
-                }, {title: info.title}, { upsert: true }, (err, raw) => console.log(err, raw));
+                await userModel.update(conditions, info, { upsert: true }, (err, raw) => console.log(err, raw));
             } catch (err) {
                 throw err;
             }
