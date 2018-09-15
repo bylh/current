@@ -19,7 +19,7 @@
         text-decoration: none; // 去除a标签下划线
       }
     }
-    .container::after { // 使用伪类实现padding
+    .container::after { // 使用伪类实现padding, 因为在firefox上可滚动元素padding可被占据，设计的问题，可能不是bug
       display: block;
       height: 56px;
       content: '';
@@ -29,8 +29,8 @@
 
     .add-fab-button {
       position: absolute;
-      bottom: 0;
-      right: 0;
+      bottom: 10px;
+      right: 10px;
     }
   }
 }
