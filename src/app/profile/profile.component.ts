@@ -1,4 +1,3 @@
-import { AppService } from './../app.service';
 
 import { environment } from './../../environments/environment';
 
