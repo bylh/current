@@ -33,9 +33,11 @@ const userSchema = new Schema({
         default: false
     },
     info: {
+        useId: String,
         avatarUrl: String, // 头像url
         bgUrl: String,  // 背景url
-        description: String, // 描述
+        signature: String, // 描述
+        introduction: String, // 介绍
         age: String, // 年龄
         phone: String, // 手机号
         email: String, // 邮箱
