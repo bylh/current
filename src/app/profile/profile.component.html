@@ -34,21 +34,18 @@
 
 
     <mat-card>
-      <img mat-card-image [src]="bgUrl | safe:'url'" alt="Photo of a Shiba Inu" (click)="selectBg.click()">
+      <img mat-card-image [src]="profile?.bgUrl | safe:'url'" alt="Photo of a Shiba Inu" (click)="selectBg.click()">
       <input hidden type="file" name="bgFileUpload" (change)="getBgImg($event)" #selectBg />
       <mat-card-header>
-        <img mat-card-avatar [src]="avatarUrl | safe:'url'" (click)="selectAvatar.click()" />
+        <img mat-card-avatar [src]="profile?.avatarUrl | safe:'url'" (click)="selectAvatar.click()" />
         <input hidden type="file" name="avatarFileUpload" (change)="getAvatarImg($event)" #selectAvatar />
         <mat-card-title>{{userId}}</mat-card-title>
-        <mat-card-subtitle>对未来的最大慷慨，是把一切献给现在。</mat-card-subtitle>
+        <mat-card-subtitle>{{profile?.signature}}</mat-card-subtitle>
       </mat-card-header>
 
       <mat-card-content>
         <p>
-          每一条道路上都有出发的人， 每个人头顶上都有一方天空， 每一方天空上都有莫测的云， 每一朵云都兆示着命运。 无声的选择方向，一颗星辰或者一双眼睛， 人怎样选择世界， 世界就怎样地选择人。 默默地选择起点，
-          骄傲地选择归程， 夜间选择黎明的人，
-          黎明选择他为自由的风。 选择飞鸟或者一片落叶， 选择岩石或者一阵灰尘。 谁在无可选择中选择， 他就是被选择的人。 每个人都有一颗无名的心， 每颗心都有寂寞的时辰， 谁选择寂寞的世界， 世界选择他的歌声。
-          流星在选择中下沉， 太阳在选择中上升。
+         {{profile?.introduction}}
         </p>
       </mat-card-content>
       <mat-card-actions>
@@ -60,7 +57,7 @@
           <button mat-icon-button (click)="openDialog()">
             <mat-icon>border_color</mat-icon>
           </button>
-          <button mat-icon-button>
+          <button mat-icon-button (click)="updateProfile()">
             <mat-icon color="primary">cloud_upload</mat-icon>
           </button>
         </div>
@@ -68,8 +65,8 @@
         <!-- <img *ngIf="fileUpload != null" width="100%" [src]="fileUpload | safe:'url'" /> -->
       </mat-card-footer>
     </mat-card>
-    <button mat-button (click)="uploadFile('bg')">上传背景到服务器</button>
-    <button mat-button (click)="uploadFile('avatar')">上传头像到服务器</button>
+    <!-- <button mat-button (click)="uploadFile('bg')">上传背景到服务器</button>
+    <button mat-button (click)="uploadFile('avatar')">上传头像到服务器</button> -->
     <!-- <button mat-button (click)="updateProfile()">更新个人资料</button> -->
   </div>
 </div>

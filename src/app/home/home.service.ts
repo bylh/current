@@ -23,7 +23,9 @@ export class HomeService {
   async saveArticle(article: Article) {
     try {
       let res = await axios.post(`${environment.BaseServerUrl}/save-article`, article);
-      await this.dbService.set(res.data.article._id, article);
+      let temp = article._id != null ? article : res.data;
+      console.log('保存：', res.data);
+      await this.dbService.set(temp._id, temp);
     } catch (err) {
       throw err;
     }
@@ -33,6 +35,18 @@ export class HomeService {
       let res = await axios.post(`${environment.BaseServerUrl}/get-articleIds`, {
         userId: this.auth.getUserId()
       });
+      // 对比缓存中的id和网络请求返回的id。本地有多余则移除
+      let tempIds = await this.dbService.get('artilceIds');
+      console.log('tempIds:', tempIds, 'resIds', res.data);
+      if(tempIds != null) {
+        tempIds.forEach(async (id) => {
+          if((res.data as Array<string>).indexOf(id) == -1) {
+            console.log('移除id：', id);
+            await this.dbService.remove(id);
+          }
+        });
+      }
+      this.dbService.set('artilceIds', res.data);
       let articles = [];
       for (let id of res.data) {
         articles.push(await this.getArticle(id));
@@ -57,10 +71,10 @@ export class HomeService {
         userId: this.auth.getUserId(),
         articleId: articleId
       });
-      if(res != null && res.data != null) {
+      if (res != null && res.data != null) {
         await this.dbService.set(res.data._id, res.data);
       }
-      
+
       return res.data;
 
     } catch (err) {

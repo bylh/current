@@ -1,3 +1,4 @@
+import { DBService } from './../db.service';
 
 import { environment } from './../../environments/environment';
 
@@ -8,6 +9,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material';
 import { AuthService } from '../auth.service';
 import axios from '../../common/rewrite/axios';
+import { Profile } from '../../common/define';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -22,27 +24,46 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class ProfileComponent implements OnInit {
 
-  bgFile: any;
-  avatarFile: any;
+  bgFile;
+  avatarFile;
 
+  profile: Profile;
   html = `<h2>显示图片</h2>`;
 
   userId: string;
-  avatarUrl: string = 'https://bit.bylh.top/avatars/default.jpg';
-  bgUrl: string = 'https://bit.bylh.top/images/defaultbg.jpg';
-  description = '对未来的最大慷慨，是把一切献给现在。';
 
   form: FormGroup;
   matcher = new MyErrorStateMatcher();
   constructor(
+    public dbService: DBService,
     public auth: AuthService,
     public fb: FormBuilder,
     public dialog: MatDialog) {
-      this.auth.getAuthSubject().subscribe((userId) => {
-        this.avatarUrl = `${environment.BaseServerUrl}/avatars/${userId}-avatar.jpg`;
-        this.bgUrl = `${environment.BaseServerUrl}/bgs/${userId}-bg.jpg`;
-        this.userId = userId;
-      });
+    this.auth.getAuthSubject().subscribe(async (userId) => {
+      this.userId = userId;
+      if (userId != null) {
+        try {
+          let res = await axios.get(`${environment.BaseServerUrl}/get-profile`, {
+            params: {
+              userId: userId
+            }
+          });
+          console.log(res.data);
+          this.profile = res.data;
+          this.profile.avatarUrl = `${environment.BaseServerUrl}/avatars/${userId}-avatar.jpg`;
+          this.profile.bgUrl = `${environment.BaseServerUrl}/bgs/${userId}-bg.jpg`;
+
+          if (this.profile.signature == null) {
+            this.profile.signature = '对未来的最大慷慨，是把一切献给现在。';
+          }
+          if (this.profile.introduction == null) {
+            this.profile.introduction = '每一条道路上都有出发的人， 每个人头顶上都有一方天空， 每一方天空上都有莫测的云， 每一朵云都兆示着命运。 无声的选择方向，一颗星辰或者一双眼睛， 人怎样选择世界， 世界就怎样地选择人。';
+          }
+        } catch (err) {
+
+        }
+      }
+    });
   }
   async ngOnInit() {
     this.form = this.fb.group({
@@ -93,20 +114,28 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  getBgImg(event) {
+  async getBgImg(event) {
     this.bgFile = event.target.files[0];
-    this.bgUrl = window.URL.createObjectURL(event.srcElement.files[0]);
+    this.profile.bgUrl = window.URL.createObjectURL(event.srcElement.files[0]);
 
-    console.log('url:', this.bgUrl);
+    try {
+      await this.uploadFile('bg');
+    } catch (err) {
+      console.log(err)
+    }
   }
-  getAvatarImg(event) {
+  async getAvatarImg(event) {
     this.avatarFile = event.target.files[0];
-    this.avatarUrl = window.URL.createObjectURL(event.srcElement.files[0]);
-    console.log('url:', this.avatarUrl);
+    this.profile.avatarUrl = window.URL.createObjectURL(event.srcElement.files[0]);
+    try {
+      await this.uploadFile('avatar');
+    } catch (err) {
+      console.log(err)
+    }
   }
-  
+
   async uploadFile(type: 'bg' | 'avatar') {
- 
+
     let fd = new FormData();
     fd.append(type, type === 'bg' ? this.bgFile : this.avatarFile);
     try {
@@ -132,8 +161,11 @@ export class ProfileComponent implements OnInit {
         data: {
           userId: this.userId,
           info: {
-            avatarUrl: this.avatarUrl,
-            bgUrl: this.bgUrl
+            userId: this.userId,
+            avatarUrl: this.profile.avatarUrl,
+            bgUrl: this.profile.bgUrl,
+            signature: this.profile.signature,
+            introduction: this.profile.introduction
           }
         }
       });
