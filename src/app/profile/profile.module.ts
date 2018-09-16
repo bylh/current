@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
   imports: [
@@ -12,7 +13,7 @@ import { DialogComponent } from './dialog/dialog.component';
     ProfileRoutingModule,
     AppSharedModule
   ],
-  declarations: [ProfileComponent, DialogComponent],
-  entryComponents:[DialogComponent]
+  declarations: [ProfileComponent, DialogComponent, EditProfileComponent],
+  entryComponents:[DialogComponent, EditProfileComponent]
 })
 export class ProfileModule { }

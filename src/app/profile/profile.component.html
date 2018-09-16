@@ -45,20 +45,20 @@
 
       <mat-card-content>
         <p>
-         {{profile?.introduction}}
+          {{profile?.introduction}}
         </p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button>LIKE</button>
+        <button mat-button (click)="openDialog()">LIKE</button>
         <button mat-button>SHARE</button>
       </mat-card-actions>
       <mat-card-footer>
         <div class="footer-container">
-          <button mat-icon-button (click)="openDialog()">
-            <mat-icon>border_color</mat-icon>
-          </button>
           <button mat-icon-button (click)="updateProfile()">
             <mat-icon color="primary">cloud_upload</mat-icon>
+          </button>
+          <button mat-icon-button (click)="editProfile()">
+            <mat-icon>border_color</mat-icon>
           </button>
         </div>
         <!-- <div [innerHTML]="html | safe:'html'"></div> -->

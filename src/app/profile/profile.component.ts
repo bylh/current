@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material';
 import { AuthService } from '../auth.service';
 import axios from '../../common/rewrite/axios';
 import { Profile } from '../../common/define';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -104,6 +105,18 @@ export class ProfileComponent implements OnInit {
   openDialog(): void {
 
     const dialogRef = this.dialog.open(DialogComponent, {
+      // height: '100%',
+      // width: '100%',
+      data: { name: this.userId }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+    });
+  }
+  editProfile(): void {
+
+    const dialogRef = this.dialog.open(EditProfileComponent, {
       // height: '100%',
       // width: '100%',
       data: { name: this.userId }

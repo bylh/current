@@ -104,4 +104,7 @@ export class TabsComponent implements AfterViewInit, OnInit {
     this.location.back();
 
   }
+  public reload() {
+    window.location.reload();
+  }
 }
