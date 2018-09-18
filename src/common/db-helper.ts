@@ -38,7 +38,7 @@ const userSchema = new Schema({
         bgUrl: String,  // 背景url
         signature: String, // 描述
         introduction: String, // 介绍
-        age: String, // 年龄
+        birthday: String, // 生日
         phone: String, // 手机号
         email: String, // 邮箱
         wechat: String, // 微信
@@ -141,6 +141,14 @@ class DBHelper {
         }
         console.log('保存数据成功', info);
         return info;
+    }
+    public async remove(type: ModelType, conditions: any = null) {
+        let model = this.getModel(type);
+        let defer = new Defer<boolean>();
+        model.remove(conditions, (err) => {
+            defer.resolve(err == null);
+        });
+        return await defer.promise;;
     }
 }
 export default new DBHelper();
