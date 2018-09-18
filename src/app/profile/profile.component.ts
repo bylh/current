@@ -2,7 +2,6 @@ import { DBService } from './../db.service';
 
 import { environment } from './../../environments/environment';
 
-import { DialogComponent } from './dialog/dialog.component';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -102,23 +101,11 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  openDialog(): void {
-
-    const dialogRef = this.dialog.open(DialogComponent, {
-      // height: '100%',
-      // width: '100%',
-      data: { name: this.userId }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-    });
-  }
   editProfile(): void {
 
     const dialogRef = this.dialog.open(EditProfileComponent, {
-      // height: '100%',
-      // width: '100%',
+      height: '100%',
+      width: '100%',
       data: { name: this.userId }
     });
 
@@ -160,27 +147,6 @@ export class ProfileComponent implements OnInit {
           'Content-Type': 'multipart/form-data'
         },
         data: fd
-      });
-    } catch (err) {
-      console.log('出错', err);
-      throw err;
-    }
-  }
-  async updateProfile() {
-    try {
-      await axios.request({
-        url: `${environment.BaseServerUrl}/update-profile`,
-        method: 'post',
-        data: {
-          userId: this.userId,
-          info: {
-            userId: this.userId,
-            avatarUrl: this.profile.avatarUrl,
-            bgUrl: this.profile.bgUrl,
-            signature: this.profile.signature,
-            introduction: this.profile.introduction
-          }
-        }
       });
     } catch (err) {
       console.log('出错', err);

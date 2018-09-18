@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatSnackBar, MatDialog } from '@angular/material';
-import { Router, ActivatedRoute, NavigationEnd, Event, NavigationStart, NavigationExtras } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd, NavigationStart, NavigationExtras } from '@angular/router';
 
 import { HomeService, Article } from './home.service';
 import { PreviewEditorComponent } from './preview-editor/preview-editor.component';
@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
       }
     });
     this.router.events // 既然是ob为什么不支持filter等函数，应该是rxjs的升级
-      .subscribe((event: Event) => {
+      .subscribe((event) => {
         // console.log('navi Event: ', event);
         // if(event instanceof NavigationEnd) {
         //   // console.log('NavigationEnd Event: ', event);
@@ -85,6 +85,7 @@ export class HomeComponent implements OnInit {
       if (userId != null) {
         try {
           this.articles = await this.homeService.getArticles();
+          console.log('当前ids: ', this.articles);
         } catch (err) {
           console.log(err);
         }
@@ -125,5 +126,16 @@ export class HomeComponent implements OnInit {
   viewArticle(index: number) {
     console.log('文章详情页');
     this.router.navigate([`tabs/home/detail/${index}`], { queryParams: { 'articleId': this.articles[index]._id } });
+  }
+  async removeArticle(index: number, event: Event) {
+    // 避免默认处理和向外扩散
+    event.stopPropagation();
+    event.preventDefault();
+    try {
+      await this.homeService.removeArticle(this.articles[index]._id);
+      this.refreshSubject.next(this.authService.getUserId());
+    } catch(err) {
+      console.log('错误', err);
+    }
   }
 }

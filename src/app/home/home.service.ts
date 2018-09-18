@@ -38,9 +38,9 @@ export class HomeService {
       // 对比缓存中的id和网络请求返回的id。本地有多余则移除
       let tempIds = await this.dbService.get('artilceIds');
       console.log('tempIds:', tempIds, 'resIds', res.data);
-      if(tempIds != null) {
+      if (tempIds != null) {
         tempIds.forEach(async (id) => {
-          if((res.data as Array<string>).indexOf(id) == -1) {
+          if ((res.data as Array<string>).indexOf(id) == -1) {
             console.log('移除id：', id);
             await this.dbService.remove(id);
           }
@@ -77,6 +77,17 @@ export class HomeService {
 
       return res.data;
 
+    } catch (err) {
+      throw err;
+    }
+  }
+  async removeArticle(articleId: string) {
+    try {
+      let res = await axios.post(`${environment.BaseServerUrl}/remove-article`, {
+        userId: this.auth.getUserId(),
+        articleId: articleId
+      });
+      await this.dbService.remove(articleId);
     } catch (err) {
       throw err;
     }
