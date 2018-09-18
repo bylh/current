@@ -1,18 +1,28 @@
-<h1 mat-dialog-title>修改密码</h1>
-<div mat-dialog-content>
-
-  <div>
+<h1 mat-dialog-title class="bylh-edit-profile-header"><span>修改个人资料</span><span (click)="modifyPwd()" class="modify-password">修改密码</span></h1>
+<div mat-dialog-content class="bylh-edit-profile">
+  <div *ngIf="profile != null">
     <mat-form-field>
-      <input type="password" placeholder="原密码" autocomplete matInput #orgPwd>
+      <input placeholder="用户ID" disabled [(ngModel)]="profile.userId" matInput>
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="个人签名" [(ngModel)]="profile.signature" matInput>
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="个人简介" [(ngModel)]="profile.introduction" matInput>
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="生日" [(ngModel)]="profile.birthday" matInput>
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="手机号" [(ngModel)]="profile.phone" matInput>
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="微信号" [(ngModel)]="profile.wechat" matInput>
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="邮箱" [(ngModel)]="profile.email" matInput>
     </mat-form-field>
   </div>
-
-  <div>
-    <mat-form-field>
-      <input type="password" placeholder="新密码" autocomplete matInput #newPwd>
-    </mat-form-field>
-  </div>
-
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="cancel()">取消</button>

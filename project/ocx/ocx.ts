@@ -10,7 +10,7 @@ import { subscribe, sendNotificationToUsers, signUp, login, checkSession, resetP
 import DBHelper, { CollectUri } from './src/common/db-helper';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
-import { getGateMarketList, saveArticle, getArticleIds, getArticle } from './src/api/data';
+import { getGateMarketList, saveArticle, getArticleIds, getArticle, removeArticle } from './src/api/data';
 import { getGateBalances, getGateCoinAdress, startGateAutoTrade } from './src/api/data';
 const MongoStore = connectMongo(session);
 
@@ -170,6 +170,7 @@ const uploadAvatar = multer({
     app.use('/save-article', saveArticle);
     app.use('/get-articleIds', getArticleIds)
     app.use('/get-article', getArticle);
+    app.use('/remove-article', removeArticle);
 
     app.use('/subscribe', subscribe); // 用户订阅
     app.use('/send-all', sendNotificationToUsers); // 若未指定用户则给所有用户发消息, 否则给单个用户发消息

@@ -169,3 +169,14 @@ export async function getArticle(req: express.Request, res: express.Response) {
         res.sendStatus(500);
     }
 }
+export async function removeArticle(req: express.Request, res: express.Response) {
+    try {
+        console.log('开始根据id删除文章', req.body);
+        let result = await dbHelper.remove('article', { _id: req.body.articleId });
+        console.log(result);
+        res.status(200).json(result);
+    } catch (err) {
+        console.log('失败');
+        res.sendStatus(500);
+    }
+}
