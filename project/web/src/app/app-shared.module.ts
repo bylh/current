@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import {
   MatInputModule, MatButtonModule, MatGridListModule, MatFormFieldModule, MatIconModule,
   MatToolbarModule, MatExpansionModule, MatMenuModule, MatCardModule, MatTabsModule, MatDividerModule,
-   MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatTableModule, MatDialogModule, MatListModule, MatCheckboxModule, MatRadioModule, MatOptionModule, MatSelectModule, MAT_DIALOG_DEFAULT_OPTIONS, MatButtonToggleModule
+   MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatTableModule, MatDialogModule, MatListModule, MatCheckboxModule, MatRadioModule, MatOptionModule, MatSelectModule, MAT_DIALOG_DEFAULT_OPTIONS, MatButtonToggleModule, MatDatepickerModule, MatNativeDateModule
 } from '@angular/material';
 
 import { SafePipe } from './pipe';
@@ -45,7 +45,9 @@ import { SafePipe } from './pipe';
     MatRadioModule,
     MatOptionModule,
     MatSelectModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 , verticalPosition: 'top'}, },

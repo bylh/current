@@ -4,16 +4,19 @@
     width: 100%;
     overflow: auto;
 
+    mat-form-field {
+      width: 100%;
+      textarea{ 
+        resize:none // 去除右下角角标
+        }
+    }
+
     .form-container {
       display: flex;
       justify-content: center;
 
       form {
         width: 60%;
-
-        mat-form-field {
-          width: 100%;
-        }
       }
     }
 

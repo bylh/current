@@ -3,8 +3,7 @@
     <div class="form-container" *ngIf="!userId">
       <form [formGroup]="form" (ngSubmit)="submitForm()">
         <mat-form-field backgroundColor="primary" color="primary">
-          <input matInput placeholder="Email" name="email" type="email" [formControl]="form.controls['email']"
-            [errorStateMatcher]="matcher">
+          <input matInput placeholder="Email" name="email" type="email" [formControl]="form.controls['email']" [errorStateMatcher]="matcher">
           <!-- <mat-hint>email</mat-hint> -->
           <mat-error *ngIf="form.controls['email'].hasError('email') && !form.controls['email'].hasError('required')">
             Please enter a valid email address
@@ -15,8 +14,7 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Password" name="password" type="password" [formControl]="form.controls['password']"
-            [errorStateMatcher]="matcher">
+          <input matInput placeholder="Password" name="password" type="password" [formControl]="form.controls['password']" [errorStateMatcher]="matcher">
           <!-- <mat-hint>email</mat-hint> -->
           <mat-error *ngIf="form.controls['password'].hasError('minlength')">
             Enter at least 6-digit password
@@ -40,13 +38,19 @@
         <img mat-card-avatar [src]="profile?.avatarUrl | safe:'url'" (click)="selectAvatar.click()" />
         <input hidden type="file" name="avatarFileUpload" (change)="getAvatarImg($event)" #selectAvatar />
         <mat-card-title>{{userId}}</mat-card-title>
-        <mat-card-subtitle>{{profile?.signature}}</mat-card-subtitle>
+        <mat-card-subtitle>
+          {{profile?.signature}}
+        </mat-card-subtitle>
       </mat-card-header>
 
       <mat-card-content>
-        <p>
-          {{profile?.introduction}}
-        </p>
+
+        <mat-form-field appearance="outline" *ngIf="profile != null">
+          <mat-label>个人简介</mat-label>
+          <textarea rows="6" [(ngModel)]="profile.introduction" matInput disabled></textarea>
+          <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+        </mat-form-field>
+
       </mat-card-content>
       <mat-card-actions>
         <button mat-button>LIKE</button>

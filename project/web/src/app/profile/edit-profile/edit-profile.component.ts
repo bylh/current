@@ -43,6 +43,7 @@ export class EditProfileComponent implements OnInit {
     });
   }
   cancel(): void {
+    console.log(this.profile.birthday);
     this.dialogRef.close('取消');
   }
 
