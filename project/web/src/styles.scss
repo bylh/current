@@ -28,7 +28,7 @@ body {
 
   .bylh-sub-page-base {
     // 路由子页面
-    position: absolute;
+    position: fixed;
     top: 0;
     // 绝对定位布局div宽高自适应，而不是充满
     left: 0;
