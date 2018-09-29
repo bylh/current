@@ -16,7 +16,7 @@
     "target": "es6",
     "alwaysStrict": true,
     "noImplicitThis": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noImplicitReturns": true,
     "downlevelIteration": true,
     "noFallthroughCasesInSwitch": true
