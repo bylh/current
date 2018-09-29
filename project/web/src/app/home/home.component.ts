@@ -32,11 +32,17 @@ export class HomeComponent implements OnInit {
   isLogined: boolean = false;
 
   tiles: Tile[] = [
+    { text: '面试', url: 'https://github.com/markyun/My-blog/tree/master/Front-end-Developer-Questions/Questions-and-Answers', cols: 1, rows: 1, color: 'lightgray'},
+    { text: '前端', url: 'https://segmentfault.com/channel/frontend', cols: 1, rows: 1, color: 'lightsalmon'},
+    { text: '博客', url: 'http://www.ruanyifeng.com/blog/archives.html', cols: 1, rows: 1, color: 'lightseagreen'},
+    { text: '个人', url: 'https://bylh.github.io/', cols: 1, rows: 1, color: '#DDBDF2' },
+    { text: 'MDN', url: 'https://developer.mozilla.org/zh-CN/', cols: 1, rows: 1, color: 'lightcyan'},
     { text: '笔记', url: 'https://keep.google.com', cols: 1, rows: 1, color: 'lightblue' },
-    { text: '工具', url: 'http://www.nicetool.net', cols: 1, rows: 1, color: 'lightyellow' },
+    { text: '翻译', url: 'https://translate.google.cn/', cols: 1, rows: 1, color: '#DDBDF1' },
     { text: '空投', url: 'https://airdropalert.com', cols: 1, rows: 1, color: 'lightgreen' },
     { text: '搜索', url: 'https://www.google.com', cols: 1, rows: 1, color: 'lightpink' },
-    { text: '翻译', url: 'https://translate.google.cn/', cols: 1, rows: 1, color: '#DDBDF1' },
+    { text: '工具', url: 'http://www.nicetool.net', cols: 1, rows: 1, color: 'lightyellow' },
+    
   ];
   items = [
     { title: 'webwork使用教程', discription: '', imgUrl: 'https://bit.bylh.top/avatars/img1.jpg', link: '//www.ruanyifeng.com/blog/2018/07/web-worker.html' },
