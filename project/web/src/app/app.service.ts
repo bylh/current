@@ -45,7 +45,7 @@ export class AppService {
       await axios.request({
         url: `${environment.BaseServerUrl}/subscribe`,
         method: 'post',
-        params: {
+        params: { // TODO 待修改为data
           userId: this.auth.getAuthSubject().getValue,
           pushSubscription: JSON.stringify(pushSubscription)
         },
@@ -60,5 +60,17 @@ export class AppService {
   // 获取推送消息ob
   getSwPushMsgOb() {
     return this.swPush.messages;
+  }
+
+  // 测试推送
+  async testPush() {
+    try {
+      await axios.request({
+        url: `${environment.BaseServerUrl}/send-all`,
+        method: 'get'
+      });
+    } catch (err) {
+      throw err;
+    }
   }
 }

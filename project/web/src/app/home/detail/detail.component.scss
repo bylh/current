@@ -28,6 +28,14 @@
     overflow: auto;
     height: 100%;
 
+    mat-form-field {
+      width: 100%;
+
+      textarea {
+        resize: none // 去除右下角角标
+      }
+    }
+
     .preview {
       padding: 8px;
     }

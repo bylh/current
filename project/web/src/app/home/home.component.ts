@@ -1,12 +1,12 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatSnackBar, MatDialog } from '@angular/material';
-import { Router, ActivatedRoute, NavigationEnd, NavigationStart, NavigationExtras } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { HomeService, Article } from './home.service';
 import { PreviewEditorComponent } from './preview-editor/preview-editor.component';
 import { AuthService } from '../auth.service';
-import { Observable, merge, Subject } from 'rxjs';
+import { merge, Subject } from 'rxjs';
 
 export interface Tile {
   color?: string;
@@ -88,6 +88,7 @@ export class HomeComponent implements OnInit {
           console.log('当前ids: ', this.articles);
         } catch (err) {
           console.log(err);
+          this.snackBar.open('获取文章列表失败');
         }
       } else {
         console.log('登出置空数据');
