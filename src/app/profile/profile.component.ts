@@ -5,7 +5,7 @@ import { environment } from './../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { AuthService } from '../auth.service';
 import axios from '../../common/rewrite/axios';
 import { Profile } from '../../common/define';
@@ -38,6 +38,7 @@ export class ProfileComponent implements OnInit {
     public dbService: DBService,
     public auth: AuthService,
     public fb: FormBuilder,
+    private snackBar: MatSnackBar,
     public dialog: MatDialog) {
     this.auth.getAuthSubject().subscribe(async (userId) => {
       this.userId = userId;
@@ -96,8 +97,10 @@ export class ProfileComponent implements OnInit {
     console.log('注册', this.form.value);
     try {
       await this.auth.signUp(this.form.value.email, this.form.value.password);
+      this.snackBar.open('注册成功');
     } catch (err) {
       console.log('注册失败', err);
+      this.snackBar.open('注册失败');
     }
   }
 
@@ -120,8 +123,10 @@ export class ProfileComponent implements OnInit {
 
     try {
       await this.uploadFile('bg');
+      this.snackBar.open('上传背景成功');
     } catch (err) {
-      console.log(err)
+      console.log(err);
+      this.snackBar.open('上传背景失败');
     }
   }
   async getAvatarImg(event) {
@@ -129,7 +134,9 @@ export class ProfileComponent implements OnInit {
     this.profile.avatarUrl = window.URL.createObjectURL(event.srcElement.files[0]);
     try {
       await this.uploadFile('avatar');
+      this.snackBar.open('上传头像成功');
     } catch (err) {
+      this.snackBar.open('上传头像失败');
       console.log(err)
     }
   }

@@ -1,6 +1,6 @@
+import { async } from '@angular/core/testing';
 
 import { Router } from '@angular/router';
-import axios from '../../common/rewrite/axios';
 
 import { MatSnackBar } from '@angular/material';
 import { Component, AfterViewInit, OnInit } from '@angular/core';
@@ -17,7 +17,7 @@ import { AuthService } from '../auth.service';
 })
 export class TabsComponent implements AfterViewInit, OnInit {
 
-  title = '我的空间';
+  title = 'You know nothing！';
   userId: string;
   avatarUrl: string;
   constructor(
@@ -63,24 +63,8 @@ export class TabsComponent implements AfterViewInit, OnInit {
   public async push() {
     console.log('push(): 测试推送');
     try {
-      const res = await axios.request({
-        url: `${environment.BaseServerUrl}/send-all`,
-        method: 'get'
-      });
+      const res = await this.appService.testPush();
       console.log('push(): 推送消息给全部人', res);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  public async test() {
-    console.log('test(): 测试', environment);
-    try {
-      const res = await axios.request({
-        url: `${environment.BaseServerUrl}/get-tickers`,
-        method: 'get'
-      });
-      console.log('test(): 获取行情', res);
-      this.snackBar.open('测试环境');
     } catch (err) {
       console.log(err);
     }
@@ -90,7 +74,9 @@ export class TabsComponent implements AfterViewInit, OnInit {
   public async toProfile() {
     this.router.navigate(['tabs/profile']);
   }
-  
+  public async goHome() {
+    this.router.navigate(['tabs/home']);
+  }
   public async logout() {
     try {
       await this.auth.logOut();
