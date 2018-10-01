@@ -4,7 +4,7 @@ import { HomeService, Article } from './../home.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { PreviewEditorComponent } from '../preview-editor/preview-editor.component';
 
 import Viewer from 'tui-editor/dist/tui-editor-Viewer';
@@ -22,13 +22,14 @@ export class DetailComponent implements OnInit {
   public link: string;
   public article: Article;
 
-  public previewEdit: Editor;
+  public previewEdit: Viewer;
 
   constructor(
     private homeService: HomeService,
     private route: ActivatedRoute,
     private router: Router,
     private loaction: Location,
+    public snackBar: MatSnackBar,
     public editDialog: MatDialog) {
     this.route.paramMap.subscribe((params => {
       this.id = +params.get('id');
@@ -93,5 +94,19 @@ export class DetailComponent implements OnInit {
         this.previewEdit.setMarkdown(this.article.md);
       }
     });
+  }
+  async removeArticle(event: Event) {
+    // 避免默认处理和向外扩散
+    event.stopPropagation();
+    event.preventDefault();
+    if(!window.confirm('确定删除')) return;
+    try {
+      await this.homeService.removeArticle(this.articleId);
+      this.snackBar.open('删除文章成功');
+      this.back();
+    } catch(err) {
+      console.log('错误', err);
+      this.snackBar.open('删除文章');
+    }
   }
 }
