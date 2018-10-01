@@ -35,9 +35,13 @@ export class PreviewEditorComponent implements OnInit {
         height: '100%',
         width: '100%'
       });
-      if (this.data.html != null)
+      if (this.data.md != null) {
+        this.editor.setMarkdown(this.data.md);
+      } else if (this.data.html != null) {
         this.editor.setHtml(this.data.html);
-    } catch(err) {
+      }
+
+    } catch (err) {
       console.log('创建编辑器出错', err);
     }
   }
@@ -49,12 +53,13 @@ export class PreviewEditorComponent implements OnInit {
   async save() {
     try {
       this.data.html = this.editor.getHtml();
+      this.data.md = this.editor.getMarkdown();
       await this.homeService.saveArticle(this.data);
     } catch (err) {
       console.log('保存失败', err);
       return;
     }
-    this.dialogRef.close(this.data.html);
+    this.dialogRef.close(this.data);
   }
 
 }

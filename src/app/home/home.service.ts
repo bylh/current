@@ -10,7 +10,8 @@ export interface Article {
   userId: string,
   title: string,
   description: string,
-  html: string
+  html: string,
+  md?: string
 }
 @Injectable({
   providedIn: 'root'
