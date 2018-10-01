@@ -134,15 +134,4 @@ export class HomeComponent implements OnInit {
     console.log('文章详情页');
     this.router.navigate([`tabs/home/detail/${index}`], { queryParams: { 'articleId': this.articles[index]._id } });
   }
-  async removeArticle(index: number, event: Event) {
-    // 避免默认处理和向外扩散
-    event.stopPropagation();
-    event.preventDefault();
-    try {
-      await this.homeService.removeArticle(this.articles[index]._id);
-      this.refreshSubject.next(this.authService.getUserId());
-    } catch(err) {
-      console.log('错误', err);
-    }
-  }
 }
