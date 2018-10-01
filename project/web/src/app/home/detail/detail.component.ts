@@ -83,6 +83,7 @@ export class DetailComponent implements OnInit {
       if (article != null) { // 取消返回null
         // (this.preview.nativeElement as Element).innerHTML = result;
         this.article = article;
+        this.previewEdit.setMarkdown(this.article.md);
       }
     });
   }

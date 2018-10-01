@@ -41,6 +41,7 @@ export class PreviewEditorComponent implements OnInit {
         this.editor.setHtml(this.data.html);
       }
 
+      (window as any).editor = this.editor;  // 测试代码
     } catch (err) {
       console.log('创建编辑器出错', err);
     }
