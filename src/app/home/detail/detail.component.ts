@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { PreviewEditorComponent } from '../preview-editor/preview-editor.component';
 
-import Editor from 'tui-editor';
+import Viewer from 'tui-editor/dist/tui-editor-Viewer';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
@@ -41,20 +41,27 @@ export class DetailComponent implements OnInit {
   }
 
   async ngOnInit() {
-    console.log('detail');
+    console.log('detail', Viewer);
     try {
       this.article = await this.homeService.getArticle(this.articleId);
       console.log(this.article);
-      this.previewEdit = Editor.factory({
-        el: this.preview.nativeElement,
-        viewer: true,
-        initialValue: this.article.md,
-        height: '100%',
-        width: '100%'
-      });
-      if(this.article.md == null && this.article.html != null) { // md 为null但是html存在则显示
-        (this.preview.nativeElement as Element).innerHTML = this.article.html;
-      }
+      // this.previewEdit = Editor.factory({
+      //   el: this.preview.nativeElement,
+      //   viewer: true,
+      //   initialValue: this.article.md,
+      //   height: '100%',
+      //   width: '100%'
+      // });
+      this.previewEdit = new Viewer({
+          el: this.preview.nativeElement,
+          initialValue: this.article.md,
+          height: '100%',
+          width: '100%'
+        });
+      // if(this.article.md == null && this.article.html != null) { // md 为null但是html存在则显示
+      //   (this.preview.nativeElement as Element).innerHTML = this.article.html;
+      // }
+      this.previewEdit.setHtml(this.article.html);
       
     } catch(err) {
     }
