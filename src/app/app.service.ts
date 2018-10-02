@@ -46,7 +46,7 @@ export class AppService {
         url: `${environment.BaseServerUrl}/subscribe`,
         method: 'post',
         params: { // TODO 待修改为data
-          userId: this.auth.getAuthSubject().getValue,
+          userId: this.auth.getUserId(),
           pushSubscription: JSON.stringify(pushSubscription)
         },
       });
