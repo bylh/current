@@ -1,19 +1,24 @@
 .bylh-home-detail {
 
-  .bylh-header {
-  }
+  .bylh-header {}
 
   .bylh-content {
-    mat-form-field {
-      width: 100%;
-
-      textarea {
-        resize: none // 去除右下角角标
+    .iframe-container {
+      height: 100%;
+      iframe {
+        display: block;
       }
     }
-
-    .preview {
+    .preview-container {
       padding: 8px;
+
+      mat-form-field {
+        width: 100%;
+
+        textarea {
+          resize: none // 去除右下角角标
+        }
+      }
     }
   }
 }
