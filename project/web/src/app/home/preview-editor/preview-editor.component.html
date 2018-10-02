@@ -10,15 +10,21 @@
     </div>
   </div>
   <div class="content">
-    <mat-form-field>
-      <input matInput class="input-title" [(ngModel)]="data.title" placeholder="输入标题">
-    </mat-form-field>
-    <mat-form-field>
-      <textarea matInput placeholder="输入描述" [(ngModel)]="data.description"></textarea>
-    </mat-form-field>
+    <ng-container *ngIf="switch">
+      <mat-form-field>
+        <input matInput class="input-title" [(ngModel)]="data.title" placeholder="输入标题">
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="输入描述" [(ngModel)]="data.description"></textarea>
+      </mat-form-field>
+    </ng-container>
 
     <div class="editor-container">
       <div #editSection></div>
+      <div class="switch-icon" (click)="switchStatus()">
+        <i *ngIf="switch" class="fas fa-arrow-circle-up"></i>
+        <i *ngIf="!switch" class="fas fa-arrow-circle-down"></i>
+      </div>
     </div>
 
   </div>
