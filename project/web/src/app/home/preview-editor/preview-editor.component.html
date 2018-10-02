@@ -6,18 +6,21 @@
     <div class="title">编辑</div>
     <div class="right-icon" (click)="save()">
       <a href="https://stackedit.io/app" target="_blank" padding-right>stackedit</a>
-        <mat-icon color="primary">check_box</mat-icon>
-      </div>
+      <mat-icon color="primary">check_box</mat-icon>
+    </div>
   </div>
   <div class="content">
     <mat-form-field>
-        <input matInput class="input-title" [(ngModel)]="data.title" placeholder="输入标题">
+      <input matInput class="input-title" [(ngModel)]="data.title" placeholder="输入标题">
     </mat-form-field>
     <mat-form-field>
-        <textarea matInput placeholder="输入描述" [(ngModel)]="data.description"></textarea>
+      <textarea matInput placeholder="输入描述" [(ngModel)]="data.description"></textarea>
     </mat-form-field>
 
-    <div class="editor-container" #editSection></div>
+    <div class="editor-container">
+      <div #editSection></div>
+    </div>
+
   </div>
 
   <!-- <div class="footer">
