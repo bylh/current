@@ -20,21 +20,20 @@
     .content {
         flex: 1 1 auto;
         display: flex;
-        height: 100%;
-        width: 100%;
         flex-direction: column;
+        height: 100%;
         .input-title {
             font-size: 1.5rem;
         }
         .editor-container {
             flex: 1 1 auto;
-            display: flex;
             height: 100%;
-            width: 100%;
+            min-height: 0; // 只要子元素使用了100%， 父容器最好设置min-height
+            // display: flex;
             // 改了组件的代码 TODO待研究清楚flex宽度的问题
-            /deep/ .tui-editor-defaultUI {
-                width: 100%;
-            }
+            // /deep/ .tui-editor-defaultUI {
+            //     width: 100%;
+            // }
             
         }
     }

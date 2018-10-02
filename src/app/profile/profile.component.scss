@@ -4,6 +4,11 @@
     width: 100%;
     overflow: auto;
 
+    .bg {
+      object-fit: scale-down;
+      // object-position: center;
+      max-height: 400px;
+    }
     mat-form-field {
       width: 100%;
       textarea{ 

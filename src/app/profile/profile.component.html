@@ -32,7 +32,7 @@
 
 
     <mat-card>
-      <img mat-card-image [src]="profile?.bgUrl | safe:'url'" alt="Photo of a Shiba Inu" (click)="selectBg.click()">
+      <img class="bg" mat-card-image [src]="profile?.bgUrl | safe:'url'" alt="Photo of a Shiba Inu" (click)="selectBg.click()">
       <input hidden type="file" name="bgFileUpload" (change)="getBgImg($event)" #selectBg />
       <mat-card-header>
         <img mat-card-avatar [src]="profile?.avatarUrl | safe:'url'" (click)="selectAvatar.click()" />
