@@ -4,7 +4,7 @@
       <mat-icon color="primary">arrow_back_ios</mat-icon>
     </div>
     <div class="title">{{article != null? article?.title : '详情'}}</div>
-    <div [hidden]="articleId == null" class="right-icon">
+    <div *ngIf="articleId != null" class="right-icon">
       <mat-icon color="warn" padding-right (click)="removeArticle($event)">delete</mat-icon>
       <mat-icon color="primary" (click)="edit()">create</mat-icon>
     </div>
