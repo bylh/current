@@ -10,17 +10,20 @@ import {
 } from '@angular/material';
 
 import { SafePipe } from './pipe';
+import { PageDirective } from './page.directive';
 @NgModule({
   imports: [
     CommonModule,
   ],
   declarations: [ 
-    SafePipe
+    SafePipe,
+    PageDirective,
   ],
 
   exports: [
     // pipe
     SafePipe,
+    PageDirective,
 
     FormsModule,
     ReactiveFormsModule,
