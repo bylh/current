@@ -10,6 +10,7 @@ import 'tui-editor/dist/tui-editor-extChart'; // extensions 图表支持
 import 'tui-editor/dist/tui-editor-extUML'; // extensions 流程图支持
 import 'plantuml-encoder/lib/plantuml-encoder' // 流程图支持必须有这个库
 import 'tui-editor/dist/tui-editor-extColorSyntax'; // extensions 着色器支持
+import 'tui-color-picker/dist/tui-color-picker';  // extensions 颜色选择器
 
 @Component({
   selector: 'preview-editor',
