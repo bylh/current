@@ -1,10 +1,7 @@
 .bylh-home {
   position: relative;
-  .content {
-    overflow: auto;
-    height: 100%;
-    width: 100%; // box-sizing: border-box; // 设置此属性使得padding不会影响高度和宽度 https://blog.csdn.net/lzhlzz/article/details/52937310
-    // padding-bottom: 56px; // fab button高度为56px，不兼容firefox edge 使用伪类实现padding如下
+
+  .bylh-content {
     .tile a {
       height: 100%;
       width: 100%;
@@ -14,13 +11,15 @@
       text-decoration: none; // 去除a标签下划线
     }
   }
-  .content::after {
+
+  .bylh-content::after {
     // 使用伪类实现padding, 因为在firefox上可滚动元素padding可被占据，设计的问题，可能不是bug
     display: block;
     height: 56px;
     content: '';
     visibility: hidden;
   }
+
   .add-fab-button {
     position: absolute;
     bottom: 10px;

@@ -33,8 +33,11 @@ export class PageDirective implements OnInit {
 ngOnInit() {
   if (this.appPage.sub) {
     this.renderer.addClass(this.elementRef.nativeElement, 'bylh-sub-page-base');
+    this.renderer.addClass(this.elementRef.nativeElement, 'bylh-header');
+    this.renderer.addClass(this.elementRef.nativeElement, 'bylh-footer');
   }
   this.renderer.addClass(this.elementRef.nativeElement, 'bylh-page-base');
+  this.renderer.addClass(this.elementRef.nativeElement, 'bylh-content');
   this.renderer.addClass(this.elementRef.nativeElement, 'mat-app-background');
 }
 
