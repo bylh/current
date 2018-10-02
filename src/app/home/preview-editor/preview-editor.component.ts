@@ -13,6 +13,7 @@ import Editor from 'tui-editor';
 export class PreviewEditorComponent implements OnInit {
   @ViewChild('editSection') editElementRef: ElementRef;
   public editor: Editor;
+  public switch: boolean = true;
   constructor(
     public auth: AuthService,
     public homeService: HomeService,
@@ -61,6 +62,10 @@ export class PreviewEditorComponent implements OnInit {
       return;
     }
     this.dialogRef.close(this.data);
+  }
+
+  switchStatus() {
+    this.switch = !this.switch;
   }
 
 }
