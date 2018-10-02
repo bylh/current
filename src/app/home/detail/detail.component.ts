@@ -38,6 +38,7 @@ export class DetailComponent implements OnInit {
     this.route.queryParamMap.subscribe(params => {
       this.link = params.get('link');
       this.articleId = params.get('articleId');
+      console.log('articleId: ', this.articleId);
     })
   }
 
