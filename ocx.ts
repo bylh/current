@@ -1,5 +1,4 @@
 
-// import webpush from 'web-push';
 import multer from 'multer';
 import bodyParser from 'body-parser';
 import http from 'http';
@@ -121,7 +120,7 @@ const uploadAvatar = multer({
         cookie: {
             httpOnly: false, // 决定了用户是否有读写此cookie的权限
             // expires: // 过期的日期
-            maxAge: 1000 * 3600 * 24    /*过期时间 1天*/
+            maxAge: 1000 * 3600 * 24 * 3    /*过期时间 3天*/
 
         },
 
