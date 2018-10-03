@@ -1,7 +1,7 @@
 
 
 export const ResumeTemplateContent = `
-# 姓名：李欢
+# 李欢
 
 
 ## 实习及工作经历
@@ -23,11 +23,16 @@ export const ResumeTemplateContent = `
 
 * 使用angular6开发，后端使用nodejs + express + mongo, 使用nginx反向代理实现服务器端口转发，配置https
 
+### [个人仓库](https://github.com/bylh)(点击链接试试吧)
+
+* 项目持续添加中，欢迎交流，共同学习
+
 ### [个人博客](https://blob.bylh.top) (点击链接试试吧)
 
 * 待配置，迁移
 
 ### [个人简历](https://blob.bylh.top/resume) (点击链接试试吧)
+
 
 ## 教育经历
 
