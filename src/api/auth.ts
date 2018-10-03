@@ -54,6 +54,7 @@ export async function login(req: express.Request, res: express.Response) {
 }
 
 export async function resetPwd(req: express.Request, res: express.Response) {
+    
     try {
         console.log('开始重置密码', req.body);
         if (req.session.userId == null) {
