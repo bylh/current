@@ -8,6 +8,7 @@ import { ActivatedRoute, Router} from '@angular/router';
 })
 export class DiscoveryComponent implements OnInit {
 
+  // TODO 待完善，指定页面功能，服务端开发
   public items: Array<{id: number, src: string}> = [
     {
       id: 1,
