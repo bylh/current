@@ -30,7 +30,7 @@ perspective: 1000px;
 }
 .styleEditor {
 position: fixed; left: 0; top: 0; 
--webkit-transition: none; 
+-webkit-transition: none; data
 transition: none;
 -webkit-transform: rotateY(10deg) translateZ(-100px) ;
 transform: rotateY(10deg) translateZ(-100px) ;
