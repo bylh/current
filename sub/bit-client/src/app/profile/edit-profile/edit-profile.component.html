@@ -1,0 +1,41 @@
+<h1 mat-dialog-title class="bylh-edit-profile-header">
+  <span>修改个人资料</span>
+  <span (click)="modifyPwd()" class="modify-password">修改密码</span>
+</h1>
+<div mat-dialog-content class="bylh-edit-profile">
+  <div *ngIf="profile != null">
+    <mat-form-field>
+      <input placeholder="用户ID" disabled [(ngModel)]="profile.userId" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>我的签名</mat-label>
+      <textarea matInput [(ngModel)]="profile.signature"></textarea>
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      <!-- <mat-hint>Hint</mat-hint> -->
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>个人简介</mat-label>
+      <textarea rows="4" [(ngModel)]="profile.introduction" matInput></textarea>
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="生日" [(ngModel)]="profile.birthday">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="手机号" [(ngModel)]="profile.phone" matInput>
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="微信号" [(ngModel)]="profile.wechat" matInput>
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="邮箱" [(ngModel)]="profile.email" matInput>
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="cancel()">取消</button>
+  <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>确定</button> -->
+  <button mat-button (click)="save()">确定</button>
+</div>

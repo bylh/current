@@ -1,0 +1,24 @@
+.bylh-home-detail {
+
+  .bylh-header {}
+
+  .bylh-content {
+    .iframe-container {
+      height: 100%;
+      iframe {
+        display: block;
+      }
+    }
+    .preview-container {
+      padding: 8px;
+
+      mat-form-field {
+        width: 100%;
+
+        textarea {
+          resize: none // 去除右下角角标
+        }
+      }
+    }
+  }
+}

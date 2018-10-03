@@ -1,0 +1,31 @@
+.bylh-profile {
+  .bylh-content {
+    .bg {
+      object-fit: scale-down;
+      // object-position: center;
+      max-height: 400px;
+    }
+
+    mat-form-field {
+      width: 100%;
+
+      textarea {
+        resize: none // 去除右下角角标
+      }
+    }
+
+    .form-container {
+      display: flex;
+      justify-content: center;
+
+      form {
+        width: 60%;
+      }
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}

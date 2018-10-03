@@ -1,0 +1,30 @@
+<div [appPage]="{sub: true }" class="bylh-home-detail">
+
+  <div class="bylh-header">
+    <div class="bylh-left-icon" (click)="back()">
+      <mat-icon color="primary">arrow_back_ios</mat-icon>
+    </div>
+    <div class="bylh-title">{{article != null? article?.title : '详情'}}</div>
+    <div *ngIf="articleId != null" class="bylh-right-icon">
+      <mat-icon color="warn" padding-right (click)="removeArticle($event)">delete</mat-icon>
+      <mat-icon color="primary" (click)="edit()">create</mat-icon>
+    </div>
+  </div>
+
+  <div class="bylh-content">
+    <div class="iframe-container" *ngIf="articleId == null">
+      <iframe width="100%" frameborder="0" height="100%" seamless sandbox="allow-scripts allow-same-origin allow-popups"
+        [src]="link | safe:'resourceUrl'"></iframe>
+    </div>
+
+    <div class="preview-container" [hidden]="articleId == null">
+      <mat-form-field appearance="outline">
+        <mat-label>简介</mat-label>
+        <textarea [value]="article?.description" matInput disabled></textarea>
+        <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+      </mat-form-field>
+      <div #preview></div>
+    </div>
+  </div>
+
+</div>

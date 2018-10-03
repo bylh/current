@@ -1,0 +1,35 @@
+<div [appPage]="{sub: true }" class="bylh-preview-editor">
+  <div class="bylh-header">
+    <div class="left-icon" (click)="cancel()">
+      <mat-icon color="primary">clear</mat-icon>
+    </div>
+    <div class="bylh-title">编辑</div>
+    <div class="bylh-right-icon" (click)="save()">
+      <a href="https://stackedit.io/app" target="_blank" padding-right>stackedit</a>
+      <mat-icon color="primary">check_box</mat-icon>
+    </div>
+  </div>
+  <div class="bylh-content">
+    <div *ngIf="switch" class="input-container">
+      <mat-form-field>
+        <input matInput class="input-title" [(ngModel)]="data.title" placeholder="输入标题">
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="输入描述" [(ngModel)]="data.description"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="editor-container">
+      <div #editSection></div>
+      <div class="switch-icon" (click)="switchStatus()">
+        <i *ngIf="switch" class="fas fa-arrow-circle-up"></i>
+        <i *ngIf="!switch" class="fas fa-arrow-circle-down"></i>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- <div class="footer">
+    <button mat-button (click)="save()">确定</button>
+  </div> -->
+</div>

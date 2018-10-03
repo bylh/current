@@ -1,0 +1,65 @@
+<div [appPage] class="bylh-home" #home>
+  <div class="bylh-content">
+    <!-- multi允许同时展开多个项目 -->
+    <mat-accordion multi>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            常用网站
+          </mat-panel-title>
+          <mat-panel-description>
+            <!-- 搜索 翻译等 -->
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-grid-list cols="5" rowHeight="50px" role="list">
+          <mat-grid-tile role="listitem" class="tile" *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows" [style.background]="tile.color">
+            <a [href]="tile.url" target="_blank">{{tile.text}}</a>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            推荐阅读
+          </mat-panel-title>
+          <mat-panel-description>
+            <!-- 文章 -->
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list>
+          <ng-container *ngFor="let item of items">
+            <mat-list-item [routerLink]="['detail', 1]" [queryParams]="{link: item.link}">
+              <img matListAvatar [src]="item.imgUrl" alt="...">
+              <h3 matLine>{{item.title}}</h3>
+              <p matLine>
+                {{item.discription}}
+              </p>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+          </ng-container>
+
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-list>
+      <h3 mat-subheader>原创</h3>
+      <mat-divider></mat-divider>
+      <ng-container *ngFor="let article of articles; let i = index">
+        <mat-list-item (click)="viewArticle(i)">
+          <mat-icon mat-list-icon>note</mat-icon>
+          <h2 matLine>{{article.title}}</h2>
+          <p matLine>
+            {{article.description}}
+          </p>
+          <!-- <mat-icon color="warn" (click)="removeArticle(i, $event)">clear</mat-icon> -->
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </ng-container>
+    </mat-list>
+  </div>
+  <button mat-mini-fab color="accent" class="add-fab-button" (click)="createArticle()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <router-outlet></router-outlet>
+</div>

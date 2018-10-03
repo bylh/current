@@ -1,0 +1,137 @@
+/* min-height: 0 是flex布局兼容firefox edge， 否则在这两个浏览器滚动条无法使用
+参考链接 https://codeday.me/bug/20180501/160337.html
+ */
+.bylh-tabs {
+  // position: relative; // 子页面覆盖全部
+  height: 100%; // 设置页面高度为100%
+  // background-image: url(../../assets/dust_scratches.png);
+  display: flex;
+  flex-direction: column; // 垂直方向flex
+
+  // toolboor部分
+  .app-toolbar {
+    @media screen and (max-width: 600px) {
+      .nav {
+        display: none; // 小于500px隐藏，底部tab显示
+      }
+
+      .title {
+        flex: 1 1 auto !important;
+      }
+    }
+
+    min-height: 0; // 默认是64px
+
+    .mat-toolbar-row,
+    .mat-toolbar-single-row {
+      height: auto; // 默认根据媒体查询屏幕宽度64px, 56px;
+    }
+
+    flex: 0 0 auto; // 自身高度，不压缩
+
+    .header {
+      .title {
+        flex: 0 0 auto;
+      }
+
+      .nav {
+        flex: 1 1 auto; // 可压缩且填充剩余空间
+
+        nav {
+          flex: 0 1 auto;
+        }
+
+        /deep/ .mat-tab-links {
+          justify-content: space-around;
+        }
+
+        .mat-tab-link {
+          min-width: 0;
+        }
+      }
+
+      .userId {
+        flex: 0 0 auto;
+        font-size: .5rem;
+
+        &>img {
+          height: 40px;
+          width: 40px;
+          border-radius: 50%;
+          display: block;
+        }
+      }
+    }
+
+    .user-action {
+      flex-wrap: wrap; // flex布局换行
+      height: auto; // 默认为64px，设为auto可自适应高度
+
+      input {
+        font-size: 1rem;
+      }
+
+      button {
+        padding: 0;
+        min-width: 60px;
+      }
+    }
+  }
+
+  .app-content {
+    height: 100%;
+    min-height: 0; // 兼容firefox edge，否则无法使用滚动条
+    flex: 1 1 auto; // 扩展高度，可压缩
+
+    .app-content-g {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      min-height: 0; // 兼容firefox edge，否则无法使用滚动条
+
+      .app-content-u {
+        height: 100%;
+        min-height: 0; // 兼容firefox edge，否则无法使用滚动条
+        display: flex; // nav部分
+        flex-direction: column;
+
+        @media screen and (max-width: 600px) {
+          // 宽度小于500px反向，变为手机tab式按钮
+          flex-direction: column-reverse !important;
+
+          .nav {
+            display: flex !important;
+          }
+        }
+
+        .nav {
+          flex: 0 0 auto; // 自身高度，不压缩
+          justify-content: center;
+          display: none;
+
+          /deep/ nav {
+            flex-grow: 1; // 占满整行
+          }
+
+          /deep/ .mat-tab-links {
+            // 要加/deep/，否则不起作用，参考链接https://stackoverflow.com/questions/43690291/how-to-overwrite-angular-2-material-styles
+            justify-content: space-around;
+            letter-spacing: normal; // pure-g改变了此属性，不知道为啥要改这个属性
+          }
+        }
+
+        .page {
+          min-height: 0; // 兼容firefox edge，否则无法使用滚动条
+          height: 100%;
+          flex: 1 1 auto; // 剩余空间高度，可压缩 
+          justify-content: center;
+
+          .page-container {
+            // position: relative; // tab页的子页面不覆盖tab
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+}
