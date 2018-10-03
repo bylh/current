@@ -93,6 +93,7 @@ const uploadAvatar = multer({
         // return;
     }
     try {
+        console.log('初始化数据库');
         await DBHelper.init();
         console.log('main(): 连接数据库成功');
     } catch (err) {

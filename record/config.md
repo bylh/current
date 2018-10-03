@@ -52,3 +52,24 @@ city cun 37.33102717766525   -122.03066023575133
 http://storage.zhtu.net/attraction/凤凰岭-7b2809f92612.jpg!attraction
 http://public-dev.zhtu.net/photo/17600851442.perf-7cd1ff01d612.photo-0ae5bdc1b560.jpg!photo
 http://public-dev.zhtu.net/attraction/ewqe-cover-50a18d9284c1.jpg!photo
+
+
+分离单独的库
+pushd current
+git subtree split -P project/ocx -b ocx-only
+popd
+
+mkdir bit-server
+pushd bit-server
+
+git init
+git pull current ocx-only
+
+git remote add origin https://github.com/bylh/bit-server.git
+
+
+git remote add -f bit-server https://github.com/bylh/bit-server.git // 子仓库的地址作为一个remote，方便记忆
+
+git subtree add --prefix=sub/bit-server bit-server master     // --squash添加此参数不会提交信息
+git subtree pull --prefix=sub/bit-server bit-server master        // --squash
+git subtree push --prefix=sub/bit-server bit-server master
