@@ -73,3 +73,5 @@ git remote add -f bit-server https://github.com/bylh/bit-server.git // 子仓库
 git subtree add --prefix=sub/bit-server bit-server master     // --squash添加此参数不会提交信息
 git subtree pull --prefix=sub/bit-server bit-server master        // --squash
 git subtree push --prefix=sub/bit-server bit-server master
+
+// 配置博客子resume文件中index.html引入static文件夹资源，需要将/static改为static否则会出问题
