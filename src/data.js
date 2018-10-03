@@ -1,6 +1,6 @@
 export const ResumeTemplateStyle = [
     `/*
-    * Hello, 我是李欢
+    * 你好, 我是李欢
     *
     * 这是用react版的动态简历
     * 希望大家能够喜欢 :)
@@ -106,8 +106,8 @@ export const ResumeTemplateStyle = [
                 html(5)，css(3)，ES5，ES6，scss，node.js；
                 php，mysql，asp.net,asp（这些很久不用了）;
         2. 生活：
-                乒乓球,电影；
-                穿越火线（大学玩的真的是昏天暗地啊，间接证明是真爱！😝😝工作后忙了，基本没时间玩了）；
+                乒乓球,电影，篮球；
+                英雄联盟（大学玩的真的是昏天暗地啊，间接证明是真爱！😝😝工作后忙了，基本没时间玩了）；
     
     ## 博客
     
