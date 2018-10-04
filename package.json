@@ -1,0 +1,21 @@
+{
+  "name": "current",
+  "version": "1.0.0",
+  "description": "此项目主要是用来展示和测试node以及前端的一些类库，附有各种demo，持续添加中",
+  "main": "index.js",
+  "scripts": {
+    "pull": "git pull",
+    "push": "git push",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bylh/current.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bylh/current/issues"
+  },
+  "homepage": "https://github.com/bylh/current#readme"
+}
