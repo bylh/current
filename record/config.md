@@ -77,3 +77,4 @@ git subtree push --prefix=sub/bit-server bit-server master
 // 配置博客子resume文件中index.html引入static文件夹资源，需要将/static改为static否则会出问题
 
 生成博客用generate-blob分支
+博客更换主题：git clone https://github.com/iissnan/hexo-theme-next themes/next
