@@ -79,5 +79,5 @@ git subtree push --prefix=sub/bit-server bit-server master
 生成博客用generate-blob分支
 博客更换主题：git clone https://github.com/iissnan/hexo-theme-next themes/next // 这样做无法提交因为有.git文件参考 https://jungui.tk/366 应该用下面的subtree方式
 
-git subtree add --prefix=themes/next https://github.com/iissnan/hexo-theme-next.git master
+git subtree add --prefix=sub/blob/themes/next https://github.com/iissnan/hexo-theme-next.git master --squash
 
