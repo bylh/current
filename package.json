@@ -6,6 +6,24 @@
   "scripts": {
     "pull": "git pull",
     "push": "git push",
+    "pull-all": "npm-run-all pull pull-bit-client pull-bit-server pull-me pull-blob pull-hexo-next",
+    "push-all": "npm-run-all push push-bit-client push-bit-server push-me push-blob",
+
+    "pull-bit-client": "git subtree pull --prefix=sub/bit-client bit-client master",
+    "push-bit-client": "git subtree push --prefix=sub/bit-client bit-client master",
+
+    "pull-bit-server": "git subtree pull --prefix=sub/bit-server bit-server master",
+    "push-bit-server": "git subtree push --prefix=sub/bit-server bit-server master",
+
+    "pull-me": "git subtree pull --prefix=sub/me me master",
+    "push-me": "git subtree push --prefix=sub/me me master",
+
+    "pull-blob": "git subtree pull --prefix=sub/blob blob master",
+    "push-blob": "git subtree push --prefix=sub/blob blob master",
+
+    "pull-hexo-next": "git subtree pull --prefix=sub/blob/themes/next https://github.com/iissnan/hexo-theme-next.git master --squash",
+    "push-hexo-next": "git subtree push --prefix=sub/blob/themes/next https://github.com/iissnan/hexo-theme-next.git master --squash",
+
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,5 +35,8 @@
   "bugs": {
     "url": "https://github.com/bylh/current/issues"
   },
-  "homepage": "https://github.com/bylh/current#readme"
+  "homepage": "https://github.com/bylh/current#readme",
+  "dependencies": {
+    "npm-run-all": "^4.1.3"
+  }
 }
