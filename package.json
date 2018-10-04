@@ -18,8 +18,8 @@
     "pull-me": "git subtree pull --prefix=sub/me me master",
     "push-me": "git subtree push --prefix=sub/me me master",
 
-    "pull-blob": "git subtree pull --prefix=sub/blob blob master",
-    "push-blob": "git subtree push --prefix=sub/blob blob master",
+    "pull-blob": "git subtree pull --prefix=sub/blob blob generate-blob",
+    "push-blob": "git subtree push --prefix=sub/blob blob generate-blob",
 
     "pull-hexo-next": "git subtree pull --prefix=sub/blob/themes/next https://github.com/iissnan/hexo-theme-next.git master --squash",
     "push-hexo-next": "git subtree push --prefix=sub/blob/themes/next https://github.com/iissnan/hexo-theme-next.git master --squash",
