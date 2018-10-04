@@ -75,3 +75,5 @@ git subtree pull --prefix=sub/bit-server bit-server master        // --squash
 git subtree push --prefix=sub/bit-server bit-server master
 
 // 配置博客子resume文件中index.html引入static文件夹资源，需要将/static改为static否则会出问题
+
+生成博客用generate-blob分支
