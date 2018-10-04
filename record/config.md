@@ -65,7 +65,7 @@ pushd bit-server
 git init
 git pull current ocx-only
 
-git remote add origin https://github.com/bylh/bit-server.git
+git remote add origin https://github.com/bylh/bit-server.git  // 本地仓库关联远程仓库，对应remove
 
 
 git remote add -f bit-server https://github.com/bylh/bit-server.git // 子仓库的地址作为一个remote，方便记忆
