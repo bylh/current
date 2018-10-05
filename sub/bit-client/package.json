@@ -10,7 +10,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+
+    "deploy-bit": "scp -P 26685 -r dist/web root@95.169.7.111:/home/bylh/"
   },
   "private": true,
   "dependencies": {
