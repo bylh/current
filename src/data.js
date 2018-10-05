@@ -6,9 +6,9 @@ export const ResumeTemplateContent = `
 
 ## 实习及工作经历
 
-### 借贷宝实习生：借贷宝app产品开发与测试 (Software-defined Cloud Network)
+### 借贷宝实习生：借贷宝app产品开发与测试
 
-* 基于 NSO 控制器开发 IDC 与运营商网络协同自动化框架。
+* 产品线上测试开发
 * 开发基于 Segment Routing 的广域网专线 QoS 调度系统。
 
 ### 实验室项目：面向远程医疗的SDN网络可靠性及安全研究 (Java)
@@ -39,7 +39,7 @@ export const ResumeTemplateContent = `
 
 1. **北京邮电大学 - 计算机科学与技术**             本科
 
-	* 喜欢钻研
+* 喜欢钻研
 
 
 ## 其他
