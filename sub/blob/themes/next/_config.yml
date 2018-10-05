@@ -494,12 +494,12 @@ changyan:
 # You can get your appid and appkey from https://leancloud.cn
 # more info please open https://valine.js.org
 valine:
-  enable: false # When enable is set to be true, leancloud_visitors is recommended to be closed for the re-initialization problem within different leancloud adk version.
-  appid:  # your leancloud application appid
-  appkey:  # your leancloud application appkey
+  enable: true # When enable is set to be true, leancloud_visitors is recommended to be closed for the re-initialization problem within different leancloud adk version.
+  appid: LbEITldwfUtXMdquuLFbvHPk-gzGzoHsz # your leancloud application appid
+  appkey: trTlzpdb3GMeYWbJFRqmPQ8B # your leancloud application appkey
   notify: false # mail notifier , https://github.com/xCss/Valine/wiki
   verify: false # Verification code
-  placeholder: Just go go # comment box placeholder
+  placeholder: 请写下你的评价吧 # comment box placeholder
   avatar: mm # gravatar style
   guest_info: nick,mail,link # custom comment header
   pageSize: 10 # pagination size
@@ -958,15 +958,11 @@ images: images
 
 
 gitalk:
-  enable: true
-  ClientID: 395a3b39110888782cfc
-  ClientSecret: b34add8eeaaf9282b6ff8510d938960f175c4e75
-  repo: gitalk
-  owner: geedme
-  adminUser: geedme
-  ID: location.pathname
-  labels: gitalk
-  perPage: 15
-  pagerDirection: last
-  createIssueManually: true
-  distractionFreeMode: false
+  gitalk:
+  enable: false
+  githubID: bylh  # 例：asdfv1929   
+  repo: bylh.github.io   # 例：asdfv1929.github.io
+  ClientID: fa4807ecdc269770ac82
+  ClientSecret: e1afff206d5843b674f1817784d478096160f730
+  adminUser: bylh #指定可初始化评论账户
+  distractionFreeMode: true
