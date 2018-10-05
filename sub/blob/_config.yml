@@ -3,9 +3,9 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: You Know Nothing
+title: 学无止境
 subtitle:
-description: 我的github博客
+description: 欢迎来访
 keywords:
 author: bylh
 language: zh-CN
@@ -79,6 +79,17 @@ search:
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
+# RSS订阅
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content:
+  content_limit: 140
+  content_limit_delim: ' '
+
+
 ## Themes: https://hexo.io/themes/
 theme: next
 
