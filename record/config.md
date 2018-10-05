@@ -68,7 +68,8 @@ git pull current ocx-only
 git remote add origin https://github.com/bylh/bit-server.git  // 本地仓库关联远程仓库，对应remove
 
 
-git remote add -f bit-server https://github.com/bylh/bit-server.git // 子仓库的地址作为一个remote，方便记忆
+git remote add -f bit-server https://github.com/bylh/bit-server.git // 子仓库的地址作为一个remote，方便记忆 
+移除remote关联库 git remote rm hexo-next, 重新添加可更新地址
 
 git subtree add --prefix=sub/bit-server bit-server master     // --squash添加此参数不会提交信息
 git subtree pull --prefix=sub/bit-server bit-server master        // --squash
