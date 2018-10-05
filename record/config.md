@@ -81,5 +81,5 @@ hexo写作教程： https://www.jianshu.com/p/265b2c653e6f
 生成博客用generate-blob分支
 博客更换主题：git clone https://github.com/iissnan/hexo-theme-next themes/next // 这样做无法提交因为有.git文件参考 https://jungui.tk/366 应该用下面的subtree方式
 
-git subtree add --prefix=sub/blob/themes/next https://github.com/iissnan/hexo-theme-next.git master --squash
+git subtree add --prefix=sub/blob/themes/next https://github.com/theme-next/hexo-theme-next.git master --squash
 
