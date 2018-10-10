@@ -1,3 +1,4 @@
+import { DiscoveryService } from './discovery.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 
@@ -24,13 +25,27 @@ export class DiscoveryComponent implements OnInit {
     src: 'https://img2.woyaogexing.com/2018/08/02/e410bef934484f86bb9906b95123cdba!600x600.jpeg'
   }];
   public selectedId: number;
-  constructor(private route: ActivatedRoute, private router: Router) {
+
+  public segs;
+
+  constructor(private route: ActivatedRoute, private router: Router, private discoveryService: DiscoveryService) {
     this.route.paramMap.subscribe(params => console.log('discovery: backId', params.get('backId')))
    }
 
-  ngOnInit() {
+  async ngOnInit() {
     console.log('disconvery init');
     this.route.paramMap.subscribe((params) => {this.selectedId = +params.get('backId'); console.log(this.selectedId); });
+
+    await this.getSeg();
+  }
+
+  async getSeg() {
+    try{
+      this.segs = await this.discoveryService.getSeg();
+      console.log(this.segs);
+    }catch(err) {
+      console.log('getSeg(): error', err)
+    }
   }
 
 }

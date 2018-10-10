@@ -1,14 +1,26 @@
 <div [appPage] class="bylh-discovery">
   <div class="bylh-content">
-    <h5>发现</h5>
-    <div class="pure-g items-container">
+    <!-- <div class="pure-g items-container">
       <div *ngFor="let item of items" [class.selected]="item?.id === selectedId" class="pure-u-1-1 pure-u-md-1-2 pure-u-lg-1-3">
         <a [routerLink]="[item.id]" [queryParams]="{id: item.id}" routerLinkActive="active">
           <div>{{ item.id }}</div>
           <img [src]="item.src" />
         </a>
       </div>
-    </div>
+    </div> -->
+    <mat-list>
+      <ng-container *ngFor="let seg of segs">
+        <mat-list-item>
+          <img matListAvatar [src]="seg.imgUrl | safe: resourceUrl" alt="...">
+          <a padding-bottom [href]="seg.href" target="_blank" matLine>{{seg.title}}</a>
+          <p matLine>
+            {{seg.description}}
+          </p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </ng-container>
+    </mat-list>
+
   </div>
   <router-outlet></router-outlet>
 
