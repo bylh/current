@@ -39,5 +39,5 @@ testem.log
 Thumbs.db
 
 # bylh
-/src/config.ts
+src/config.ts
 public/
