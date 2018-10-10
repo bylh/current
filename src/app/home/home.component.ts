@@ -45,11 +45,11 @@ export class HomeComponent implements OnInit {
     
   ];
   items = [
-    { title: 'webwork使用教程', discription: '', imgUrl: 'https://bit.bylh.top/avatars/img1.jpg', link: '//www.ruanyifeng.com/blog/2018/07/web-worker.html' },
-    { title: '浏览器数据库 IndexedDB 入门教程', discription: '', imgUrl: '../assets/thumbs/item2.jpg', link: '//www.ruanyifeng.com/blog/2018/07/indexeddb.html' },
-    { title: 'JavaScript 的 this 原理', discription: '', imgUrl: '../assets/thumbs/item3.jpg', link: '//www.ruanyifeng.com/blog/2018/06/javascript-this.html' },
-    { title: 'purecss grid布局', discription: '', imgUrl: '../assets/thumbs/item4.jpg', link: 'https://purecss.io/grids/' },
-    { title: '禁止iframe页面自动重定向跳转', discription: '', imgUrl: '../assets/thumbs/item5.jpg', link: '//blog.csdn.net/WKY_CSDN/article/details/71420490' }
+    { title: 'webwork使用教程', description: '', imgUrl: 'https://bit.bylh.top/avatars/img1.jpg', link: '//www.ruanyifeng.com/blog/2018/07/web-worker.html' },
+    { title: '浏览器数据库 IndexedDB 入门教程', description: '', imgUrl: '../assets/thumbs/item2.jpg', link: '//www.ruanyifeng.com/blog/2018/07/indexeddb.html' },
+    { title: 'JavaScript 的 this 原理', description: '', imgUrl: '../assets/thumbs/item3.jpg', link: '//www.ruanyifeng.com/blog/2018/06/javascript-this.html' },
+    { title: 'purecss grid布局', description: '', imgUrl: '../assets/thumbs/item4.jpg', link: 'https://purecss.io/grids/' },
+    { title: '禁止iframe页面自动重定向跳转', description: '', imgUrl: '../assets/thumbs/item5.jpg', link: '//blog.csdn.net/WKY_CSDN/article/details/71420490' }
   ];
   constructor(public homeService: HomeService,
     public authService: AuthService,
