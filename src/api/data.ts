@@ -1,7 +1,12 @@
+import { Defer } from './../../../bit-client/src/common/utils/utils';
 import JsSHA from 'jssha';
 import qs from 'qs';
 import axios from 'axios';
 import express from 'express';
+
+import Crawler from 'crawler';
+import cheerio from 'cheerio';
+
 import dbHelper from '../common/db-helper';
 
 
@@ -178,5 +183,55 @@ export async function removeArticle(req: express.Request, res: express.Response)
     } catch (err) {
         console.log('失败');
         res.sendStatus(500);
+    }
+}
+
+export async function getSeg(req: express.Request, res: express.Response) {
+    console.log(`getSeg(): count=${req.query.count}`)
+    try {
+        const instance = new Crawler({
+            // jQuery: 'cheerio',
+            maxConnections: 100,
+            // This will be called for each crawled page
+            callback: (error, res, done) => {
+                
+            }
+        });
+
+        let defer = new Defer<any>();
+        let resultArr = [];
+        instance.queue([{
+            uri: 'https://segmentfault.com/channel/frontend',
+            callback: (error: any, res: any, done: any) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    let $ = cheerio.load(res.body);
+                
+                    $('.news-list').find('.news__item-info').each((index: number, element: CheerioElement) => {
+                        $('.news-list').find('.news__item-info').each((index: number, element: CheerioElement) => {
+                            if(element.children[0].attribs.style == null) return;
+                            console.log(index, element.children[1].firstChild.children[0].firstChild.data,  'https://segmentfault.com' + element.children[0].attribs.href, 
+                            element.children[1].children[1].children[0].data,
+                            element.children[0].attribs.style.match(/background-image:url\((\S*)\)/)[1]);
+
+                            resultArr.push({
+                                title: element.children[1].firstChild.children[0].firstChild.data,
+                                description: element.children[1].children[1].children[0].data, 
+                                href: 'https://segmentfault.com' + element.children[0].attribs.href,
+                                imgUrl: element.children[0].attribs.style.match(/background-image:url\((\S*)\)/)[1]
+                            });
+                        });
+                    });
+                }
+                done();
+
+                defer.resolve(resultArr)
+            }
+        }]);
+        resultArr = await defer.promise;
+        res.status(200).json(resultArr);
+    } catch(err) {
+
     }
 }

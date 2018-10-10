@@ -61,9 +61,11 @@ instance.queue([{
             let $ = cheerio.load(res.body);
             // console.log($('.news-list'));
             // console.log($('.tab-panel').find('.question_link').html() ,$('title').text());
-            console.log($('.news-list').find('.news__item-title'));
-            let titles = $('.news-list').find('.news__item-title').each((index: number, element: CheerioElement) => {
-                console.log(index, element.children[0].data);
+            let titles = $('.news-list').find('.news__item-info').each((index: number, element: CheerioElement) => {
+                if(element.children[0].attribs.style == null) return;
+                console.log(index, element.children[1].firstChild.children[0].firstChild.data,  'https://segmentfault.com' + element.children[0].attribs.href, 
+                element.children[1].children[1].children[0].data,
+                element.children[0].attribs.style.match(/background-image:url\((\S*)\)/)[1]);
             });
             // fs.writeFile('zhihu.html', $('.tab-panel').find('.question_link'), 'utf-8', err => {
             //     console.log('err:', err);
