@@ -15,6 +15,9 @@
     "pull-bit-server": "git subtree pull --prefix=sub/bit-server bit-server master",
     "push-bit-server": "git subtree push --prefix=sub/bit-server bit-server master",
 
+    "pull-wechat-app": "git subtree pull --prefix=sub/wechat-app wechat-app master",
+    "push-wechat-app": "git subtree push --prefix=sub/wechat-app wechat-app master",
+
     "pull-me": "git subtree pull --prefix=sub/me me master",
     "push-me": "git subtree push --prefix=sub/me me master",
 
