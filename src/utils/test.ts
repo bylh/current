@@ -6,8 +6,8 @@ import express from 'express';
 import cors from 'cors';
 
 const options = {
-    key: fs.readFileSync('/etc/letsencrypt/live/bylh.top/fullchain.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/bylh.top/privkey.pem')
+    key: fs.readFileSync('/home/bylh/test/fullchain.pem'),
+    cert: fs.readFileSync('/home/bylh/test/privkey.pem')
   };
 
 (async function main() {
