@@ -5,14 +5,23 @@ import fs from 'fs';
 import express from 'express';
 import cors from 'cors';
 
-const options = {
-    key: fs.readFileSync('/home/bylh/test/fullchain.pem'),
-    cert: fs.readFileSync('/home/bylh/test/privkey.pem')
-  };
-
 (async function main() {
+    let options;
+    try {
+        options = {
+            key: fs.readFileSync('/home/bylh/test/fullchain.pem'),
+            cert: fs.readFileSync('/home/bylh/test/privkey.pem')
+        };
+        console.log(options);
+    } catch(err) {
+        console.log('读取证书出错', err);
+    }
+   
+
     let app = express();
+
     let server = https.createServer(options, app);
+    
     app.use(cors()); // 解决跨域访问的问题
     app.use('/data', getData);
     // 启动监听
