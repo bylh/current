@@ -9,8 +9,8 @@ import cors from 'cors';
     let options;
     try {
         options = {
-            key: fs.readFileSync('/home/bylh/test/fullchain.pem'),
-            cert: fs.readFileSync('/home/bylh/test/privkey.pem')
+            key: fs.readFileSync('/home/bylh/test/fullchain.pem', 'utf8'),
+            cert: fs.readFileSync('/home/bylh/test/privkey.pem', 'utf8')
         };
         console.log(options);
     } catch(err) {
@@ -21,7 +21,7 @@ import cors from 'cors';
     let app = express();
 
     let server = https.createServer(options, app);
-    
+
     app.use(cors()); // 解决跨域访问的问题
     app.use('/data', getData);
     // 启动监听
