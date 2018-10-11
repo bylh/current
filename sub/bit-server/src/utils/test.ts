@@ -9,8 +9,8 @@ import cors from 'cors';
     let options;
     try {
         options = {
-            key: fs.readFileSync('/home/bylh/test/fullchain.pem', 'utf8'),
-            cert: fs.readFileSync('/home/bylh/test/privkey.pem', 'utf8')
+            key: fs.readFileSync('/home/bylh/test/privkey.pem', 'utf8'),
+            cert: fs.readFileSync('/home/bylh/test/cert.pem', 'utf8')
         };
         console.log(options);
     } catch (err) {
