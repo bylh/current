@@ -13,14 +13,19 @@ import cors from 'cors';
             cert: fs.readFileSync('/home/bylh/test/privkey.pem', 'utf8')
         };
         console.log(options);
-    } catch(err) {
+    } catch (err) {
         console.log('读取证书出错', err);
     }
-   
+
 
     let app = express();
+    let server;
+    try {
+        server = https.createServer(options, app);
+    } catch (err) {
+        console.log('创建https server出错', err);
+    }
 
-    let server = https.createServer(options, app);
 
     app.use(cors()); // 解决跨域访问的问题
     app.use('/data', getData);
