@@ -1,14 +1,22 @@
 import axios from 'axios';
 import http from 'http';
+import https from 'https';
+import fs from 'fs';
 import express from 'express';
 import cors from 'cors';
+
+const options = {
+    key: fs.readFileSync('/etc/letsencrypt/live/bylh.top/fullchain.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/bylh.top/privkey.pem')
+  };
+
 (async function main() {
     let app = express();
-    let server = http.createServer(app);
+    let server = https.createServer(options, app);
     app.use(cors()); // 解决跨域访问的问题
     app.use('/data', getData);
     // 启动监听
-    app.listen(5000);
+    server.listen(5000);
     if (process.send != null) process.send('ready');
 
     console.log('监听5000端口');

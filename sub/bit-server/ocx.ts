@@ -182,7 +182,7 @@ const uploadAvatar = multer({
     app.use('/get-gate-coinAdress', getGateCoinAdress);
     app.use('/start-gate-autotrade', startGateAutoTrade);
     // 启动监听
-    app.listen(4000);
+    server.listen(4000);
     if (process.send != null) process.send('ready');
 
     console.log('监听4000端口');
