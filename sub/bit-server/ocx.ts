@@ -1,7 +1,8 @@
-
+import fs from 'fs';
 import multer from 'multer';
 import bodyParser from 'body-parser';
 import http from 'http';
+import https from 'https';
 import express from 'express';
 import cors from 'cors';
 import program from 'commander';
@@ -11,6 +12,7 @@ import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import { getGateMarketList, saveArticle, getArticleIds, getArticle, removeArticle, getSeg } from './src/api/data';
 import { getGateBalances, getGateCoinAdress, startGateAutoTrade } from './src/api/data';
+
 const MongoStore = connectMongo(session);
 
 
@@ -102,7 +104,21 @@ const uploadAvatar = multer({
 
     // 构建server
     let app = express();
-    let server = http.createServer(app);
+    let httpServer, httpsServer, httpsEnable;
+    try {
+        console.log('参数：', process.argv[2]);
+        httpServer = http.createServer(app);
+        const options = {
+            key: fs.readFileSync('/etc/letsencrypt/live/bylh.top/privkey.pem', 'utf8'),
+            cert: fs.readFileSync('/etc/letsencrypt/live/bylh.top/cert.pem', 'utf8')
+        };
+        httpsServer = https.createServer(options, app);
+        httpsEnable = true;
+    } catch (err) {
+        console.log('本地开发环境https默认创建失败，忽略此错误即可');
+        httpsEnable = false;
+    }
+
     app.enable('trust proxy'); // 支持反向代理
     app.use(bodyParser.json({ limit: 1 * 1024 * 1024 })); // 最大1M的JSON请求
     app.use(cors({
@@ -182,10 +198,13 @@ const uploadAvatar = multer({
     app.use('/get-gate-coinAdress', getGateCoinAdress);
     app.use('/start-gate-autotrade', startGateAutoTrade);
     // 启动监听
-    server.listen(4000);
+    if (httpsEnable) {
+        httpsServer.listen(5000);
+    }
+    httpServer.listen(5000);
     if (process.send != null) process.send('ready');
 
-    console.log('监听4000端口');
+    console.log('监听http https5000端口');
     process.on('SIGINT', async () => {  // 保存log后退出
         process.exit(); // 程序结束
     });
