@@ -56,7 +56,9 @@ class DBHelper {
     // 初始化连接数据库
     public async init() {
         try {
-            this.db = await mongoose.connect(CollectUri);
+            this.db = await mongoose.connect(CollectUri, {
+                useNewUrlParser: true
+            });
         } catch (err) {
             throw err;
         }
