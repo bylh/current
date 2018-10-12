@@ -9,8 +9,8 @@ import cors from 'cors';
     let options;
     try {
         options = {
-            key: fs.readFileSync('/home/bylh/test/privkey.pem', 'utf8'),
-            cert: fs.readFileSync('/home/bylh/test/cert.pem', 'utf8')
+            key: fs.readFileSync('/etc/letsencrypt/live/bylh.top/privkey.pem', 'utf8'),
+            cert: fs.readFileSync('/etc/letsencrypt/live/bylh.top/cert.pem', 'utf8')
         };
         console.log(options);
     } catch (err) {
@@ -19,9 +19,10 @@ import cors from 'cors';
 
 
     let app = express();
-    let server;
+    let httpsServer, httpServer;
     try {
-        server = https.createServer(options, app);
+        httpServer = http.createServer(app);
+        httpsServer = https.createServer(options, app);
     } catch (err) {
         console.log('创建https server出错', err);
     }
@@ -30,10 +31,11 @@ import cors from 'cors';
     app.use(cors()); // 解决跨域访问的问题
     app.use('/data', getData);
     // 启动监听
-    server.listen(5000);
+    httpsServer.listen(5000);
+    httpServer.listen(5001);
     if (process.send != null) process.send('ready');
 
-    console.log('监听5000端口');
+    console.log('https监听5000端口, http监听5001端口');
 
 
     process.on('SIGINT', async () => {  // 保存log后退出
