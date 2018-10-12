@@ -7,7 +7,7 @@
     "start": "ng build --prod --build-optimizer --stats-json && lite-server --baseDir dist/web",
     "start-dev": "npx ng build && lite-server --baseDir dist/web",
     "bundle-report": "webpack-bundle-analyzer dist/web/stats.json",
-    "build": "ng build",
+    "build": "npx ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
