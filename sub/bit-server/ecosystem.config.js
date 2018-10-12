@@ -3,19 +3,19 @@ module.exports = {
     name      : 'ocx',
     script    : 'ts-node ocx.ts',
     env: {
-      NODE_ENV: 'dev'
+      NODE_ENV: 'development'
     },
     env_production : {
-      NODE_ENV: 'prod'
+      NODE_ENV: 'production'
     }
   }, {
     name      : 'bit',
     script    : 'ts-node bit.ts',
     env: {
-      NODE_ENV: 'dev'
+      NODE_ENV: 'development'
     },
     env_production : {
-      NODE_ENV: 'prod'
+      NODE_ENV: 'production'
     }
   }],
 
