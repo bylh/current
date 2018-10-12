@@ -201,7 +201,7 @@ const uploadAvatar = multer({
     if (httpsEnable) {
         httpsServer.listen(5000);
     }
-    httpServer.listen(5000);
+    httpServer.listen(5001);
     if (process.send != null) process.send('ready');
 
     console.log('监听http https5000端口');
