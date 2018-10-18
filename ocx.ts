@@ -13,8 +13,15 @@ import connectMongo from 'connect-mongo';
 import { getGateMarketList, saveArticle, getArticleIds, getArticle, removeArticle, getSeg } from './src/api/data';
 import { getGateBalances, getGateCoinAdress, startGateAutoTrade } from './src/api/data';
 
+
 const MongoStore = connectMongo(session);
 
+const corsOptions = {
+    /* 注意：https下 不能同时设置origin为*和credentials: true，这样不安全，http下可以设置，但不推荐 */
+    origin: new RegExp('[a-zA-z]+://[^\s]*'),
+    // origin: ['https://bylh.top'],
+    credentials: true // 设置允许跨域访问默认是拒绝接收浏览器发送的cookie，这里设置允许
+}
 
 const storageBg = multer.diskStorage({
     //destination 用来设置上传文件的路径 可以接收一个回调函数， 或者一个字符串
@@ -121,12 +128,11 @@ const uploadAvatar = multer({
 
     app.enable('trust proxy'); // 支持反向代理
     app.use(bodyParser.json({ limit: 1 * 1024 * 1024 })); // 最大1M的JSON请求
-    app.use(cors({
-        // origin: new RegExp('[a-zA-z]+://[^\s]*'),
-        origin: ['https://bylh.top'],
-        credentials: true // 设置允许跨域访问默认是拒绝接收浏览器发送的cookie，这里设置允许
-    })); // 解决跨域访问的问题
 
+    /** 解决跨域访问的问题, 写在这是全局起作用，也可单独设置到每个接口，如
+     *  app.use('/login', cors(corsOptions), login);
+     */
+    app.use(cors(corsOptions));
 
     //配置中间件
     app.use(session({
