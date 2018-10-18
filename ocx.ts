@@ -123,7 +123,7 @@ const uploadAvatar = multer({
     app.use(bodyParser.json({ limit: 1 * 1024 * 1024 })); // 最大1M的JSON请求
     app.use(cors({
         // origin: new RegExp('[a-zA-z]+://[^\s]*'),
-        // origin: ['http://localhost:4200', 'http://localhost:3000', 'https://bylh.top'],
+        origin: ['https://bylh.top'],
         credentials: true // 设置允许跨域访问默认是拒绝接收浏览器发送的cookie，这里设置允许
     })); // 解决跨域访问的问题
 
