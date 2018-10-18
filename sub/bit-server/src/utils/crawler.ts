@@ -77,20 +77,20 @@ const instance = new Crawler({
 //     }
 // }]);
 
-// (async () => {
-//   const browser = await puppeteer.launch();
-//   const page = await browser.newPage();
-//   await page.goto('https://web.okjike.com/login?redirect=/feed');
-// //   await page.screenshot({path: 'example.png'});
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto('https://www.douyu.com/g_LOL');
+  await page.screenshot({path: 'example.png'});
 
-// console.log('hello', page.$('.qr-wrap'));
-//   let result = await page.evaluate((result) => {
-//       console.log('result', result);
-//       return result;
-//   });
-//   console.log('结果：', result);
-//   await browser.close();
-// })();
+console.log('hello', await page.content());
+  let result = await page.evaluate((result) => {
+      console.log('result', result);
+      return result;
+  });
+  console.log('结果：', result);
+  await browser.close();
+})();
 
 // (async function() {
 //     const instance = await phantom.create();
