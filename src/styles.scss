@@ -82,6 +82,15 @@ body {
     word-wrap: break-word;
   }
 
+  // 改变字体大小
+  .tui-editor-contents {
+    font-size: 16px;
+    // background-color: rgba(194, 241, 210, 0.685);
+    // opacity: 0.8;
+    // filter: alpha(opacity=80);
+  }
+
+
   .te-toolbar-section,
   .tui-editor-defaultUI-toolbar {
     // 保持编辑工具栏始终展开，否则有bug(...按钮小视图显示不出来)
