@@ -1,8 +1,9 @@
 <div [appPage]="{sub: true }" class="bylh-home-detail">
 
   <div class="bylh-header">
-    <div class="bylh-left-icon" (click)="back()">
-      <mat-icon color="primary">arrow_back_ios</mat-icon>
+    <div class="bylh-left-icon">
+      <mat-icon (click)="back()" color="primary">arrow_back_ios</mat-icon>
+      <mat-icon (click)="snav.toggle()" color="primary">toc</mat-icon>
     </div>
     <div class="bylh-title">{{article != null? article?.title : '详情'}}</div>
     <div *ngIf="articleId != null" class="bylh-right-icon">
@@ -12,18 +13,38 @@
   </div>
 
   <div class="bylh-content">
+
     <div class="iframe-container" *ngIf="articleId == null">
       <iframe width="100%" frameborder="0" height="100%" seamless sandbox="allow-scripts allow-same-origin allow-popups"
         [src]="link | safe:'resourceUrl'"></iframe>
     </div>
 
-    <div class="preview-container" [hidden]="articleId == null">
-      <mat-form-field appearance="outline">
-        <mat-label>简介</mat-label>
-        <textarea [value]="article?.description" matInput disabled></textarea>
-        <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-      </mat-form-field>
-      <div #preview></div>
+    <div class="main-container" [class.is-mobile]="mobileQuery.matches">
+      <!-- <mat-toolbar color="primary" class="container-toolbar">
+        <button mat-icon-button (click)="snav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <h1 class="example-app-name">Responsive App</h1>
+      </mat-toolbar> -->
+      <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+        <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+          fixedTopGap="56">
+          <mat-nav-list>
+            <a mat-list-item>侧边栏</a>
+          </mat-nav-list>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+          <div class="preview-container" [hidden]="articleId == null">
+            <mat-form-field appearance="outline">
+              <mat-label>简介</mat-label>
+              <textarea [value]="article?.description" matInput disabled></textarea>
+              <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+            </mat-form-field>
+            <div #preview></div>
+          </div>
+        </mat-sidenav-content>
+      </mat-sidenav-container>
     </div>
   </div>
 

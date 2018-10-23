@@ -5,10 +5,34 @@
   .bylh-content {
     .iframe-container {
       height: 100%;
+
       iframe {
         display: block;
       }
     }
+
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+      .sidenav-container { 
+        margin-top: 0 !important; // 默认56px为toolbar预留位置
+        flex: 1;
+      }
+    }
+
+    .is-mobile .container-toolbar {
+      position: fixed;
+      z-index: 2;
+    }
+
+    .is-mobile .sidenav-container {
+      /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+       `<body>` to be our scrolling element for mobile layouts. */
+      flex: 1 0 auto;
+    }
+
     .preview-container {
       padding: 16px;
 

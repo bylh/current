@@ -1,13 +1,15 @@
+import { DBService } from './../../db.service';
 
 import { Location } from '@angular/common';
 import { HomeService, Article } from './../home.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { PreviewEditorComponent } from '../preview-editor/preview-editor.component';
 
 import Viewer from 'tui-editor/dist/tui-editor-Viewer';
+import { MediaMatcher } from '@angular/cdk/layout';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
@@ -24,16 +26,29 @@ export class DetailComponent implements OnInit {
 
   public previewEdit: Viewer;
 
+  mobileQuery: MediaQueryList;
+  private _mobileQueryListener: () => void;
+
   constructor(
     private homeService: HomeService,
+    private dbService: DBService,
     private route: ActivatedRoute,
     private router: Router,
     private loaction: Location,
     public snackBar: MatSnackBar,
+
+    public changeDetectorRef: ChangeDetectorRef,
+    public media: MediaMatcher,
+
     public editDialog: MatDialog) {
     this.route.paramMap.subscribe((params => {
       this.id = +params.get('id');
       console.log('detail id: ', this.id);
+
+      this.mobileQuery = media.matchMedia('(max-width: 600px)');
+      this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+      this.mobileQuery.addListener(this._mobileQueryListener);
+      
     }));
     this.route.queryParamMap.subscribe(params => {
       this.link = params.get('link');
@@ -55,17 +70,17 @@ export class DetailComponent implements OnInit {
       //   width: '100%'
       // });
       this.previewEdit = new Viewer({
-          el: this.preview.nativeElement,
-          initialValue: this.article.md,
-          height: '100%',
-          width: '100%'
-        });
+        el: this.preview.nativeElement,
+        initialValue: this.article.md,
+        height: '100%',
+        width: '100%'
+      });
       // if(this.article.md == null && this.article.html != null) { // md 为null但是html存在则显示
       //   (this.preview.nativeElement as Element).innerHTML = this.article.html;
       // }
       this.previewEdit.setHtml(this.article.html);
-      
-    } catch(err) {
+
+    } catch (err) {
     }
   }
   back() {
@@ -85,7 +100,7 @@ export class DetailComponent implements OnInit {
     const dialogRef = this.editDialog.open(PreviewEditorComponent, {
       height: '100%',
       width: '100%',
-      data:this.article
+      data: this.article
     });
 
     dialogRef.afterClosed().subscribe((article: Article) => {
@@ -100,14 +115,20 @@ export class DetailComponent implements OnInit {
     // 避免默认处理和向外扩散
     event.stopPropagation();
     event.preventDefault();
-    if(!window.confirm('确定删除')) return;
+    if (!window.confirm('确定删除')) return;
     try {
       await this.homeService.removeArticle(this.articleId);
       this.snackBar.open('删除文章成功');
       this.back();
-    } catch(err) {
+    } catch (err) {
       console.log('错误', err);
       this.snackBar.open('删除文章');
     }
+  }
+  settings() {
+
+  }
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 }
