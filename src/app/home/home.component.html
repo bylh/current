@@ -49,7 +49,7 @@
       <div padding-left padding-bottom padding-right>
         <mat-chip-list>
 
-          <mat-chip (click)="changeTag(tag)" [selected]="currentTag == null">全部</mat-chip>
+          <mat-chip (click)="changeTag()" [selected]="currentTag == null">全部</mat-chip>
           <mat-chip *ngFor="let tag of allTags" (click)="changeTag(tag)"
             [selected]="currentTag === tag" [color]="'primary'">
 

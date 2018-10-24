@@ -139,7 +139,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate([`tabs/home/detail/${id}`], { queryParams: { 'articleId': id } });
   }
 
-  changeTag(tag: string) {
+  changeTag(tag: string = null) {
     console.log('tagEvent', tag);
     this.currentTag = tag;
   }
