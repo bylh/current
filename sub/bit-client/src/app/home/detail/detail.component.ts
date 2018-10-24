@@ -144,6 +144,8 @@ export class DetailComponent implements OnInit, AfterViewInit {
   changeStyle() {
     console.log(this.styleSelected);
 
+    if(this.styleSelected == null) return;
+    
     this.preview.nativeElement.children[0].style.fontSize = this.styleSelected.fontSize + 'px';
 
     this.preview.nativeElement.children[0].style.backgroundColor = this.styleSelected.backgroundColor;
