@@ -3,14 +3,6 @@
   .bylh-header {}
 
   .bylh-content {
-    .iframe-container {
-      height: 100%;
-
-      iframe {
-        display: block;
-      }
-    }
-
     .main-container {
       display: flex;
       flex-direction: column;
@@ -42,6 +34,13 @@
         textarea {
           resize: none // 去除右下角角标
         }
+      }
+    }
+    .iframe-container {
+      height: 100%;
+
+      iframe {
+        display: block;
       }
     }
   }
