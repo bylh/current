@@ -22,6 +22,7 @@ const articleSchema = new Schema({
     userId: String,
     title: String,
     description: String,
+    tags: [String],
     html: String,
     md: String
 });

@@ -131,6 +131,7 @@ export async function saveArticle(req: express.Request, res: express.Response) {
                 userId: req.body.userId,
                 title: req.body.title,
                 description: req.body.description,
+                tags: req.body.tags,
                 html: req.body.html,
                 md: req.body.md
             });
@@ -141,6 +142,7 @@ export async function saveArticle(req: express.Request, res: express.Response) {
             userId: req.body.userId,
             title: req.body.title,
             description: req.body.description,
+            tags: req.body.tags,
             html: req.body.html,
             md: req.body.md
         }, {
