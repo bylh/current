@@ -15,6 +15,14 @@
       .input-title {
         font-size: 1.5rem;
       }
+
+      .tags {
+        display: flex;
+        padding-bottom: 4px;
+        .tags-select {
+          width: 55px;
+        }
+      }
     }
 
     .editor-container {

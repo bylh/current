@@ -5,8 +5,8 @@
     </div>
     <div class="bylh-title">编辑</div>
     <div class="bylh-right-icon" (click)="save()">
-      <a href="https://stackedit.io/app" target="_blank" padding-right>stackedit</a>
-      <mat-icon color="primary">check_box</mat-icon>
+      <a href="https://stackedit.io/app" target="_blank">stackedit</a>
+      <mat-icon padding-left color="primary">check_box</mat-icon>
     </div>
   </div>
   <div class="bylh-content">
@@ -17,6 +17,31 @@
       <mat-form-field>
         <textarea matInput placeholder="输入描述" [(ngModel)]="data.description"></textarea>
       </mat-form-field>
+
+      <div class="tags">
+        <div class="tags-chip">
+          <mat-chip-list #chipList *ngIf="selectedTagsControl.value != null">
+            <mat-chip *ngFor="let tag of selectedTagsControl.value" [removable]="true" (removed)="removeTag(tag)">
+              {{tag}}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+        <div class="tags-select">
+          <mat-select placeholder="标签" (selectionChange)="changeTags($event)" [formControl]="selectedTagsControl"
+            multiple>
+            <mat-select-trigger>
+              <!-- {{selectedTagsControl.value ? selectedTagsControl.value[0] : ''}}
+              <span *ngIf="selectedTagsControl.value?.length > 1">
+                (+{{selectedTagsControl.value.length - 1}} {{selectedTagsControl.value?.length === 2 ? 'other' :
+                'others'}})
+              </span> -->
+            </mat-select-trigger>
+            <mat-option *ngFor="let tag of allTags" [value]="tag">{{tag}}</mat-option>
+          </mat-select>
+        </div>
+      </div>
+
     </div>
 
     <div class="editor-container">

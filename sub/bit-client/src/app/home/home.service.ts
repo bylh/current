@@ -10,6 +10,7 @@ export interface Article {
   userId: string,
   title: string,
   description: string,
+  tags?: Array<string>,
   html: string,
   md?: string
 }

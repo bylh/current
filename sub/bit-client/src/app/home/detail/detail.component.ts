@@ -1,3 +1,4 @@
+
 import { DBService } from './../../db.service';
 
 import { Location } from '@angular/common';
@@ -34,7 +35,6 @@ export class DetailComponent implements OnInit, AfterViewInit {
     backgroundColor: null
   }
 
-
   constructor(
     private homeService: HomeService,
     private dbService: DBService,
@@ -61,7 +61,6 @@ export class DetailComponent implements OnInit, AfterViewInit {
       this.articleId = params.get('articleId');
       console.log('articleId: ', this.articleId);
     });
-
   }
 
   async ngOnInit() {
@@ -93,7 +92,7 @@ export class DetailComponent implements OnInit, AfterViewInit {
   async ngAfterViewInit() {
     if (this.articleId != null) {
       let styleSelected = await this.dbService.get('detail-page-style');
-      if(styleSelected != null) {
+      if (styleSelected != null) {
         this.styleSelected = styleSelected;
       }
       this.changeStyle(); // 不选择不会触发，所以手动调用一次
