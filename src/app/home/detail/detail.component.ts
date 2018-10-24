@@ -3,7 +3,7 @@ import { DBService } from './../../db.service';
 import { Location } from '@angular/common';
 import { HomeService, Article } from './../home.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { PreviewEditorComponent } from '../preview-editor/preview-editor.component';
@@ -15,7 +15,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss']
 })
-export class DetailComponent implements OnInit {
+export class DetailComponent implements OnInit, AfterViewInit {
 
   @ViewChild('preview') preview: ElementRef;
 
@@ -28,6 +28,12 @@ export class DetailComponent implements OnInit {
 
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
+
+  styleSelected = {
+    fontSize: null,
+    backgroundColor: null
+  }
+
 
   constructor(
     private homeService: HomeService,
@@ -48,17 +54,17 @@ export class DetailComponent implements OnInit {
       this.mobileQuery = media.matchMedia('(max-width: 600px)');
       this._mobileQueryListener = () => changeDetectorRef.detectChanges();
       this.mobileQuery.addListener(this._mobileQueryListener);
-      
+
     }));
     this.route.queryParamMap.subscribe(params => {
       this.link = params.get('link');
       this.articleId = params.get('articleId');
       console.log('articleId: ', this.articleId);
-    })
+    });
+
   }
 
   async ngOnInit() {
-    console.log('detail', Viewer);
     try {
       this.article = await this.homeService.getArticle(this.articleId);
       console.log(this.article);
@@ -83,6 +89,15 @@ export class DetailComponent implements OnInit {
     } catch (err) {
     }
   }
+
+  async ngAfterViewInit() {
+    if (this.articleId != null) {
+      this.styleSelected = await this.dbService.get('detail-page-style');
+      this.changeStyle(); // 不选择不会触发，所以手动调用一次
+    }
+
+  }
+
   back() {
     // this.router.navigate(['tabs/home']);
     this.loaction.back();
@@ -125,9 +140,17 @@ export class DetailComponent implements OnInit {
       this.snackBar.open('删除文章');
     }
   }
-  settings() {
 
+  changeStyle() {
+    console.log(this.styleSelected);
+
+    this.preview.nativeElement.children[0].style.fontSize = this.styleSelected.fontSize + 'px';
+
+    this.preview.nativeElement.children[0].style.backgroundColor = this.styleSelected.backgroundColor;
+
+    this.dbService.set('detail-page-style', this.styleSelected);
   }
+
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }

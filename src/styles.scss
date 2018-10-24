@@ -98,36 +98,41 @@ body {
   }
 }
 
+[padding] {
+  padding: 16px;
+}
 [padding-left] {
-  padding-left: 8px !important;
+  padding-left: 16px !important;
 }
 
 [padding-right] {
-  padding-right: 8px !important;
+  padding-right: 16px !important;
 }
 
 [padding-top] {
-  padding-top: 8px !important;
+  padding-top: 16px !important;
 }
 
 [padding-bottom] {
-  padding-bottom: 8px !important;
+  padding-bottom: 16px !important;
 }
-
+[margin] {
+  margin: 16px;
+}
 [margin-left] {
-  margin-left: 8px !important;
+  margin-left: 16px !important;
 }
 
 [margin-right] {
-  margin-right: 8px !important;
+  margin-right: 16px !important;
 }
 
 [margin-top] {
-  margin-top: 8px !important;
+  margin-top: 16px !important;
 }
 
 [margin-bottom] {
-  margin-bottom: 8px !important;
+  margin-bottom: 16px !important;
 }
 
 [blackbg] {

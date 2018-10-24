@@ -1,5 +1,4 @@
 .bylh-home-detail {
-
   .bylh-header {}
 
   .bylh-content {
@@ -8,15 +7,16 @@
       flex-direction: column;
       height: 100%;
 
-      .sidenav-container { 
+      .sidenav-container {
+        height: 100%;
         margin-top: 0 !important; // 默认56px为toolbar预留位置
         flex: 1;
-      }
-    }
 
-    .is-mobile .container-toolbar {
-      position: fixed;
-      z-index: 2;
+        mat-sidenav {
+          position: absolute;
+        }
+      }
+
     }
 
     .is-mobile .sidenav-container {
@@ -27,7 +27,6 @@
 
     .preview-container {
       padding: 16px;
-
       mat-form-field {
         width: 100%;
 
@@ -36,6 +35,7 @@
         }
       }
     }
+
     .iframe-container {
       height: 100%;
 
