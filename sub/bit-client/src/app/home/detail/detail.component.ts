@@ -92,7 +92,10 @@ export class DetailComponent implements OnInit, AfterViewInit {
 
   async ngAfterViewInit() {
     if (this.articleId != null) {
-      this.styleSelected = await this.dbService.get('detail-page-style');
+      let styleSelected = await this.dbService.get('detail-page-style');
+      if(styleSelected != null) {
+        this.styleSelected = styleSelected;
+      }
       this.changeStyle(); // 不选择不会触发，所以手动调用一次
     }
 
@@ -144,8 +147,6 @@ export class DetailComponent implements OnInit, AfterViewInit {
   changeStyle() {
     console.log(this.styleSelected);
 
-    if(this.styleSelected == null) return;
-    
     this.preview.nativeElement.children[0].style.fontSize = this.styleSelected.fontSize + 'px';
 
     this.preview.nativeElement.children[0].style.backgroundColor = this.styleSelected.backgroundColor;
