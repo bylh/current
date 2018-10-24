@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "serve": "ng serve",
-    "start": "ng build --prod --build-optimizer --stats-json && lite-server --baseDir dist/web",
+    "start": "ng build --prod && lite-server --baseDir dist/web",
+    "start-analyzer": "ng build --prod --build-optimizer --stats-json && lite-server --baseDir dist/web",
     "start-dev": "npx ng build && lite-server --baseDir dist/web",
     "bundle-report": "webpack-bundle-analyzer dist/web/stats.json",
     "build": "npx ng build --prod",
