@@ -1,5 +1,8 @@
 
+import { FormControl } from '@angular/forms';
+import { PageTags } from './../../../common/define';
 import { HomeService, Article } from './../home.service';
+
 
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -21,16 +24,22 @@ export class PreviewEditorComponent implements OnInit {
   @ViewChild('editSection') editElementRef: ElementRef;
   public editor: Editor;
   public switch: boolean = true;
+
+
+  selectedTagsControl = new FormControl();
+
+  allTags: Array<string> = PageTags;
+
   constructor(
     public auth: AuthService,
     public homeService: HomeService,
     public dialogRef: MatDialogRef<PreviewEditorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Article) {
     console.log(this.data);
+    this.selectedTagsControl.setValue(this.data.tags);
   }
 
   ngOnInit() {
-
     try {
       this.editor = new Editor({
         el: this.editElementRef.nativeElement,
@@ -74,6 +83,19 @@ export class PreviewEditorComponent implements OnInit {
 
   switchStatus() {
     this.switch = !this.switch;
+  }
+
+  async removeTag(tag: string): Promise<void> {
+    const index = this.data.tags.indexOf(tag);
+
+    if (index >= 0) {
+      this.data.tags.splice(index, 1);
+      this.selectedTagsControl.setValue(this.data.tags);
+    }
+  }
+  changeTags(event) {
+    this.data.tags = event.value;
+    console.log(event);
   }
 
 }

@@ -9,3 +9,5 @@ export interface Profile {
     email: string, // 邮箱
     wechat: string, // 微信
 }
+
+export const PageTags =  ['js', 'ts', 'node', 'angular', 'sql', 'html', 'css', 'mongo', 'react'];

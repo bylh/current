@@ -37,7 +37,6 @@
                 </mat-select>
               </mat-form-field>
             </div>
-
           </div>
         </mat-sidenav>
 
@@ -47,6 +46,11 @@
               <mat-label>简介</mat-label>
               <textarea [value]="article?.description" matInput disabled></textarea>
               <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+              <mat-chip-list padding-top *ngIf="article?.tags != null">
+                <mat-chip *ngFor="let tag of article.tags" [removable]="false">
+                  {{tag}}
+                </mat-chip>
+              </mat-chip-list>
             </mat-form-field>
             <div #preview></div>
           </div>
