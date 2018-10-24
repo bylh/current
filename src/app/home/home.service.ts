@@ -32,7 +32,7 @@ export class HomeService {
       throw err;
     }
   }
-  async getArticles(): Promise<Array<Article>> {
+  async getArticles(skipCache: boolean = false): Promise<Array<Article>> {
     try {
       let res = await axios.post(`${environment.BaseServerUrl}/get-articleIds`, {
         userId: this.auth.getUserId()
@@ -51,7 +51,8 @@ export class HomeService {
       this.dbService.set('artilceIds', res.data);
       let articles = [];
       for (let id of res.data) {
-        articles.push(await this.getArticle(id));
+        
+        articles.push(await this.getArticle(id, skipCache));
       }
       return articles;
     } catch (err) {
