@@ -13,19 +13,7 @@
   </div>
 
   <div class="bylh-content">
-
-    <div class="iframe-container" *ngIf="articleId == null">
-      <iframe width="100%" frameborder="0" height="100%" seamless sandbox="allow-scripts allow-same-origin allow-popups"
-        [src]="link | safe:'resourceUrl'"></iframe>
-    </div>
-
     <div class="main-container" [class.is-mobile]="mobileQuery.matches">
-      <!-- <mat-toolbar color="primary" class="container-toolbar">
-        <button mat-icon-button (click)="snav.toggle()">
-          <mat-icon>menu</mat-icon>
-        </button>
-        <h1 class="example-app-name">Responsive App</h1>
-      </mat-toolbar> -->
       <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
         <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
           fixedTopGap="56">
@@ -42,6 +30,10 @@
               <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
             </mat-form-field>
             <div #preview></div>
+          </div>
+          <div class="iframe-container" *ngIf="articleId == null">
+            <iframe width="100%" frameborder="0" height="100%" seamless sandbox="allow-scripts allow-same-origin allow-popups"
+              [src]="link | safe:'resourceUrl'"></iframe>
           </div>
         </mat-sidenav-content>
       </mat-sidenav-container>

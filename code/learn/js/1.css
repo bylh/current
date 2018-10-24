@@ -1,0 +1,30 @@
+.container {
+    background: #eee;
+    width: 600px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.sticky-box1 {
+    position: -webkit-sticky;
+    position: sticky;
+    /* height: 300px; */
+    margin-bottom: 30px;
+    background: #ff7300;
+    top: 0px;
+}
+.sticky-box2 {
+    position: -webkit-sticky;
+    position: sticky;
+    /* height: 700px; */
+    margin-bottom: 30px;
+    /* background: #ff7300; */
+    top: 0px;
+}
+
+div {
+    font-size: 30px;
+    text-align: center;
+    color: #fff;
+    line-height: 60px;
+}
