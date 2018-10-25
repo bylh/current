@@ -203,6 +203,11 @@ const uploadAvatar = multer({
     app.use('/get-gate-balances', getGateBalances);
     app.use('/get-gate-coinAdress', getGateCoinAdress);
     app.use('/start-gate-autotrade', startGateAutoTrade);
+
+    app.get('/about', (req, res, next) => {
+        const page = fs.readFileSync('route/about.html', {encoding: 'utf8'});
+        res.send(page);
+    });
     // 启动监听
     if (httpsEnable) {
         httpsServer.listen(5000);
