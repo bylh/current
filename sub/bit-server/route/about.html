@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>关于</title>
+
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        @media (min-width: 650px) {
+            .container {
+                width: 600px;
+            }
+        }
+
+        .container {
+            height: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .container .sticky-box {
+            position: -webkit-sticky;
+            position: sticky;
+            padding: 16px;
+        }
+
+        .container .title {
+            top: 0;
+            height: 100px;
+            background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+        }
+
+        .container .content {
+            top: 0;
+            /* height: 2000px; */
+            height: 100%;
+            /* background-color: rgb(22, 177, 134); */
+            background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%);
+            overflow: scroll;
+            z-index: 2;
+        }
+
+        .container .content .description {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .container .footer {
+            bottom: 0;
+            /* z-index: -1; */
+            background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="sticky-box title">
+            声明
+            <p>
+                网站功能尚在开发
+            </p>
+        </div>
+        <div class="sticky-box content">
+            <p class="description">
+                准备：在手机上可以当做app使用，只需在chrome浏览器打开本网站，将本站添加到桌面，之后就可以当做app直接启动
+                <br>
+                <br>
+                网站功能： 独特的富文本编辑器，可以将平时浏览的网页文档直接复制粘贴，并且能很好的保留原格式，样式等，
+                还可以直接编辑，或者以mark形式编辑，也可自己创建文档，管理自己的文章，标签等，另外该站提供最新的前端技术资讯。
+                更多功能还在持续开发中！
+            </p>
+
+        </div>
+        <div class="sticky-box footer">
+            <p>友情链接</p>
+            <a href="https://blob.bylh.top" target="_blank">个人博客</a>
+            <a href="https://me.bylh.top" target="_blank">个人简介</a>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+    </script>
+</body>
+
+</html>
