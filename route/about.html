@@ -41,10 +41,10 @@
         .container .content {
             top: 0;
             /* height: 2000px; */
-            height: 100%;
+            /* 小技巧：为什么不用height：100%; 用height:100% 内容超出在win10浏览器上局部滚动条太丑 */
+            min-height: 100%;
             /* background-color: rgb(22, 177, 134); */
             background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%);
-            overflow: scroll;
             z-index: 2;
         }
 
@@ -80,7 +80,6 @@
                 还可以直接编辑，或者以mark形式编辑，也可自己创建文档，管理自己的文章，标签等，另外该站提供最新的前端技术资讯。
                 更多功能还在持续开发中！
             </p>
-
         </div>
         <div class="sticky-box footer">
             <p>友情链接</p>
