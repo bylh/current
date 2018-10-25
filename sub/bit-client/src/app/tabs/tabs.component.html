@@ -18,7 +18,7 @@
         <img class="mat-card-avatar" [src]="avatarUrl">
         <!-- {{userId != null ? userId : '未登录'}} -->
       </div>
-      
+
       <!-- 用户菜单 > 重置密码 登出 测试推送 -->
       <mat-menu #appMenu="matMenu">
         <ng-container *ngIf="!userId">
@@ -32,8 +32,8 @@
 
         <button mat-menu-item (click)="push()">测试推送</button>
         <button mat-menu-item (click)="reload()">重新加载</button>
-        <a mat-menu-item href="https://bylh.top/about">关于</a>
-        
+        <a mat-menu-item href="https://bylh.top:5001/about" target="_blank">关于</a>
+
       </mat-menu>
       <button mat-icon-button [matMenuTriggerFor]="appMenu">
         <mat-icon>more_vert</mat-icon>
