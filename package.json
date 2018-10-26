@@ -1,48 +1,40 @@
 {
-  "name": "current",
-  "version": "1.0.0",
-  "description": "此项目主要是用来展示和测试node以及前端的一些类库，附有各种demo，持续添加中",
-  "main": "index.js",
-  "scripts": {
-    "pull": "git pull",
-    "push": "git push",
-    "pull-all": "npm-run-all pull pull-bit-client pull-bit-server pull-me pull-blob pull-hexo-next",
-    "push-all": "npm-run-all push push-bit-client push-bit-server push-me push-blob",
-
-    "pull-bit-client": "git subtree pull --prefix=sub/bit-client bit-client master",
-    "push-bit-client": "git subtree push --prefix=sub/bit-client bit-client master",
-
-    "pull-bit-server": "git subtree pull --prefix=sub/bit-server bit-server master",
-    "push-bit-server": "git subtree push --prefix=sub/bit-server bit-server master",
-
-    "pull-wechat-app": "git subtree pull --prefix=sub/wechat-app wechat-app master",
-    "push-wechat-app": "git subtree push --prefix=sub/wechat-app wechat-app master",
-
-    "pull-me": "git subtree pull --prefix=sub/me me master",
-    "push-me": "git subtree push --prefix=sub/me me master",
-
-    "pull-blob": "git subtree pull --prefix=sub/blob blob generate-blob",
-    "push-blob": "git subtree push --prefix=sub/blob blob generate-blob",
-
-    "pull-hexo-next": "git subtree pull --prefix=sub/blob/themes/next https://github.com/theme-next/hexo-theme-next.git master --squash",
-    "push-hexo-next": "git subtree push --prefix=sub/blob/themes/next  https://github.com/theme-next/hexo-theme-next.git master --squash",
-
-    "deploy-bit": "scp -P 26685 -r sub/bit-client/dist/web root@95.169.7.111:/home/bylh/",
-    "deoloy-me": "scp -P 26685 -r sub/me/build root@95.169.7.111:/home/bylh/me",
-
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bylh/current.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/bylh/current/issues"
-  },
-  "homepage": "https://github.com/bylh/current#readme",
-  "dependencies": {
-    "npm-run-all": "^4.1.3"
-  }
+    "name": "current",
+    "version": "1.0.0",
+    "description": "此项目主要是用来展示和测试node以及前端的一些类库，附有各种demo，持续添加中",
+    "main": "index.js",
+    "scripts": {
+        "pull": "git pull",
+        "push": "git push",
+        "pull-all": "npm-run-all pull pull-bit-client pull-bit-server pull-me pull-blob pull-hexo-next",
+        "push-all": "npm-run-all push push-bit-client push-bit-server push-me push-blob",
+        "pull-bit-client": "git subtree pull --prefix=sub/bit-client bit-client master",
+        "push-bit-client": "git subtree push --prefix=sub/bit-client bit-client master",
+        "pull-bit-server": "git subtree pull --prefix=sub/bit-server bit-server master",
+        "push-bit-server": "git subtree push --prefix=sub/bit-server bit-server master",
+        "pull-wechat-app": "git subtree pull --prefix=sub/wechat-app wechat-app master",
+        "push-wechat-app": "git subtree push --prefix=sub/wechat-app wechat-app master",
+        "pull-me": "git subtree pull --prefix=sub/me me master",
+        "push-me": "git subtree push --prefix=sub/me me master",
+        "pull-blob": "git subtree pull --prefix=sub/blob blob generate-blob",
+        "push-blob": "git subtree push --prefix=sub/blob blob generate-blob",
+        "pull-hexo-next": "git subtree pull --prefix=sub/blob/themes/next https://github.com/theme-next/hexo-theme-next.git master --squash",
+        "push-hexo-next": "git subtree push --prefix=sub/blob/themes/next  https://github.com/theme-next/hexo-theme-next.git master --squash",
+        "deploy-bit": "scp -P 26685 -r sub/bit-client/dist/web root@95.169.7.111:/home/bylh/",
+        "deoloy-me": "scp -P 26685 -r sub/me/build root@95.169.7.111:/home/bylh/me",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/bylh/current.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/bylh/current/issues"
+    },
+    "homepage": "https://github.com/bylh/current#readme",
+    "dependencies": {
+        "npm-run-all": "^4.1.3"
+    }
 }
