@@ -1,71 +1,100 @@
 <div [appPage] class="bylh-tools">
 
   <div class="bylh-content">
-    <h5>比特儿交易所</h5>
-    <div class="required-info">
-      <mat-form-field>
-        <input matInput [(ngModel)]="gateKey" placeholder="key" />
-      </mat-form-field>
+    <mat-accordion multi>
+      <mat-expansion-panel [expanded]="false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            虚拟货币
+          </mat-panel-title>
+          <mat-panel-description>
+            <!-- 虚拟货币 -->
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-      <mat-form-field>
-        <input matInput [(ngModel)]="gateSecret" placeholder="secret" />
-      </mat-form-field>
+        <div class="gate">
+          <h5>比特儿交易所</h5>
+          <div class="required-info">
+            <mat-form-field>
+              <input matInput [(ngModel)]="gateKey" placeholder="key" />
+            </mat-form-field>
 
-      <mat-form-field>
-        <input matInput [(ngModel)]="coinName" placeholder="coinName" />
-      </mat-form-field>
-    </div>
+            <mat-form-field>
+              <input matInput [(ngModel)]="gateSecret" placeholder="secret" />
+            </mat-form-field>
 
-    <button mat-stroked-button (click)="getGateBalances()">获取余额</button>
-    <button mat-stroked-button (click)="getGateCoinAdress()">获取充值地址</button>
-    <button mat-stroked-button (click)="getMarkerList()">获取交易对</button>
-    <h5>{{coinName}} {{address}}</h5>
-    <table *ngIf="balances != null && balances.length > 0">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>CoinName</th>
-          <th>Count</th>
-        </tr>
-      </thead>
+            <mat-form-field>
+              <input matInput [(ngModel)]="coinName" placeholder="coinName" />
+            </mat-form-field>
+          </div>
 
-      <tbody>
-        <tr *ngFor="let balance of balances; let i = index">
-          <td>{{i + 1}}</td>
-          <td>{{balance.coinName}}</td>
-          <td>{{balance.count}}</td>
-        </tr>
-      </tbody>
-    </table>
+          <button mat-stroked-button (click)="getGateBalances()">获取余额</button>
+          <button mat-stroked-button (click)="getGateCoinAdress()">获取充值地址</button>
+          <button mat-stroked-button (click)="getMarkerList()">获取交易对</button>
+          <h5>{{coinName}} {{address}}</h5>
+          <table *ngIf="balances != null && balances.length > 0">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>CoinName</th>
+                <th>Count</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let balance of balances; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{balance.coinName}}</td>
+                <td>{{balance.count}}</td>
+              </tr>
+            </tbody>
+          </table>
 
 
-    <mat-table *ngIf="coins != null" [dataSource]="coins" class="mat-elevation-z8">
-      <!-- symbol Column -->
-      <ng-container matColumnDef="symbol">
-        <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
-      </ng-container>
+          <mat-table *ngIf="coins != null" [dataSource]="coins" class="mat-elevation-z8">
+            <!-- symbol Column -->
+            <ng-container matColumnDef="symbol">
+              <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+            </ng-container>
 
-      <!-- pair Column -->
-      <ng-container matColumnDef="pair">
-        <mat-header-cell *matHeaderCellDef> Pair </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.pair}} </mat-cell>
-      </ng-container>
+            <!-- pair Column -->
+            <ng-container matColumnDef="pair">
+              <mat-header-cell *matHeaderCellDef> Pair </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.pair}} </mat-cell>
+            </ng-container>
 
-      <!-- rate Column -->
-      <ng-container matColumnDef="rate">
-        <mat-header-cell *matHeaderCellDef> rate </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.rate}} </mat-cell>
-      </ng-container>
+            <!-- rate Column -->
+            <ng-container matColumnDef="rate">
+              <mat-header-cell *matHeaderCellDef> rate </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.rate}} </mat-cell>
+            </ng-container>
 
-      <!-- rate_percent Column-->
-      <ng-container matColumnDef="rate_percent">
-        <mat-header-cell *matHeaderCellDef> percent </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.rate_percent}} </mat-cell>
-      </ng-container>
+            <!-- rate_percent Column-->
+            <ng-container matColumnDef="rate_percent">
+              <mat-header-cell *matHeaderCellDef> percent </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.rate_percent}} </mat-cell>
+            </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+        </div>
+
+      </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            电影推荐
+          </mat-panel-title>
+          <mat-panel-description>
+            <!-- 电影推荐 -->
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="movie">
+          电影
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
 </div>

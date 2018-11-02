@@ -1,15 +1,9 @@
+import { Coin } from './../../common/define';
 import { ToolsService } from './tools.service';
 import { environment } from '../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import axios from '../../common/rewrite/axios';
-import { AppService } from '../app.service';
 import { MatSnackBar } from '@angular/material';
-export interface Coin {
-  symbol: string; // 代币简称 如ETH
-  pair: string; // 交易对
-  rate: string; // 兑换率
-  rate_percent: string; // 上涨下降比
-}
 
 @Component({
   selector: 'app-tools',
@@ -31,19 +25,7 @@ export class ToolsComponent implements OnInit {
   }
   async getMarkerList() {
     try {
-      const res = await axios.request({
-        url: `${environment.BaseServerUrl}/get-gate-marketlist`,
-        method: 'get',
-      });
-      console.log('res:', res);
-      this.coins = res.data.map(coin => {
-        return {
-          symbol: coin.symbol,
-          pair: coin.pair,
-          rate: coin.rate,
-          rate_percent: coin.rate_percent
-        };
-      });
+      this.coins = await this.toolsService.getMarkerList();
     } catch (err) {
       console.log('err:', err);
     }
@@ -51,19 +33,7 @@ export class ToolsComponent implements OnInit {
 
   async getGateBalances() {
     try {
-      const res = await axios.request({
-        url: `${environment.BaseServerUrl}/get-gate-balances`,
-        method: 'post',
-        params: {
-          gateKey: this.gateKey,
-          gateSecret: this.gateSecret
-        }
-      });
-      console.log('res:', res, res.data);
-      this.balances = Object.entries(res.data.available).map((item => {
-        return { coinName: item[0], count: item[1] };
-      }));
-      console.log('balances:', this.balances);
+      this.balances = await this.toolsService.getGateBalances(this.gateKey, this.gateSecret);
     } catch (err) {
       console.log('err:', err);
     }
@@ -75,17 +45,7 @@ export class ToolsComponent implements OnInit {
       return;
     }
     try {
-      const res = await axios.request({
-        url: `${environment.BaseServerUrl}/get-gate-coinadress`,
-        method: 'post',
-        params: {
-          gateKey: this.gateKey,
-          gateSecret: this.gateSecret,
-          currency: this.coinName
-        }
-      });
-      console.log('res:', res);
-      this.address = res.data.addr;
+      this.address = await this.toolsService.getGateCoinAdress(this.gateKey, this.gateSecret, this.coinName);
     } catch (err) {
       console.log('err:', err);
     }

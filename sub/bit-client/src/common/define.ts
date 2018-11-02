@@ -10,4 +10,11 @@ export interface Profile {
     wechat: string, // 微信
 }
 
-export const PageTags =  ['js', 'ts', 'node', 'angular', 'sql', 'html', 'css', 'mongo', 'react'];
+export interface Coin {
+    symbol: string; // 代币简称 如ETH
+    pair: string; // 交易对
+    rate: string; // 兑换率
+    rate_percent: string; // 上涨下降比
+}
+
+export const PageTags = ['js', 'ts', 'node', 'angular', 'sql', 'html', 'css', 'mongo', 'react', 'others'];
