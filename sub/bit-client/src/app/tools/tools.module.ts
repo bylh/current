@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ToolsRoutingModule } from './tools-routing.module';
 import { ToolsComponent } from './tools.component';
 import { AppSharedModule } from '../app-shared.module';
+import { MovieComponent } from './movie/movie.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import { AppSharedModule } from '../app-shared.module';
     ToolsRoutingModule,
     AppSharedModule,
   ],
-  declarations: [ToolsComponent]
+  declarations: [ToolsComponent, MovieComponent]
 })
 export class ToolsModule { }

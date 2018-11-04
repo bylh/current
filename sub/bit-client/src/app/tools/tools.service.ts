@@ -8,6 +8,29 @@ export class ToolsService {
 
   constructor() { }
 
+  async getMovies() {
+    try {
+      const res = await axios.request({
+        url: `/douban/v2/movie/in_theaters`,
+        method: 'get',
+        params: {
+          count: 10
+        }
+      });
+      console.log('res:', res);
+      // return res.data.map(value => {
+      //   return {
+          
+      //   };
+      // });
+      return res.data.subjects;
+    } catch (err) {
+      console.log('err:', err);
+      throw err;
+    }
+  }
+
+
   async getMarkerList() {
     try {
       const res = await axios.request({

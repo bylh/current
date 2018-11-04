@@ -14,5 +14,13 @@
     "pathRewrite": {
         "^/api": ""
       }
+  },
+  "/douban": {
+    "target": "https://api.douban.com/",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+        "^/douban": ""
+      }
   }
 }
