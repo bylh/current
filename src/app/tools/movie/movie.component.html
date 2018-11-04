@@ -1,0 +1,25 @@
+<div [appPage]="{sub: true}" class="bylh-tools-movie">
+  <div class="container pure-g">
+    <div class="movie-card pure-u-1-1 pure-u-lg-1-3 pure-u-xl-1-4" *ngFor="let movie of movies" padding-bottom>
+      <mat-card>
+        <mat-card-header>
+          <div mat-card-avatar class="movie-header-image"></div>
+          <mat-card-title>{{movie.title}}</mat-card-title>
+          <mat-card-subtitle>{{movie.original_title}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="movie.images.large" />
+        <mat-card-content>
+          <a [href]="movie.alt">链接</a>
+          <p>
+            主演：{{movie.directors.name}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </mat-card>
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+</div>
