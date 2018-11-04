@@ -27,7 +27,6 @@ const routes: Routes = [
       },
       {
         path: 'tools',
-        component: ToolsComponent,
         // canActivate: [AuthGuard],
         loadChildren: '../tools/tools.module#ToolsModule',
         data: { preload: true, reload: false, path: 'tools' }
