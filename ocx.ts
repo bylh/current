@@ -10,7 +10,7 @@ import { subscribe, sendNotificationToUsers, signUp, login, checkSession, resetP
 import DBHelper, { CollectUri } from './src/common/db-helper';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
-import { getGateMarketList, saveArticle, getArticleIds, getArticle, removeArticle, getSeg } from './src/api/data';
+import { getGateMarketList, saveArticle, getArticleIds, getArticle, removeArticle, getSeg, getMovie } from './src/api/data';
 import { getGateBalances, getGateCoinAdress, startGateAutoTrade } from './src/api/data';
 
 
@@ -198,6 +198,8 @@ const uploadAvatar = multer({
     app.use('/remove-article', removeArticle);
 
     app.use('/get-seg', getSeg);
+
+    app.use('/get-movie', getMovie);
 
     app.use('/get-gate-marketlist', getGateMarketList);
     app.use('/get-gate-balances', getGateBalances);
