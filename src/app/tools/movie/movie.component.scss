@@ -1,0 +1,39 @@
+.bylh-tools-movie {
+  .container {
+    height: 100%;
+    padding: 0 16px;
+    box-sizing: border-box; // padding border 包含在宽度
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+
+    .viewport {
+      height: 100%;
+
+      .movie-card {
+        .movie-content {
+          display: flex;
+          height: 200px;
+
+          .movie-img {
+            flex: none;
+            padding-right: 8px;
+            width: 150px;
+
+            img {
+              object-fit: scale-down;
+              width: 100%;
+              height: 100%;
+              //   object-position: center;
+            }
+
+          }
+
+          .movie-des {
+            flex: auto;
+          }
+        }
+
+      }
+    }
+  }
+}

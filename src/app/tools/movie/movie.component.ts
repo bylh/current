@@ -10,6 +10,7 @@ import { Location } from '@angular/common';
 export class MovieComponent implements OnInit {
 
   movies: any;
+  isLoaded: boolean = false;
   constructor(private toolsService: ToolsService, private location: Location) { }
 
   async ngOnInit() {
@@ -18,6 +19,8 @@ export class MovieComponent implements OnInit {
       
     } catch (error) {
       console.log('获取电影失败', error);
+    } finally {
+      this.isLoaded = true;
     }
   }
 

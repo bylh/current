@@ -3,40 +3,64 @@
     <div class="bylh-left-icon">
       <mat-icon (click)="back()" color="primary">arrow_back_ios</mat-icon>
     </div>
-    <div class="bylh-title">热门电影</div>
+    <div class="bylh-title">热映电影</div>
   </div>
-  <div class="container pure-g">
-    <div class="movie-card pure-u-1-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-4" *ngFor="let movie of movies"
-      padding-bottom>
-      <mat-card>
-        <mat-card-header>
-          <div mat-card-avatar class="movie-header-image"></div>
-          <mat-card-title>{{movie.title}}</mat-card-title>
-          <mat-card-subtitle>{{movie.original_title}}</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image [src]="movie.images.large" />
-        <mat-card-content>
-          <p>
-            <span>评分：{{movie.rating.average}}</span>
-            &nbsp;
-            <span>收藏数：{{movie.collect_count}}</span>
-          </p>
-          <p>
-            年份：{{movie.year}}
-          </p>
-          <p>
-            类别：{{movie.genres.join(', ')}}
-          </p>
-          <p>
-            主演：{{movie.directors | spread:'name'}}
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <a [href]="movie.alt" target="_blank" mat-button>链接</a>
-          <button mat-button>收藏</button>
-        </mat-card-actions>
-      </mat-card>
-      <mat-divider></mat-divider>
+
+  <div class="bylh-content">
+    <div class="container">
+      <cdk-virtual-scroll-viewport itemSize="50" class="viewport pure-g">
+        <mat-progress-bar *ngIf="!isLoaded" mode="indeterminate" value="40" color="accent"></mat-progress-bar>
+        <div class="movie-card pure-u-1-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-4" *cdkVirtualFor="let movie of movies"
+          padding-bottom>
+          <mat-card>
+            <mat-card-header>
+              <div mat-card-avatar class="movie-header-image"></div>
+              <mat-card-title>{{movie.title}}</mat-card-title>
+              <mat-card-subtitle>{{movie.original_title}}</mat-card-subtitle>
+            </mat-card-header>
+            <!-- <img mat-card-image [src]="movie.images.large" /> -->
+            <mat-card-content>
+              <div class="movie-content">
+                <div class="movie-img">
+                  <img [src]="movie.images.large" />
+
+                </div>
+
+                <div class="movie-des">
+                  <div>
+                    年份：{{movie.year}}
+                  </div>
+                  <div>
+                    <span>评分：{{movie.rating.average}}</span>
+                    &nbsp;
+                    <span>收藏数：{{movie.collect_count}}</span>
+                  </div>
+                  <p>
+                    类别：{{movie.genres.join('，')}}
+                  </p>
+                  <p>
+                    导演：{{movie.directors | spread: 'name'}}
+                  </p>
+                  <p>
+                    演员：{{movie.casts | spread: 'name'}}
+                  </p>
+                </div>
+              </div>
+            </mat-card-content>
+            <mat-card-actions>
+              <a [href]="movie.alt" target="_blank" color="primary" mat-button>
+                <mat-icon>open_in_new</mat-icon>
+              </a>
+              <button mat-button color="accent">
+                <mat-icon>label_important</mat-icon>
+              </button>
+            </mat-card-actions>
+          </mat-card>
+          <mat-divider></mat-divider>
+        </div>
+      </cdk-virtual-scroll-viewport>
     </div>
+
+
   </div>
 </div>
