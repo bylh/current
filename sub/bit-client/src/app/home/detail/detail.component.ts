@@ -40,7 +40,7 @@ export class DetailComponent implements OnInit, AfterViewInit {
     private dbService: DBService,
     private route: ActivatedRoute,
     private router: Router,
-    private loaction: Location,
+    private location: Location,
     public snackBar: MatSnackBar,
 
     public changeDetectorRef: ChangeDetectorRef,
@@ -102,7 +102,7 @@ export class DetailComponent implements OnInit, AfterViewInit {
 
   back() {
     // this.router.navigate(['tabs/home']);
-    this.loaction.back();
+    this.location.back();
   }
   goPage(url: string) {
     this.router.navigate([url]);

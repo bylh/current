@@ -11,13 +11,13 @@ export class ToolsService {
   async getMovies() {
     try {
       const res = await axios.request({
-        url: `/douban/v2/movie/in_theaters`,
+        url: `${environment.BaseServerUrl}/get-movie`,
         method: 'get',
         params: {
-          count: 10
+          count: 20
         }
       });
-      console.log('res:', res);
+      console.log('res:', res.data);
       // return res.data.map(value => {
       //   return {
           

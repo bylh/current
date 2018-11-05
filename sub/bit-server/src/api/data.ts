@@ -127,7 +127,7 @@ export async function saveArticle(req: express.Request, res: express.Response) {
     try {
         console.log('开始保存article', req.body);
         if (req.body._id == null) {
-            let article  = await dbHelper.set('article', {
+            let article = await dbHelper.set('article', {
                 userId: req.body.userId,
                 title: req.body.title,
                 description: req.body.description,
@@ -196,7 +196,7 @@ export async function getSeg(req: express.Request, res: express.Response) {
             maxConnections: 100,
             // This will be called for each crawled page
             callback: (error, res, done) => {
-                
+
             }
         });
 
@@ -209,17 +209,17 @@ export async function getSeg(req: express.Request, res: express.Response) {
                     console.log(error);
                 } else {
                     let $ = cheerio.load(res.body);
-                
+
                     $('.news-list').find('.news__item-info').each((index: number, element: CheerioElement) => {
                         $('.news-list').find('.news__item-info').each((index: number, element: CheerioElement) => {
-                            if(element.children[0].attribs.style == null) return;
-                            console.log(index, element.children[1].firstChild.children[0].firstChild.data,  'https://segmentfault.com' + element.children[0].attribs.href, 
-                            element.children[1].children[1].children[0].data,
-                            element.children[0].attribs.style.match(/background-image:url\((\S*)\)/)[1]);
+                            if (element.children[0].attribs.style == null) return;
+                            console.log(index, element.children[1].firstChild.children[0].firstChild.data, 'https://segmentfault.com' + element.children[0].attribs.href,
+                                element.children[1].children[1].children[0].data,
+                                element.children[0].attribs.style.match(/background-image:url\((\S*)\)/)[1]);
 
                             resultArr.push({
                                 title: element.children[1].firstChild.children[0].firstChild.data,
-                                description: element.children[1].children[1].children[0].data, 
+                                description: element.children[1].children[1].children[0].data,
                                 href: 'https://segmentfault.com' + element.children[0].attribs.href,
                                 imgUrl: element.children[0].attribs.style.match(/background-image:url\((\S*)\)/)[1]
                             });
@@ -233,7 +233,22 @@ export async function getSeg(req: express.Request, res: express.Response) {
         }]);
         resultArr = await defer.promise;
         res.status(200).json(resultArr);
-    } catch(err) {
+    } catch (err) {
+        res.sendStatus(500);
+    }
+}
 
+export async function getMovie(req: express.Request, res: express.Response) {
+    try {
+        const result = await axios.request({
+            url: `https://api.douban.com/v2/movie/in_theaters`,
+            method: 'get',
+            params: req.query
+        });
+        console.log(result.data);
+        res.status(200).json(result.data);
+    } catch (err) {
+        console.log('err:', err);
+        res.sendStatus(500);
     }
 }
