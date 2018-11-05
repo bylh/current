@@ -32,9 +32,9 @@ export class ArraySpreadPipe implements PipeTransform {
   constructor() { }
   public transform(arr: Array<any>, att: string = null): string {
     if(att == null) {
-      return arr.join(', ');
+      return arr.join('，');
     }
     
-    return arr.map(value => value[att]).join(', ');
+    return arr.map(value => value[att]).join('，');
   }
 }

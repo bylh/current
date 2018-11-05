@@ -2,7 +2,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import {ScrollDispatchModule} from '@angular/cdk/scrolling';
 import {
   MatInputModule, MatButtonModule, MatGridListModule, MatFormFieldModule, MatIconModule,
   MatToolbarModule, MatExpansionModule, MatMenuModule, MatCardModule, MatTabsModule, MatDividerModule,
@@ -56,7 +56,9 @@ import { PageDirective } from './page.directive';
     MatSidenavModule,
     MatSelectModule,
     MatChipsModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    
+    ScrollDispatchModule
   ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2000 , verticalPosition: 'top'}, },
