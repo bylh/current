@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform, SecurityContext } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 
 // 转换为可加载的安全资源
@@ -22,5 +22,19 @@ export class SafePipe implements PipeTransform {
       default:
         return value;
     }
+  }
+}
+
+@Pipe({
+  name: 'spread'
+})
+export class ArraySpreadPipe implements PipeTransform {
+  constructor() { }
+  public transform(arr: Array<any>, att: string = null): string {
+    if(att == null) {
+      return arr.join(', ');
+    }
+    
+    return arr.map(value => value[att]).join(', ');
   }
 }

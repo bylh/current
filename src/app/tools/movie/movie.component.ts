@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToolsService } from '../tools.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-movie',
@@ -9,7 +10,7 @@ import { ToolsService } from '../tools.service';
 export class MovieComponent implements OnInit {
 
   movies: any;
-  constructor(private toolsService: ToolsService) { }
+  constructor(private toolsService: ToolsService, private location: Location) { }
 
   async ngOnInit() {
     try {
@@ -18,7 +19,11 @@ export class MovieComponent implements OnInit {
     } catch (error) {
       console.log('获取电影失败', error);
     }
+  }
 
+  back() {
+    // this.router.navigate(['tabs/home']);
+    this.location.back();
   }
 
 }

@@ -9,7 +9,7 @@ import {
    MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatTableModule, MatDialogModule, MatListModule, MatCheckboxModule, MatRadioModule, MatOptionModule, MatSelectModule, MAT_DIALOG_DEFAULT_OPTIONS, MatButtonToggleModule, MatDatepickerModule, MatNativeDateModule, MatSidenavModule, MatChipsModule, MatProgressBarModule
 } from '@angular/material';
 
-import { SafePipe } from './pipe';
+import { SafePipe, ArraySpreadPipe } from './pipe';
 import { PageDirective } from './page.directive';
 @NgModule({
   imports: [
@@ -17,12 +17,14 @@ import { PageDirective } from './page.directive';
   ],
   declarations: [ 
     SafePipe,
+    ArraySpreadPipe,
     PageDirective,
   ],
 
   exports: [
     // pipe
     SafePipe,
+    ArraySpreadPipe,
     PageDirective,
 
     FormsModule,
