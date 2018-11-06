@@ -1,11 +1,17 @@
 .bylh-tools-movie {
+  .bylh-header {
+    .bylh-title {
+      .search {
+        flex: 1;
+      }
+    }
+  }
   .container {
     height: 100%;
     padding: 0 16px;
     box-sizing: border-box; // padding border 包含在宽度
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-
     .viewport {
       height: 100%;
 

@@ -11,6 +11,8 @@ export class MovieComponent implements OnInit {
 
   movies: any;
   isLoaded: boolean = false;
+  isSearchMode = false;
+  searchKey: string;
   constructor(private toolsService: ToolsService, private location: Location) { }
 
   async ngOnInit() {
@@ -24,6 +26,15 @@ export class MovieComponent implements OnInit {
     }
   }
 
+  search(event: any) {
+    console.log(event);
+  }
+  openSearch() {
+    this.isSearchMode = true;
+  }
+  closeSearch() {
+    this.isSearchMode = false;
+  }
   back() {
     // this.router.navigate(['tabs/home']);
     this.location.back();

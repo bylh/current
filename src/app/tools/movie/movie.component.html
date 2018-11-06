@@ -3,7 +3,14 @@
     <div class="bylh-left-icon">
       <mat-icon (click)="back()" color="primary">arrow_back_ios</mat-icon>
     </div>
-    <div class="bylh-title">热映电影</div>
+    <div class="bylh-title">
+      <div *ngIf="!isSearchMode">热映电影</div>
+      <bylh-search class="search" *ngIf="isSearchMode" [key]="searchKey" (valueChanged)="search($event)"></bylh-search>
+    </div>
+    <div class="bylh-right-icon">
+        <mat-icon *ngIf="!isSearchMode" (click)="openSearch()" color="primary">search</mat-icon>
+        <div *ngIf="isSearchMode" (click)="closeSearch()" color="primary">关闭</div>
+      </div>
   </div>
 
   <div class="bylh-content">
