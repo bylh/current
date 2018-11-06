@@ -8,6 +8,7 @@ import { HomeService, Article } from './home.service';
 import { PreviewEditorComponent } from './preview-editor/preview-editor.component';
 import { AuthService } from '../auth.service';
 import { merge, Subject } from 'rxjs';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 export interface Tile {
   color?: string;
@@ -149,5 +150,9 @@ export class HomeComponent implements OnInit {
     }
     let items = articles.filter((article) => article.tags != null && article.tags.indexOf(tag) !== -1)
     return items;
+  }
+
+  drop(event: CdkDragDrop<Array<Tile>>) {
+    moveItemInArray(this.tiles, event.previousIndex, event.currentIndex);
   }
 }

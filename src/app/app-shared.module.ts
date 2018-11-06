@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ScrollDispatchModule} from '@angular/cdk/scrolling';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import {
   MatInputModule, MatButtonModule, MatGridListModule, MatFormFieldModule, MatIconModule,
   MatToolbarModule, MatExpansionModule, MatMenuModule, MatCardModule, MatTabsModule, MatDividerModule,
@@ -91,6 +92,7 @@ import { BylhSearchComponent } from './widgets/bylh-search/bylh-search.component
     
     // CDK
     ScrollDispatchModule,
+    DragDropModule,
 
     // widgets
     BylhSearchComponent

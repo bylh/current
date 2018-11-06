@@ -10,6 +10,14 @@
       align-items: center;
       text-decoration: none; // 去除a标签下划线
     }
+
+    .article-viewport {
+      flex: 1;
+      min-height: 300px;
+      /deep/ .cdk-virtual-scroll-content-wrapper {
+        width: 100%;
+      }
+    }
   }
 
   .bylh-content::after {

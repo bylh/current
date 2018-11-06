@@ -8,15 +8,15 @@
       <bylh-search class="search" *ngIf="isSearchMode" [key]="searchKey" (valueChanged)="search($event)"></bylh-search>
     </div>
     <div class="bylh-right-icon">
-        <mat-icon *ngIf="!isSearchMode" (click)="openSearch()" color="primary">search</mat-icon>
-        <div *ngIf="isSearchMode" (click)="closeSearch()" color="primary">关闭</div>
-      </div>
+      <mat-icon *ngIf="!isSearchMode" (click)="openSearch()" color="primary">search</mat-icon>
+      <div *ngIf="isSearchMode" (click)="closeSearch()" color="primary">关闭</div>
+    </div>
   </div>
 
   <div class="bylh-content">
+    <mat-progress-bar *ngIf="!isLoaded" mode="indeterminate" value="40" color="accent"></mat-progress-bar>
     <div class="container">
       <cdk-virtual-scroll-viewport itemSize="50" class="viewport pure-g">
-        <mat-progress-bar *ngIf="!isLoaded" mode="indeterminate" value="40" color="accent"></mat-progress-bar>
         <div class="movie-card pure-u-1-1 pure-u-md-1-2 pure-u-lg-1-3 pure-u-xl-1-4" *cdkVirtualFor="let movie of movies"
           padding-bottom>
           <mat-card>
