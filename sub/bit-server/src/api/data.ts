@@ -210,19 +210,21 @@ export async function getSeg(req: express.Request, res: express.Response) {
                 } else {
                     let $ = cheerio.load(res.body);
 
-                    $('.news-list').find('.news__item-info').each((index: number, element: CheerioElement) => {
-                        $('.news-list').find('.news__item-info').each((index: number, element: CheerioElement) => {
-                            if (element.children[0].attribs.style == null) return;
-                            console.log(index, element.children[1].firstChild.children[0].firstChild.data, 'https://segmentfault.com' + element.children[0].attribs.href,
-                                element.children[1].children[1].children[0].data,
-                                element.children[0].attribs.style.match(/background-image:url\((\S*)\)/)[1]);
 
-                            resultArr.push({
-                                title: element.children[1].firstChild.children[0].firstChild.data,
-                                description: element.children[1].children[1].children[0].data,
-                                href: 'https://segmentfault.com' + element.children[0].attribs.href,
-                                imgUrl: element.children[0].attribs.style.match(/background-image:url\((\S*)\)/)[1]
-                            });
+                    $('.news-list').find('.news__item-info').each((index: number, element: CheerioElement) => {
+                        if (element.children[0].attribs.style == null)  {
+                            console.log('data not valied');
+                            return;    
+                        }
+                        console.log(index, element.children[1].firstChild.children[0].firstChild.data, 'https://segmentfault.com' + element.children[0].attribs.href,
+                            element.children[1].children[1].children[0].data,
+                            element.children[0].attribs.style.match(/background-image:url\((\S*)\)/)[1]);
+
+                        resultArr.push({
+                            title: element.children[1].firstChild.children[0].firstChild.data,
+                            description: element.children[1].children[1].children[0].data,
+                            href: 'https://segmentfault.com' + element.children[0].attribs.href,
+                            imgUrl: element.children[0].attribs.style.match(/background-image:url\((\S*)\)/)[1]
                         });
                     });
                 }

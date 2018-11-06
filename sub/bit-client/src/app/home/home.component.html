@@ -58,19 +58,20 @@
         </mat-chip-list>
       </div>
       <mat-divider></mat-divider>
-      <cdk-virtual-scroll-viewport itemSize="72" class="article-viewport">
-        <ng-container *cdkVirtualFor="let article of filterArticles(articles, currentTag); let i = index">
-          <mat-list-item (click)="viewArticle(article._id)">
-            <mat-icon mat-list-icon>note</mat-icon>
-            <h2 matLine>{{article.title}}</h2>
-            <p matLine>
-              {{article.description}}
-            </p>
-            <!-- <mat-icon color="warn" (click)="removeArticle(i, $event)">clear</mat-icon> -->
-          </mat-list-item>
-          <mat-divider></mat-divider>
-        </ng-container>
-      </cdk-virtual-scroll-viewport>
+      <!-- <cdk-virtual-scroll-viewport itemSize="72" class="article-viewport"> -->
+      <!-- cdkVirtualFor -->
+      <ng-container *ngFor="let article of filterArticles(articles, currentTag); let i = index">
+        <mat-list-item (click)="viewArticle(article._id)">
+          <mat-icon mat-list-icon>note</mat-icon>
+          <h2 matLine>{{article.title}}</h2>
+          <p matLine>
+            {{article.description}}
+          </p>
+          <!-- <mat-icon color="warn" (click)="removeArticle(i, $event)">clear</mat-icon> -->
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </ng-container>
+      <!-- </cdk-virtual-scroll-viewport> -->
     </mat-list>
   </div>
   <!-- cdkDragLockAxis="x" -->
