@@ -11,14 +11,45 @@ import {
 
 import { SafePipe, ArraySpreadPipe } from './pipe';
 import { PageDirective } from './page.directive';
+import { BylhSearchComponent } from './widgets/bylh-search/bylh-search.component';
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    
+    MatInputModule,
+    MatButtonModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatExpansionModule,
+    MatMenuModule,
+    MatCardModule,
+    MatTabsModule,
+    MatDividerModule,
+    MatSnackBarModule,
+    MatTableModule,
+    MatDialogModule,
+    MatListModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatButtonToggleModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSidenavModule,
+    MatSelectModule,
+    MatChipsModule,
+    MatProgressBarModule,
   ],
   declarations: [ 
     SafePipe,
     ArraySpreadPipe,
     PageDirective,
+    BylhSearchComponent,
   ],
 
   exports: [
@@ -58,7 +89,11 @@ import { PageDirective } from './page.directive';
     MatChipsModule,
     MatProgressBarModule,
     
-    ScrollDispatchModule
+    // CDK
+    ScrollDispatchModule,
+
+    // widgets
+    BylhSearchComponent
   ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2000 , verticalPosition: 'top'}, },
