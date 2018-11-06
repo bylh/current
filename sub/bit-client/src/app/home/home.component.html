@@ -11,9 +11,10 @@
             <!-- 搜索 翻译等 -->
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <mat-grid-list cols="5" rowHeight="50px" role="list">
+        <mat-grid-list cols="5" rowHeight="50px" role="list" cdkDropList cdkDropListOrientation="horizontal"
+          (cdkDropListDropped)="drop($event)">
           <mat-grid-tile role="listitem" class="tile" *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows"
-            [style.background]="tile.color">
+            [style.background]="tile.color" cdkDrag>
             <a [href]="tile.url" target="_blank">{{tile.text}}</a>
           </mat-grid-tile>
         </mat-grid-list>
@@ -28,8 +29,8 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <mat-list>
-          <ng-container *ngFor="let item of items">
-            <mat-list-item [routerLink]="['detail', 1]" [queryParams]="{link: item.link}">
+          <div *ngFor="let item of items; let i = index">
+            <mat-list-item [routerLink]="['detail', i]" [queryParams]="{link: item.link}">
               <img matListAvatar [src]="item.imgUrl" alt="...">
               <h3 matLine>{{item.title}}</h3>
               <p matLine>
@@ -37,11 +38,11 @@
               </p>
             </mat-list-item>
             <mat-divider></mat-divider>
-          </ng-container>
-
+          </div>
         </mat-list>
       </mat-expansion-panel>
     </mat-accordion>
+
 
     <mat-list>
       <h3 mat-subheader>原创</h3>
@@ -50,28 +51,30 @@
         <mat-chip-list>
 
           <mat-chip (click)="changeTag()" [selected]="currentTag == null">全部</mat-chip>
-          <mat-chip *ngFor="let tag of allTags" (click)="changeTag(tag)"
-            [selected]="currentTag === tag" [color]="'primary'">
+          <mat-chip *ngFor="let tag of allTags" (click)="changeTag(tag)" [selected]="currentTag === tag" [color]="'primary'">
 
             {{tag}}
           </mat-chip>
         </mat-chip-list>
       </div>
       <mat-divider></mat-divider>
-      <ng-container *ngFor="let article of filterArticles(articles, currentTag); let i = index">
-        <mat-list-item (click)="viewArticle(article._id)">
-          <mat-icon mat-list-icon>note</mat-icon>
-          <h2 matLine>{{article.title}}</h2>
-          <p matLine>
-            {{article.description}}
-          </p>
-          <!-- <mat-icon color="warn" (click)="removeArticle(i, $event)">clear</mat-icon> -->
-        </mat-list-item>
-        <mat-divider></mat-divider>
-      </ng-container>
+      <cdk-virtual-scroll-viewport itemSize="72" class="article-viewport">
+        <ng-container *cdkVirtualFor="let article of filterArticles(articles, currentTag); let i = index">
+          <mat-list-item (click)="viewArticle(article._id)">
+            <mat-icon mat-list-icon>note</mat-icon>
+            <h2 matLine>{{article.title}}</h2>
+            <p matLine>
+              {{article.description}}
+            </p>
+            <!-- <mat-icon color="warn" (click)="removeArticle(i, $event)">clear</mat-icon> -->
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </ng-container>
+      </cdk-virtual-scroll-viewport>
     </mat-list>
   </div>
-  <button mat-mini-fab color="accent" class="add-fab-button" (click)="createArticle()">
+  <!-- cdkDragLockAxis="x" -->
+  <button mat-mini-fab color="accent" class="add-fab-button" (click)="createArticle()" cdkDrag>
     <mat-icon>add</mat-icon>
   </button>
   <router-outlet></router-outlet>
