@@ -9,6 +9,7 @@ import { Location } from '@angular/common';
 })
 export class MovieComponent implements OnInit {
 
+  orgMovies: any;
   movies: any;
   isLoaded: boolean = false;
   isSearchMode = false;
@@ -17,7 +18,7 @@ export class MovieComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      this.movies = await this.toolsService.getMovies();
+      this.orgMovies = this.movies = await this.toolsService.getMovies();
       
     } catch (error) {
       console.log('获取电影失败', error);
@@ -26,14 +27,19 @@ export class MovieComponent implements OnInit {
     }
   }
 
-  search(event: any) {
+  search(key: string) {
     console.log(event);
+    this.movies = this.orgMovies.filter((item) => item.title.indexOf(key) !== -1 || item.year.indexOf(key) !== -1);
+
   }
+
   openSearch() {
     this.isSearchMode = true;
+    this.search(this.searchKey);
   }
   closeSearch() {
     this.isSearchMode = false;
+    this.movies = this.orgMovies;
   }
   back() {
     // this.router.navigate(['tabs/home']);
