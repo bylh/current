@@ -1,5 +1,10 @@
 .bylh-search {
+    
     width: 100%;
+    padding: 8px;
+    box-sizing: border-box; // padding border 包含在宽度
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     mat-form-field {
         width: 100%;
         .mat-form-field-wrapper {
