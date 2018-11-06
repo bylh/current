@@ -1,7 +1,7 @@
 <div class="bylh-search">
   <mat-form-field class="example-form-field">
     <input matInput [placeholder]="(key == null || key === '' || key.trim().length === 0) ? '请输入关键字' : null" 
-    type="text" (blur)="onBlur()" (focus)="onFocus()"
+    type="text" (blur)="onBlur($event)" (focus)="onFocus($event)"
      (ngModelChange)="valueChange($event)" [ngModel]="key">
     <button mat-button *ngIf="key" matSuffix mat-icon-button aria-label="Clear" (click)="valueChange('')">
       <mat-icon>close</mat-icon>
