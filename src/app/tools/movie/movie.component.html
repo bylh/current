@@ -1,6 +1,6 @@
 <div [appPage]="{sub: true}" class="bylh-tools-movie">
   <div class="bylh-header">
-    <div class="bylh-left-icon">
+    <div *ngIf="!isSearchMode" class="bylh-left-icon">
       <mat-icon (click)="back()" color="primary">arrow_back_ios</mat-icon>
     </div>
     <div class="bylh-title">
@@ -9,7 +9,7 @@
     </div>
     <div class="bylh-right-icon">
       <mat-icon *ngIf="!isSearchMode" (click)="openSearch()" color="primary">search</mat-icon>
-      <div *ngIf="isSearchMode" (click)="closeSearch()" color="primary">关闭</div>
+      <mat-icon *ngIf="isSearchMode" (click)="closeSearch()" color="primary">backspace</mat-icon>
     </div>
   </div>
 

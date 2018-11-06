@@ -1,8 +1,16 @@
 .bylh-discovery {
   .bylh-content {
-    .items-container {
-      img {
+    .seg-viewport {
+      height: 100%;
+
+      /deep/ .cdk-virtual-scroll-content-wrapper {
         width: 100%;
+      }
+
+      .items-container {
+        img {
+          width: 100%;
+        }
       }
     }
   }
