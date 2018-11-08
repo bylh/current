@@ -3,7 +3,7 @@ import { Coin } from './../../common/define';
 import { ToolsService } from './tools.service';
 
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
@@ -23,7 +23,7 @@ export class ToolsComponent implements OnInit {
   displayedColumns: string[] = ['symbol', 'pair', 'rate', 'rate_percent'];
   coins: Array<Coin> = null;
   balances: any;
-  constructor(public toolsService: ToolsService, public snackBar: MatSnackBar, private overlay: Overlay) {
+  constructor(public toolsService: ToolsService, public snackBar: MatSnackBar, public chatDialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -57,15 +57,14 @@ export class ToolsComponent implements OnInit {
   }
 
   chat() {
-    const overlayRef = this.overlay.create({
-      height: '400px',
+    const dialogRef = this.chatDialog.open(ChatComponent, {
       width: '600px',
+      height: '600px',
+      data: { roomId: 100 }
     });
-    const portal = new ComponentPortal(ChatComponent);
-    overlayRef.attach(portal);
-    overlayRef.backdropClick().subscribe(() => {
-      overlayRef.dispose();
-      console.log('关闭overlay');
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
     });
   }
 }

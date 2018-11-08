@@ -1,13 +1,21 @@
-<div [appPage]="{sub: true }" class="bylh-chat">
-  <div class="bylh-header">
-    <div class="bylh-left-icon" (click)="cancel()">
-      <mat-icon color="primary">clear</mat-icon>
+<h1 mat-dialog-title>Hi {{data.name}}</h1>
+<div mat-dialog-content class="bylh-chat">
+  <div class="container">
+    <div class="message-container">
+      <dl id="list"></dl>
     </div>
-    <div class="bylh-title">聊天</div>
-  </div>
-  <div class="bylh-content">
-    <div class="container">
-      聊天框
+
+    <div id="option" class="input-container">
+      <form>
+        <mat-form-field>
+          <input matInput name="message" [(ngModel)]="inputMessage" placeholder="输入消息">
+          <mat-icon matSuffix (click)="sendMessage()">send</mat-icon>
+        </mat-form-field>
+      </form>
     </div>
   </div>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
 </div>

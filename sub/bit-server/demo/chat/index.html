@@ -202,7 +202,7 @@
   };
 
   if (roomid != null && roomid != "") {
-    var socket = io.connect('http://127.0.0.1:6001?roomid=' + roomid);
+    var socket = io.connect('http://127.0.0.1:5001?roomid=' + roomid);
     /*连接完毕，马上发送一个'join'事件，把自己的用户名告诉别人*/
     socket.emit('join', {
       username: userInfo.username

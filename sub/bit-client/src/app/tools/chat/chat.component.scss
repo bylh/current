@@ -1,3 +1,20 @@
 .bylh-chat {
+    height: calc(100% - 100px);
+  .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .message-container {
+      flex: 1;
+      overflow: scroll;
+    }
+    .input-container {
+        width: 100;
+        mat-form-field {
+            width: 100%;
+        }
+    }
+  }
 
 }
