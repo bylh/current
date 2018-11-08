@@ -1,6 +1,7 @@
+import { element } from 'protractor';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
-import { Component, OnInit, Renderer2, Inject } from '@angular/core';
+import { Component, OnInit, Renderer2, Inject, ViewChild, ElementRef } from '@angular/core';
 import io from 'socket.io-client';
 
 @Component({
@@ -9,12 +10,15 @@ import io from 'socket.io-client';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
+  @ViewChild('messageList') msgRef: ElementRef
+
   socket: io;
   inputMessage: string;
   roomid = '100';
   userInfo = {
     username: 'bylh' + Math.round(Math.random() * 1000)
   }
+
   constructor(
     private render: Renderer2,
     public dialogRef: MatDialogRef<ChatComponent>,
@@ -82,24 +86,33 @@ export class ChatComponent implements OnInit {
 
   /*展示消息*/
   showMessage(data) {
-    var itemArr = [];
-    itemArr.push('<dd class="' + (data.type === 0 ? "me" : "other") + '">');
-    itemArr.push('<ul>');
-    itemArr.push('<li class="nick-name">' + data.username + '</li>');
-    itemArr.push('<li class="detail">');
-    itemArr.push('<div class="head-icon"></div>');
-    itemArr.push('<div class="text">' + data.text + '</div>');
-    itemArr.push('</li>');
-    itemArr.push('</ul>');
-    itemArr.push('</dd>');
 
-    document.getElementById('list').innerHTML += itemArr.join('');
+    let div = this.render.createElement('div');
+
+    this.render.addClass(div, data.type === 0 ? 'msg-info-me' : 'msg-info-other');
+
+    let dt = this.render.createElement('dt');
+    this.render.addClass(dt, 'nick-name');
+    dt.innerHTML = data.username;
+    this.render.appendChild(div, dt);
+
+    let dtt = this.render.createElement('dt');
+    dtt.innerHTML = data.text;
+    this.render.addClass(dtt, 'text');
+    this.render.appendChild(div, dtt);
+
+    this.render.appendChild(this.msgRef.nativeElement, div);
+
+
+
   }
 
   /*展示通知*/
   showNotice(data) {
-    let item = '<dd class="tc"><span>' + data.text + '</span><dd>';
-    document.getElementById('list').innerHTML += item;
+    let p = this.render.createElement('p');
+    p.innerHTML = data.text;
+    this.render.addClass(p, 'notice');
+    this.render.appendChild(this.msgRef.nativeElement, p);
   }
 
   cancel(): void {

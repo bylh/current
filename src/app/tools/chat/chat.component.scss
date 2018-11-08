@@ -1,5 +1,6 @@
 .bylh-chat {
-    height: calc(100% - 100px);
+  height: calc(100% - 100px);
+
   .container {
     height: 100%;
     display: flex;
@@ -8,12 +9,46 @@
     .message-container {
       flex: 1;
       overflow: scroll;
+
+      .notice {
+        text-align: center;
+        color: darkgray;
+      }
+
+      .msg-info-me {
+        display: flex;
+        padding: 8px;
+        flex-direction: row-reverse;
+      }
+
+      .msg-info-other {
+        padding: 8px;
+        display: flex;
+      }
+
+      .nick-name {
+        padding: 5px;
+        color: #999;
+      }
+
+      .text {
+        background: #8CC63E;
+        border-radius: 5px;
+        padding: 5px;
+        align-self: center;
+        // display: inline;
+      }
+
+
+
     }
+
     .input-container {
-        width: 100;
-        mat-form-field {
-            width: 100%;
-        }
+      width: 100;
+
+      mat-form-field {
+        width: 100%;
+      }
     }
   }
 
