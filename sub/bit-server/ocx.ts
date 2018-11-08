@@ -14,6 +14,11 @@ import { getGateMarketList, saveArticle, getArticleIds, getArticle, removeArticl
 import { getGateBalances, getGateCoinAdress, startGateAutoTrade } from './src/api/data';
 
 
+// 测试代码 ---------------------start
+import socketIo from 'socket.io';
+import redis from 'redis';
+// 测试代码 ---------------------end
+
 const MongoStore = connectMongo(session);
 
 const corsOptions = {
@@ -126,6 +131,106 @@ const uploadAvatar = multer({
         httpsEnable = false;
     }
 
+    // 测试代码 ---------------------start
+    const io = socketIo(httpServer);
+    const redisClient = redis.createClient;
+    const pub = redisClient(6379, '127.0.0.1');
+    const sub = redisClient(6379, '127.0.0.1');
+    let roomSet = {};
+    let num = 0;
+
+    io.on('connection', (socket) => {
+
+        //客户端请求ws URL:  http://127.0.0.1:6001?roomid=k12_webcourse_room_1
+        var roomid = socket.handshake.query.roomid;
+
+        console.log('worker pid: ' + process.pid + ' join roomid: ' + roomid);
+
+        socket.on('join', function (data) {
+
+            socket.join(roomid); //加入房间
+
+            if (!roomSet[roomid]) {
+                roomSet[roomid] = {};
+                console.log('sub channel ' + roomid);
+                sub.subscribe(roomid);
+            }
+            roomSet[roomid][socket.id] = {};
+
+            num++;
+            console.log('worker pid: ' + process.pid + ' client connect connection num:' + num);
+            // process.send({
+            //     cmd: 'client connect'
+            // });
+
+            console.log(data.username + ' join, IP: ' + socket.client.conn.remoteAddress);
+            roomSet[roomid][socket.id].username = data.username;
+            // io.to(roomid).emit('broadcast_join', data);
+            pub.publish(roomid, JSON.stringify({
+                "event": 'join',
+                "data": data
+            }));
+
+        });
+
+        socket.on('say', function (data) {
+            console.log("Received Message: " + data.text);
+            pub.publish(roomid, JSON.stringify({
+                "event": 'broadcast_say',
+                "data": {
+                    username: roomSet[roomid][socket.id].username,
+                    text: data.text
+                }
+            }));
+        });
+
+
+        socket.on('disconnect', function () {
+            num--;
+            console.log('worker pid: ' + process.pid + ' clien disconnection num:' + num);
+            // process.send({
+            //     cmd: 'client disconnect'
+            // });
+
+            if (roomSet[roomid] && roomSet[roomid][socket.id] && roomSet[roomid][socket.id].username) {
+                console.log(roomSet[roomid][socket.id].username + ' quit');
+                pub.publish(roomid, JSON.stringify({
+                    "event": 'broadcast_quit',
+                    "data": {
+                        username: roomSet[roomid][socket.id].username
+                    }
+                }));
+            }
+            roomSet[roomid] && roomSet[roomid][socket.id] && (delete roomSet[roomid][socket.id]);
+
+        });
+    });
+
+    /**
+ * 订阅redis 回调
+ * @param  {[type]} channel [频道]
+ * @param  {[type]} count   [数量]  
+ * @return {[type]}         [description]
+ */
+    sub.on("subscribe", function (channel, count) {
+        console.log('worker pid: ' + process.pid + ' subscribe: ' + channel);
+    });
+
+
+    /**
+     * [description]
+     * @param  {[type]} channel  [description]
+     * @param  {[type]} message
+     * @return {[type]}          [description]
+     */
+    sub.on("message", function (channel, message) {
+        console.log("message channel " + channel + ": " + message);
+
+        io.to(channel).emit('message', JSON.parse(message));
+    });
+
+    // 测试代码 ---------------------end
+
     app.enable('trust proxy'); // 支持反向代理
     app.use(bodyParser.json({ limit: 1 * 1024 * 1024 })); // 最大1M的JSON请求
 
@@ -207,7 +312,7 @@ const uploadAvatar = multer({
     app.use('/start-gate-autotrade', startGateAutoTrade);
 
     app.get('/about', (req, res, next) => {
-        const page = fs.readFileSync('route/about.html', {encoding: 'utf8'});
+        const page = fs.readFileSync('route/about.html', { encoding: 'utf8' });
         res.send(page);
     });
     // 启动监听
@@ -215,6 +320,7 @@ const uploadAvatar = multer({
         httpsServer.listen(5000);
     }
     httpServer.listen(5001);
+
     if (process.send != null) process.send('ready');
 
     console.log('监听http https5000端口');
