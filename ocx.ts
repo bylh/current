@@ -144,7 +144,7 @@ const uploadAvatar = multer({
         //客户端请求ws URL:  http://127.0.0.1:6001?roomid=k12_webcourse_room_1
         var roomid = socket.handshake.query.roomid;
 
-        console.log('worker pid: ' + process.pid + ' join roomid: ' + roomid);
+        // console.log('worker pid: ' + process.pid + ' join roomid: ' + roomid);
 
         socket.on('join', function (data) {
 
@@ -187,7 +187,7 @@ const uploadAvatar = multer({
 
         socket.on('disconnect', function () {
             num--;
-            console.log('worker pid: ' + process.pid + ' clien disconnection num:' + num);
+            // console.log('worker pid: ' + process.pid + ' clien disconnection num:' + num);
             // process.send({
             //     cmd: 'client disconnect'
             // });
