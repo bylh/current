@@ -1,11 +1,12 @@
-<h1 mat-dialog-title>Hi {{data.name}}</h1>
+<h1 mat-dialog-title>聊天</h1>
 <div mat-dialog-content class="bylh-chat">
   <div class="container">
     <div class="message-container">
-      <dl id="list"></dl>
+      <dl id="list" #messageList>
+      </dl>
     </div>
 
-    <div id="option" class="input-container">
+    <div class="input-container">
       <form>
         <mat-form-field>
           <input matInput name="message" [(ngModel)]="inputMessage" placeholder="输入消息">
@@ -17,5 +18,5 @@
 
 </div>
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>关闭</button>
 </div>
