@@ -41,6 +41,7 @@
     "localforage": "^1.7.3",
     "purecss": "^1.0.0",
     "rxjs": "^6.3.3",
+    "socket.io-client": "^2.1.1",
     "tui-editor": "^1.2.6",
     "urlb64touint8array": "^1.0.3",
     "web-animations-js": "^2.3.1",

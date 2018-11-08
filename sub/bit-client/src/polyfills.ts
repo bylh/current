@@ -84,3 +84,8 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+
+
+ /** 引入socket.io client global undefined mistake */
+ (window as any).global = window;
