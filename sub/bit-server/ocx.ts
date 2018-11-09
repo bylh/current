@@ -132,7 +132,7 @@ const uploadAvatar = multer({
     }
 
     // 测试代码 ---------------------start
-    const io = socketIo(httpServer);
+    const io = httpsEnable ? socketIo(httpsServer) : socketIo(httpServer);
     const redisClient = redis.createClient;
     const pub = redisClient(6379, '127.0.0.1');
     const sub = redisClient(6379, '127.0.0.1');
