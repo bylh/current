@@ -1,4 +1,4 @@
-import { element } from 'protractor';
+
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { Component, OnInit, Renderer2, Inject, ViewChild, ElementRef } from '@angular/core';
@@ -6,7 +6,7 @@ import io from 'socket.io-client';
 import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-chat',
+  selector: 'bylh-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
@@ -32,7 +32,7 @@ export class ChatComponent implements OnInit {
 
     if (this.roomid != null && this.roomid != '') {
       
-      this.socket = io.connect(`${environment.BaseServerUrl}?roomid=` + this.roomid);
+      this.socket = io.connect(`${environment.BaseServerUrl}/chat?roomid=` + this.roomid);
       /*连接完毕，马上发送一个'join'事件，把自己的用户名告诉别人*/
       this.socket.emit('join', {
         username: this.userInfo.username
