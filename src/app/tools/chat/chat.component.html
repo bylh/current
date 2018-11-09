@@ -1,5 +1,4 @@
-<h1 mat-dialog-title>聊天</h1>
-<div mat-dialog-content class="bylh-chat">
+<div class="bylh-chat mat-app-background">
   <div class="container">
     <div class="message-container">
       <dl id="list" #messageList>
@@ -7,16 +6,14 @@
     </div>
 
     <div class="input-container">
-      <form>
-        <mat-form-field>
-          <input matInput name="message" [(ngModel)]="inputMessage" placeholder="输入消息">
-          <mat-icon matSuffix (click)="sendMessage()">send</mat-icon>
-        </mat-form-field>
-      </form>
+      <mat-form-field>
+        <input matInput name="message" [(ngModel)]="inputMessage" placeholder="输入消息">
+        <mat-icon matSuffix (click)="sendMessage()">send</mat-icon>
+      </mat-form-field>
     </div>
   </div>
 
 </div>
-<div mat-dialog-actions>
+<!-- <div>
   <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>关闭</button>
-</div>
+</div> -->

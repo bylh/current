@@ -1,4 +1,17 @@
 .bylh-tools {
-  .bylh-content {
+  .bylh-content {}
+
+  .bylh-footer {
+    .chat-container {
+      height: 400px;
+      width: 100%;
+      border: 3px solid grey;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .message-fab-button {}
   }
+
+
 }

@@ -1,5 +1,5 @@
 .bylh-chat {
-  height: calc(100% - 100px);
+  height: 100%;
 
   .container {
     height: 100%;
@@ -38,13 +38,11 @@
         align-self: center;
         // display: inline;
       }
-
-
-
     }
 
     .input-container {
       width: 100;
+      padding: 20px;
 
       mat-form-field {
         width: 100%;
