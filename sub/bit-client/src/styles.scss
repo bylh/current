@@ -29,6 +29,8 @@ body {
   .bylh-page-base {
     height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   .bylh-sub-page-base {
@@ -38,8 +40,6 @@ body {
     // 绝对定位布局div宽高自适应，而不是充满
     left: 0;
     right: 0;
-    display: flex;
-    flex-direction: column;
   }
 
   .bylh-header {
@@ -101,6 +101,7 @@ body {
 [padding] {
   padding: 16px;
 }
+
 [padding-left] {
   padding-left: 16px !important;
 }
@@ -116,9 +117,11 @@ body {
 [padding-bottom] {
   padding-bottom: 16px !important;
 }
+
 [margin] {
   margin: 16px;
 }
+
 [margin-left] {
   margin-left: 16px !important;
 }

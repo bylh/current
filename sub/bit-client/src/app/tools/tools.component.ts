@@ -5,10 +5,6 @@ import { ToolsService } from './tools.service';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatDialog } from '@angular/material';
 
-import { Overlay } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { ChatComponent } from './chat/chat.component';
-
 
 @Component({
   selector: 'app-tools',
@@ -23,6 +19,8 @@ export class ToolsComponent implements OnInit {
   displayedColumns: string[] = ['symbol', 'pair', 'rate', 'rate_percent'];
   coins: Array<Coin> = null;
   balances: any;
+
+  chated: boolean = false;
   constructor(public toolsService: ToolsService, public snackBar: MatSnackBar, public chatDialog: MatDialog) {
   }
 
@@ -57,14 +55,6 @@ export class ToolsComponent implements OnInit {
   }
 
   chat() {
-    const dialogRef = this.chatDialog.open(ChatComponent, {
-      width: '600px',
-      height: '600px',
-      data: { roomId: 100 }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-    });
+    this.chated = !this.chated;
   }
 }

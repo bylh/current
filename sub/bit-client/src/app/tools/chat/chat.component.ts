@@ -1,5 +1,5 @@
 
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+// import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { Component, OnInit, Renderer2, Inject, ViewChild, ElementRef } from '@angular/core';
 import io from 'socket.io-client';
@@ -22,11 +22,13 @@ export class ChatComponent implements OnInit {
 
   constructor(
     private render: Renderer2,
-    public dialogRef: MatDialogRef<ChatComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    // public dialogRef: MatDialogRef<ChatComponent>,
+    // @Inject(MAT_DIALOG_DATA)
+    //  public data: any
+  ) { }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    // this.dialogRef.close();
   }
   ngOnInit() {
 
