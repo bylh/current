@@ -99,11 +99,12 @@
   </div>
 
   <div class="bylh-footer">
-    <div [hidden]="!chated" class="chat-container">
-      <bylh-chat></bylh-chat>
+    <!-- 只要页面重新加载即重新初始化，chated则为null，之后为true或者false，使用ngIf来完成组件的首次初始化，之后可以用hidden来隐藏界面而不用每次都初始化组件 -->
+    <div *ngIf="chated != null" [hidden]="!chated" class="chat-container">
+      <bylh-chat #bylhChat></bylh-chat>
     </div>
-    <button mat-mini-fab color="accent" class="message-fab-button" (click)="chat()" cdkDrag>
-      <mat-icon>message</mat-icon>
+    <button mat-mini-fab color="accent" class="message-fab-button" (click)="chat()">
+      <mat-icon>{{chated ? 'close' : 'message'}}</mat-icon>
     </button>
   </div>
 

@@ -2,8 +2,9 @@
 import { Coin } from './../../common/define';
 import { ToolsService } from './tools.service';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar, MatDialog } from '@angular/material';
+import { ChatComponent } from './chat/chat.component';
 
 
 @Component({
@@ -12,6 +13,7 @@ import { MatSnackBar, MatDialog } from '@angular/material';
   styleUrls: ['./tools.component.scss']
 })
 export class ToolsComponent implements OnInit {
+  @ViewChild('bylhChat') chatInstance: ChatComponent;
   gateKey: string;
   gateSecret: string;
   coinName: string;
@@ -20,11 +22,17 @@ export class ToolsComponent implements OnInit {
   coins: Array<Coin> = null;
   balances: any;
 
-  chated: boolean = false;
+  chated: boolean = null; // 初次不赋值为null 之后便是true或者false，这样可以判断是不是页面刷新
   constructor(public toolsService: ToolsService, public snackBar: MatSnackBar, public chatDialog: MatDialog) {
   }
 
   ngOnInit() {
+    setInterval(() => {
+      if (this.chated === false && this.chatInstance.isOpened() !== false) {
+        console.log('检查是否关闭');
+        this.chatInstance.close();
+      }
+    }, 1000 * 60 * 30);
   }
   async getMarkerList() {
     try {
@@ -55,6 +63,9 @@ export class ToolsComponent implements OnInit {
   }
 
   chat() {
+    if (this.chated != null && this.chated === false && this.chatInstance.isOpened() == false) {
+      this.chatInstance.open();
+    }
     this.chated = !this.chated;
   }
 }

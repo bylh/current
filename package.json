@@ -32,6 +32,7 @@
     "@fortawesome/fontawesome-free": "^5.5.0",
     "@types/axios": "^0.14.0",
     "@types/localforage": "0.0.34",
+    "@types/socket.io-client": "^1.4.32",
     "axios": "^0.18.0",
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.5.7",

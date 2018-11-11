@@ -1,13 +1,16 @@
 <div class="bylh-chat mat-app-background">
   <div class="container">
-    <div class="message-container">
-      <dl id="list" #messageList>
+    <div class="message-container" #messageContainer>
+      <dl #messageList>
       </dl>
     </div>
 
     <div class="input-container">
       <mat-form-field>
-        <input matInput name="message" [(ngModel)]="inputMessage" placeholder="输入消息">
+
+        <!-- (keypress)="pressKey($event)" -->
+        <input matInput autocomplete="off" name="message" (keyup.enter)="sendMessage()" [(ngModel)]="inputMessage"
+          placeholder="输入消息">
         <mat-icon matSuffix (click)="sendMessage()">send</mat-icon>
       </mat-form-field>
     </div>

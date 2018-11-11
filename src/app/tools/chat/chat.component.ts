@@ -2,7 +2,7 @@
 // import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { Component, OnInit, Renderer2, Inject, ViewChild, ElementRef } from '@angular/core';
-import io from 'socket.io-client';
+import * as io from 'socket.io-client';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -11,9 +11,11 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-  @ViewChild('messageList') msgRef: ElementRef
+  messageContainer
+  @ViewChild('messageContainer') msgConRef: ElementRef;
+  @ViewChild('messageList') msgRef: ElementRef;
 
-  socket: io;
+  socket: SocketIOClient.Socket;
   inputMessage: string;
   roomid = '100';
   userInfo = {
@@ -31,9 +33,74 @@ export class ChatComponent implements OnInit {
     // this.dialogRef.close();
   }
   ngOnInit() {
+    this.open();
+  }
 
+  sendMessage() {
+    /*点击发送按钮*/
+
+    /*向服务器提交一个say事件，发送消息*/
+    let data = {
+      text: this.inputMessage,
+      type: 0,
+      username: this.userInfo.username
+    };
+    console.log('发送消息', data);
+    this.socket.emit('say', data);
+    this.inputMessage = '';
+    // this.render.appendChild()
+    this.showMessage(data);
+    // 发送完消息滚动到最底部
+    this.msgConRef.nativeElement.scrollTop = this.msgConRef.nativeElement.scrollHeight;
+  }
+
+  /*展示消息*/
+  showMessage(data) {
+
+    let div = this.render.createElement('div');
+
+    this.render.addClass(div, data.type === 0 ? 'msg-info-me' : 'msg-info-other');
+
+    let dt = this.render.createElement('dt');
+    this.render.addClass(dt, 'nick-name');
+    dt.innerHTML = data.username;
+    this.render.appendChild(div, dt);
+
+    let dtt = this.render.createElement('dt');
+    dtt.innerHTML = data.text;
+    this.render.addClass(dtt, 'text');
+    this.render.appendChild(div, dtt);
+
+    this.render.appendChild(this.msgRef.nativeElement, div);
+
+
+
+  }
+
+  /*展示通知*/
+  showNotice(data) {
+    let p = this.render.createElement('p');
+    p.innerHTML = data.text;
+    this.render.addClass(p, 'notice');
+    this.render.appendChild(this.msgRef.nativeElement, p);
+  }
+
+  // TODO
+  close() {
+    this.socket.close();
+
+    this.socket = null;
+    console.log('关闭socket');
+  }
+
+  // TODO
+  open() {
+    console.log('打开socket');
+    if (this.socket != null) {
+      this.socket.close();
+      this.socket = null;
+    }
     if (this.roomid != null && this.roomid != '') {
-      
       this.socket = io.connect(`${environment.BaseServerUrl}/chat?roomid=` + this.roomid);
       /*连接完毕，马上发送一个'join'事件，把自己的用户名告诉别人*/
       this.socket.emit('join', {
@@ -70,55 +137,12 @@ export class ChatComponent implements OnInit {
       })
 
     }
+
+    console.log('打开socket', this.socket.connected);
   }
-
-  sendMessage() {
-    /*点击发送按钮*/
-
-    /*向服务器提交一个say事件，发送消息*/
-    let data = {
-      text: this.inputMessage,
-      type: 0,
-      username: this.userInfo.username
-    };
-    console.log('发送消息', data);
-    this.socket.emit('say', data);
-    this.inputMessage = '';
-    // this.render.appendChild()
-    this.showMessage(data);
+  isOpened() {
+    return this.socket != null;
   }
-
-  /*展示消息*/
-  showMessage(data) {
-
-    let div = this.render.createElement('div');
-
-    this.render.addClass(div, data.type === 0 ? 'msg-info-me' : 'msg-info-other');
-
-    let dt = this.render.createElement('dt');
-    this.render.addClass(dt, 'nick-name');
-    dt.innerHTML = data.username;
-    this.render.appendChild(div, dt);
-
-    let dtt = this.render.createElement('dt');
-    dtt.innerHTML = data.text;
-    this.render.addClass(dtt, 'text');
-    this.render.appendChild(div, dtt);
-
-    this.render.appendChild(this.msgRef.nativeElement, div);
-
-
-
-  }
-
-  /*展示通知*/
-  showNotice(data) {
-    let p = this.render.createElement('p');
-    p.innerHTML = data.text;
-    this.render.addClass(p, 'notice');
-    this.render.appendChild(this.msgRef.nativeElement, p);
-  }
-
   cancel(): void {
     // this.overlayRef.dispose();
   }
