@@ -8,7 +8,7 @@
 
     .message-container {
       flex: 1;
-      overflow: scroll;
+      overflow-y: scroll;
 
       .notice {
         text-align: center;
@@ -42,7 +42,6 @@
 
     .input-container {
       width: 100;
-      padding: 20px;
 
       mat-form-field {
         width: 100%;

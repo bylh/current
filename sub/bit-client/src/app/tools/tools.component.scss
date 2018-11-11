@@ -3,14 +3,17 @@
 
   .bylh-footer {
     .chat-container {
+      float: right;
       height: 400px;
-      width: 100%;
+      width: 80%;
       border: 3px solid grey;
       padding: 10px;
       box-sizing: border-box;
     }
 
-    .message-fab-button {}
+    .message-fab-button {
+      float: right;
+    }
   }
 
 
