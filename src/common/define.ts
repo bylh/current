@@ -17,4 +17,4 @@ export interface Coin {
     rate_percent: string; // 上涨下降比
 }
 
-export const PageTags = ['js', 'ts', 'node', 'angular', 'sql', 'html', 'css', 'mongo', 'react', 'others'];
+export const PageTags = ['js', 'ts', 'es', 'node', 'angular', 'sql', 'html', 'css', 'mongo', 'react', 'others'];
