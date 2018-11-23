@@ -26,6 +26,7 @@
               <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip>
           </mat-chip-list>
+
         </div>
         <div class="tags-select">
           <mat-select placeholder="标签" (selectionChange)="changeTags($event)" [formControl]="selectedTagsControl"
@@ -38,6 +39,10 @@
               </span> -->
             </mat-select-trigger>
             <mat-option *ngFor="let tag of allTags" [value]="tag">{{tag}}</mat-option>
+            <mat-form-field appearance="outline">
+              <input matInput #inputTag>
+              <mat-icon matSuffix (click)="addTag(inputTag.value)">add_circle</mat-icon>
+            </mat-form-field>
           </mat-select>
         </div>
       </div>

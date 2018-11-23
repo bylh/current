@@ -98,4 +98,7 @@ export class PreviewEditorComponent implements OnInit {
     console.log(event);
   }
 
+  addTag(value: string) {
+    this.allTags.push(value);
+  }
 }
